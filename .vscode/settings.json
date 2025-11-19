@@ -1,0 +1,42 @@
+{
+    // Python Configuration
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+
+    // Streamlit-specific
+    "files.associations": {
+        "*.py": "python"
+    },
+
+    // Auto-save
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+
+    // Editor settings
+    "editor.formatOnSave": true,
+    "editor.rulers": [88, 120],
+    "editor.tabSize": 4,
+
+    // Python formatting
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+
+    // File exclusions
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/venv": false,
+        "**/.venv": false
+    },
+
+    // Streamlit helpers
+    "terminal.integrated.env.windows": {
+        "PYTHONUNBUFFERED": "1"
+    },
+
+    // Recommendations
+    "extensions.ignoreRecommendations": false
+}

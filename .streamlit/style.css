@@ -1,0 +1,405 @@
+/* ============================================
+   AI PROMPT OPTIMIZER - CUSTOM THEME
+   Inspired by bolt.ai & lovable.dev
+   ============================================ */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    --neon-purple: #8B5CF6;
+    --neon-pink: #EC4899;
+    --neon-blue: #3B82F6;
+    --neon-cyan: #06B6D4;
+    --neon-green: #10B981;
+    --dark-bg: #0F0F23;
+    --dark-card: #1A1B3D;
+    --dark-elevated: #252750;
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+    --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    --gradient-blue: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+    --gradient-multi: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.main {
+    background: var(--dark-bg);
+}
+
+/* Hide Streamlit branding */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+/* ============================================
+   GLASSMORPHISM CARDS
+   ============================================ */
+
+.stCard, .element-container div[data-testid="stVerticalBlock"] > div {
+    background: rgba(26, 27, 61, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.stCard:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   NEON GLOW EFFECTS
+   ============================================ */
+
+.neon-glow {
+    animation: neon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes neon-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px var(--neon-purple))
+                drop-shadow(0 0 10px var(--neon-purple));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px var(--neon-purple))
+                drop-shadow(0 0 20px var(--neon-purple))
+                drop-shadow(0 0 30px var(--neon-pink));
+    }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.stButton > button {
+    background: var(--gradient-purple);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+}
+
+.stButton > button:active {
+    transform: translateY(0);
+}
+
+/* Button shimmer effect */
+.stButton > button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.stButton > button:hover::before {
+    left: 100%;
+}
+
+/* Secondary button style */
+.stButton > button[kind="secondary"] {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+}
+
+.stButton > button[kind="secondary"]:hover {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > div {
+    background: rgba(37, 39, 80, 0.5) !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    border-radius: 12px !important;
+    color: var(--text-primary) !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: var(--neon-purple) !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+    outline: none !important;
+}
+
+/* ============================================
+   HEADERS & TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3 {
+    background: var(--gradient-multi);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem !important;
+}
+
+h2 {
+    font-size: 2rem !important;
+    margin-top: 2rem !important;
+}
+
+h3 {
+    font-size: 1.5rem !important;
+}
+
+p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ============================================
+   METRICS & STATS
+   ============================================ */
+
+[data-testid="stMetricValue"] {
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background: rgba(26, 27, 61, 0.5);
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px;
+    color: var(--text-secondary);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stTabs [aria-selected="true"] {
+    background: var(--gradient-purple);
+    color: white;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1A1B3D 0%, #0F0F23 100%);
+    border-right: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+[data-testid="stSidebar"] .stButton > button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   ALERTS & MESSAGES
+   ============================================ */
+
+.stAlert {
+    background: rgba(26, 27, 61, 0.8);
+    border-left: 4px solid var(--neon-purple);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.stSuccess {
+    border-left-color: var(--neon-green);
+}
+
+.stWarning {
+    border-left-color: #F59E0B;
+}
+
+.stError {
+    border-left-color: #EF4444;
+}
+
+.stInfo {
+    border-left-color: var(--neon-blue);
+}
+
+/* ============================================
+   PROGRESS BARS
+   ============================================ */
+
+.stProgress > div > div > div {
+    background: var(--gradient-purple);
+    border-radius: 10px;
+    height: 8px;
+}
+
+/* ============================================
+   EXPANDERS
+   ============================================ */
+
+.streamlit-expanderHeader {
+    background: rgba(26, 27, 61, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.streamlit-expanderHeader:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    background: rgba(37, 39, 80, 0.5);
+}
+
+/* ============================================
+   SELECTBOX DROPDOWN
+   ============================================ */
+
+[data-baseweb="select"] > div {
+    background: rgba(37, 39, 80, 0.5);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+}
+
+/* ============================================
+   SLIDERS
+   ============================================ */
+
+.stSlider > div > div > div {
+    background: var(--gradient-purple);
+}
+
+/* ============================================
+   DATAFRAMES & TABLES
+   ============================================ */
+
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* ============================================
+   CUSTOM UTILITY CLASSES
+   ============================================ */
+
+.gradient-text {
+    background: var(--gradient-multi);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.glass-card {
+    background: rgba(26, 27, 61, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.neon-border {
+    border: 1px solid var(--neon-purple);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-purple);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-purple);
+}
+
+/* ============================================
+   SPINNER
+   ============================================ */
+
+.stSpinner > div {
+    border-color: var(--neon-purple) transparent transparent transparent;
+}

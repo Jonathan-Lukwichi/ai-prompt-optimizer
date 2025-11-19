@@ -1,0 +1,144 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🚀 Run Streamlit App",
+            "type": "shell",
+            "command": "streamlit",
+            "args": [
+                "run",
+                "app.py"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "echo": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "📦 Install Dependencies",
+            "type": "shell",
+            "command": "pip",
+            "args": [
+                "install",
+                "-r",
+                "requirements.txt"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "✅ Check Setup",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "check_setup.py"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "🧹 Clean Cache",
+            "type": "shell",
+            "windows": {
+                "command": "Remove-Item",
+                "args": [
+                    "-Recurse",
+                    "-Force",
+                    "-ErrorAction",
+                    "SilentlyContinue",
+                    "__pycache__,",
+                    "*.pyc,",
+                    ".pytest_cache,",
+                    "data/prompts.db"
+                ]
+            },
+            "linux": {
+                "command": "find",
+                "args": [
+                    ".",
+                    "-type",
+                    "d",
+                    "-name",
+                    "__pycache__",
+                    "-exec",
+                    "rm",
+                    "-rf",
+                    "{}",
+                    "+"
+                ]
+            },
+            "osx": {
+                "command": "find",
+                "args": [
+                    ".",
+                    "-type",
+                    "d",
+                    "-name",
+                    "__pycache__",
+                    "-exec",
+                    "rm",
+                    "-rf",
+                    "{}",
+                    "+"
+                ]
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "🔄 Restart Streamlit",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "Press Ctrl+C in terminal, then run '🚀 Run Streamlit App' task"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "🌐 Open in Browser",
+            "type": "shell",
+            "windows": {
+                "command": "start",
+                "args": [
+                    "http://localhost:8501"
+                ]
+            },
+            "linux": {
+                "command": "xdg-open",
+                "args": [
+                    "http://localhost:8501"
+                ]
+            },
+            "osx": {
+                "command": "open",
+                "args": [
+                    "http://localhost:8501"
+                ]
+            },
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
