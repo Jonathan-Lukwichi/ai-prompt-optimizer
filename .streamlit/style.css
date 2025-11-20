@@ -94,6 +94,9 @@ header {visibility: hidden;}
     box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .stButton > button:hover {
@@ -145,6 +148,14 @@ header {visibility: hidden;}
     color: var(--text-primary) !important;
     padding: 0.75rem 1rem !important;
     transition: all 0.3s ease !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+}
+
+.stTextInput > div > div > input {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 
 .stTextInput > div > div > input:focus,
@@ -152,6 +163,18 @@ header {visibility: hidden;}
     border-color: var(--neon-purple) !important;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
     outline: none !important;
+}
+
+/* Selectbox container */
+.stSelectbox > div {
+    min-height: 48px !important;
+}
+
+.stSelectbox label {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
 /* ============================================
@@ -306,6 +329,82 @@ p {
     background: rgba(37, 39, 80, 0.5);
     border: 1px solid rgba(139, 92, 246, 0.3);
     border-radius: 12px;
+    min-height: 48px;
+}
+
+/* Selectbox text styling */
+[data-baseweb="select"] [data-baseweb="select-value"] {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    padding-right: 2rem !important;
+}
+
+/* Selectbox placeholder */
+[data-baseweb="select"] input {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Selectbox dropdown menu */
+[data-baseweb="popover"] [role="listbox"] {
+    background: rgba(26, 27, 61, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    border-radius: 12px !important;
+    max-height: 300px !important;
+}
+
+/* Selectbox options */
+[data-baseweb="popover"] [role="option"] {
+    color: var(--text-primary) !important;
+    padding: 0.75rem 1rem !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    line-height: 1.4 !important;
+}
+
+[data-baseweb="popover"] [role="option"]:hover {
+    background: rgba(139, 92, 246, 0.2) !important;
+}
+
+/* ============================================
+   MULTISELECT
+   ============================================ */
+
+.stMultiSelect [data-baseweb="tag"] {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
+    border-radius: 8px !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.875rem !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.stMultiSelect [data-baseweb="tag"] span {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 150px !important;
+}
+
+/* ============================================
+   FORM LABELS
+   ============================================ */
+
+.stTextInput label,
+.stTextArea label,
+.stNumberInput label,
+.stDateInput label,
+.stTimeInput label {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
 /* ============================================
