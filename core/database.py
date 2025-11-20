@@ -161,13 +161,17 @@ class DatabaseManager:
             user = User(username=username, email=email, role=role, field=field)
             session.add(user)
             session.flush()
+            session.expunge(user)
             return user
 
     @staticmethod
     def get_user(username: str) -> Optional[User]:
         """Get user by username"""
         with DatabaseManager.get_session() as session:
-            return session.query(User).filter_by(username=username).first()
+            user = session.query(User).filter_by(username=username).first()
+            if user:
+                session.expunge(user)
+            return user
 
     @staticmethod
     def create_session(
@@ -195,6 +199,7 @@ class DatabaseManager:
             )
             session.add(prompt_session)
             session.flush()
+            session.expunge(prompt_session)
             return prompt_session
 
     @staticmethod
@@ -208,17 +213,24 @@ class DatabaseManager:
             )
             session.add(version)
             session.flush()
+            session.expunge(version)
             return version
 
     @staticmethod
     def get_user_sessions(user_id: int, limit: int = 10) -> List[PromptSession]:
         """Get recent sessions for a user"""
         with DatabaseManager.get_session() as session:
-            return session.query(PromptSession)\
+            sessions = session.query(PromptSession)\
                 .filter_by(user_id=user_id)\
                 .order_by(PromptSession.created_at.desc())\
                 .limit(limit)\
                 .all()
+
+            # Expunge objects from session so they can be used after session closes
+            for sess in sessions:
+                session.expunge(sess)
+
+            return sessions
 
     @staticmethod
     def get_templates(role: Optional[str] = None, task_type: Optional[str] = None, is_public: bool = True) -> List[PromptTemplate]:
@@ -266,6 +278,7 @@ class DatabaseManager:
             )
             session.add(template)
             session.flush()
+            session.expunge(template)
             return template
 
     @staticmethod
@@ -277,7 +290,23 @@ class DatabaseManager:
             if workflow_type:
                 query = query.filter_by(workflow_type=workflow_type)
 
-            return query.all()
+            workflows = query.all()
+
+            # Access all attributes to load them before session closes
+            for workflow in workflows:
+                _ = workflow.name
+                _ = workflow.description
+                _ = workflow.workflow_type
+                _ = workflow.role
+                _ = workflow.field
+                _ = workflow.steps
+                _ = workflow.is_public
+                _ = workflow.created_at
+
+            # Make objects independent of session
+            session.expunge_all()
+
+            return workflows
 
 
 # Initialize database on import
