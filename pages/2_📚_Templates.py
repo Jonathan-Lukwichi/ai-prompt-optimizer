@@ -119,50 +119,62 @@ if templates:
             <div style="
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.75rem;
+                gap: 0.5rem;
                 margin-bottom: 1.5rem;
                 align-items: center;
             ">
                 <span style="
                     background: rgba(139, 92, 246, 0.2);
                     color: #8B5CF6;
-                    padding: 0.5rem 1rem;
-                    border-radius: 20px;
-                    font-size: 0.875rem;
+                    padding: 0.4rem 0.875rem;
+                    border-radius: 16px;
+                    font-size: 0.8125rem;
                     font-weight: 600;
+                    line-height: 1.5;
                     white-space: nowrap;
-                    max-width: 280px;
+                    max-width: 200px;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
+                    height: 32px;
+                    box-sizing: border-box;
                 ">{Config.ACADEMIC_ROLES.get(template.role, template.role)}</span>
 
                 <span style="
                     background: rgba(59, 130, 246, 0.2);
                     color: #3B82F6;
-                    padding: 0.5rem 1rem;
-                    border-radius: 20px;
-                    font-size: 0.875rem;
+                    padding: 0.4rem 0.875rem;
+                    border-radius: 16px;
+                    font-size: 0.8125rem;
                     font-weight: 600;
+                    line-height: 1.5;
                     white-space: nowrap;
-                    max-width: 280px;
+                    max-width: 200px;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
+                    height: 32px;
+                    box-sizing: border-box;
                 ">{Config.TASK_TYPES.get(template.task_type, template.task_type)}</span>
 
                 {f'''<span style="
                     background: rgba(16, 185, 129, 0.2);
                     color: #10B981;
-                    padding: 0.5rem 1rem;
-                    border-radius: 20px;
-                    font-size: 0.875rem;
+                    padding: 0.4rem 0.875rem;
+                    border-radius: 16px;
+                    font-size: 0.8125rem;
                     font-weight: 600;
+                    line-height: 1.5;
                     white-space: nowrap;
-                    max-width: 220px;
+                    max-width: 180px;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
+                    height: 32px;
+                    box-sizing: border-box;
                 ">{template.field}</span>''' if template.field else ''}
             </div>
         </div>
