@@ -90,6 +90,9 @@ if templates:
     """, unsafe_allow_html=True)
 
     for template in templates:
+        # Build field badge HTML if field exists
+        field_badge = f'<span style="background: rgba(16, 185, 129, 0.2); color: #10B981; padding: 0.4rem 0.875rem; border-radius: 16px; font-size: 0.8125rem; font-weight: 600; line-height: 1.5; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; height: 32px; box-sizing: border-box;">{template.field}</span>' if template.field else ''
+
         # Template card
         st.markdown(f"""
         <div style="
@@ -119,7 +122,7 @@ if templates:
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; align-items: center;">
                 <span style="background: rgba(139, 92, 246, 0.2); color: #8B5CF6; padding: 0.4rem 0.875rem; border-radius: 16px; font-size: 0.8125rem; font-weight: 600; line-height: 1.5; white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; height: 32px; box-sizing: border-box;">{Config.ACADEMIC_ROLES.get(template.role, template.role)}</span>
                 <span style="background: rgba(59, 130, 246, 0.2); color: #3B82F6; padding: 0.4rem 0.875rem; border-radius: 16px; font-size: 0.8125rem; font-weight: 600; line-height: 1.5; white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; height: 32px; box-sizing: border-box;">{Config.TASK_TYPES.get(template.task_type, template.task_type)}</span>
-                {'<span style="background: rgba(16, 185, 129, 0.2); color: #10B981; padding: 0.4rem 0.875rem; border-radius: 16px; font-size: 0.8125rem; font-weight: 600; line-height: 1.5; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; height: 32px; box-sizing: border-box;">' + template.field + '</span>' if template.field else ''}
+                {field_badge}
             </div>
         </div>
         """, unsafe_allow_html=True)
