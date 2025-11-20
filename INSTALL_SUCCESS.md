@@ -13,7 +13,7 @@ All dependencies are installed and the app is working!
 1. Open VS Code
 2. Press **F5** on your keyboard
 3. The app will start automatically
-4. Browser opens at `http://localhost:8501`
+4. Browser opens at `http://localhost:8502`
 
 ### **Method 2: Command Line**
 
@@ -23,7 +23,7 @@ Open terminal in the project folder and run:
 python -m streamlit run home.py
 ```
 
-The app will open automatically in your browser at `http://localhost:8501`
+The app will open automatically in your browser at `http://localhost:8502`
 
 ### **Method 3: Use Batch File** (Windows)
 
@@ -100,7 +100,7 @@ python -m streamlit run home.py
 
 ### App doesn't open in browser?
 
-Manually open: `http://localhost:8501`
+Manually open: `http://localhost:8502`
 
 ### "Module not found" error?
 

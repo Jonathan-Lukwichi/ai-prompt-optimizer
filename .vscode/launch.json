@@ -10,7 +10,7 @@
                 "run",
                 "${workspaceFolder}/home.py",
                 "--server.port",
-                "8501"
+                "8502"
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
@@ -44,7 +44,7 @@
                 "run",
                 "${workspaceFolder}/pages/1_🎯_Prompt_Lab.py",
                 "--server.port",
-                "8501"
+                "8502"
             ],
             "console": "integratedTerminal",
             "justMyCode": false
@@ -58,7 +58,7 @@
                 "run",
                 "${workspaceFolder}/home.py",
                 "--server.port",
-                "8501",
+                "8502",
                 "--logger.level",
                 "debug"
             ],

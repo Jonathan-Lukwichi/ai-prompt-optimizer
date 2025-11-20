@@ -18,7 +18,7 @@ fi
 echo ""
 echo "Starting Streamlit app..."
 echo ""
-echo "The app will open in your browser at http://localhost:8501"
+echo "The app will open in your browser at http://localhost:8502"
 echo "Press Ctrl+C to stop the server"
 echo ""
 

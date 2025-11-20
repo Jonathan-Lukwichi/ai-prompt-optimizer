@@ -39,7 +39,7 @@ pip install -r requirements.txt
 streamlit run home.py
 ```
 
-The app will automatically open in your browser at `http://localhost:8501`
+The app will automatically open in your browser at `http://localhost:8502`
 
 ## Step 4: Start Optimizing!
 

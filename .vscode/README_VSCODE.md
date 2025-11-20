@@ -45,7 +45,7 @@ Press **`F5`** to run the default configuration (Run Streamlit App)
 
 1. **🚀 Run Streamlit App**
    - Default configuration
-   - Runs `app.py` on port 8501
+   - Runs `home.py` on port 8502
    - Opens automatically in browser
 
 2. **🎯 Run Prompt Lab (Direct)**
@@ -70,7 +70,7 @@ Press **`F5`** to run the default configuration (Run Streamlit App)
 - **📦 Install Dependencies** - Run `pip install -r requirements.txt`
 - **✅ Check Setup** - Verify configuration
 - **🧹 Clean Cache** - Remove `__pycache__` and compiled files
-- **🌐 Open in Browser** - Open http://localhost:8501
+- **🌐 Open in Browser** - Open http://localhost:8502
 
 ### `settings.json` - Workspace Settings
 
@@ -134,7 +134,7 @@ VS Code will prompt you to install these helpful extensions:
 Edit `launch.json` and change:
 ```json
 "--server.port",
-"8501"
+"8502"
 ```
 to your preferred port.
 

@@ -177,12 +177,12 @@ Collecting usage statistics. To deactivate, set browser.gatherUsageStats to fals
 
   You can now view your Streamlit app in your browser.
 
-  Local URL: http://localhost:8501
-  Network URL: http://192.168.1.100:8501
+  Local URL: http://localhost:8502
+  Network URL: http://192.168.1.100:8502
 ```
 
 ### Browser:
-- App automatically opens at `http://localhost:8501`
+- App automatically opens at `http://localhost:8502`
 - You'll see the beautiful homepage with neon gradients!
 
 ---
@@ -244,7 +244,7 @@ Or run manually:
 pip install -r requirements.txt
 ```
 
-### ❌ "Port 8501 is already in use"
+### ❌ "Port 8502 is already in use"
 
 **Fix:**
 1. Press `Shift+F5` to stop current app

@@ -120,19 +120,19 @@
             "windows": {
                 "command": "start",
                 "args": [
-                    "http://localhost:8501"
+                    "http://localhost:8502"
                 ]
             },
             "linux": {
                 "command": "xdg-open",
                 "args": [
-                    "http://localhost:8501"
+                    "http://localhost:8502"
                 ]
             },
             "osx": {
                 "command": "open",
                 "args": [
-                    "http://localhost:8501"
+                    "http://localhost:8502"
                 ]
             },
             "presentation": {
