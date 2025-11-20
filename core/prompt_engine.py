@@ -320,36 +320,6 @@ Return a JSON object with keys: {', '.join(version_labels.keys())}"""
                 if 'type' not in prompt_lower and 'typing' not in prompt_lower:
                     risks.append("📝 No type hints mentioned - maintainability risk")
 
-        elif domain == "timeseries":
-            # Time series risks
-            if 'forecast' in prompt_lower or 'predict' in prompt_lower:
-                if 'seasonal' not in prompt_lower and 'trend' not in prompt_lower:
-                    risks.append("📈 No consideration of seasonality/trend components")
-
-                if 'validation' not in prompt_lower and 'backtesting' not in prompt_lower:
-                    risks.append("⏱️ No mention of time series validation/backtesting")
-
-                if 'stationary' not in prompt_lower:
-                    risks.append("⚠️ No consideration of stationarity")
-
-        elif domain == "engineering":
-            # Engineering risks
-            if 'design' in prompt_lower:
-                if 'safety' not in prompt_lower and 'factor' not in prompt_lower:
-                    risks.append("🛡️ No mention of safety factors or standards")
-
-                if 'material' not in prompt_lower:
-                    risks.append("🔧 Material specifications not mentioned")
-
-        elif domain == "industrial":
-            # Industrial engineering risks
-            if 'process' in prompt_lower or 'manufacturing' in prompt_lower:
-                if 'capacity' not in prompt_lower and 'throughput' not in prompt_lower:
-                    risks.append("⚡ No capacity or throughput considerations")
-
-                if 'quality' not in prompt_lower and 'defect' not in prompt_lower:
-                    risks.append("⭐ Quality control not addressed")
-
         return risks
 
     def _detect_missing_info(self, prompt: str, role: str, task_type: str, domain: str, field: Optional[str]) -> List[str]:
@@ -398,33 +368,6 @@ Return a JSON object with keys: {', '.join(version_labels.keys())}"""
             if 'edge case' not in prompt_lower and 'error' not in prompt_lower:
                 missing.append("Edge cases and error handling requirements")
 
-        elif domain == "timeseries":
-            if 'frequency' not in prompt_lower and 'interval' not in prompt_lower:
-                missing.append("Data frequency (daily, hourly, etc.)")
-
-            if 'horizon' not in prompt_lower:
-                missing.append("Forecast horizon (how far ahead)")
-
-            if 'features' not in prompt_lower and 'variable' not in prompt_lower:
-                missing.append("Variables available (univariate vs multivariate)")
-
-        elif domain == "engineering":
-            if 'requirement' not in prompt_lower and 'specification' not in prompt_lower:
-                missing.append("Design requirements and specifications")
-
-            if 'standard' not in prompt_lower and 'code' not in prompt_lower:
-                missing.append("Applicable standards or codes")
-
-            if 'constraint' not in prompt_lower:
-                missing.append("Design constraints (cost, weight, size)")
-
-        elif domain == "web_dev":
-            if 'framework' not in prompt_lower and 'stack' not in prompt_lower:
-                missing.append("Technology stack or framework preference")
-
-            if 'browser' not in prompt_lower and 'device' not in prompt_lower:
-                missing.append("Target browsers/devices")
-
         return missing
 
     def _generate_suggestions(self, prompt: str, role: str, task_type: str, domain: str) -> List[str]:
@@ -452,10 +395,6 @@ Return a JSON object with keys: {', '.join(version_labels.keys())}"""
         elif domain == "python_code":
             suggestions.append("Describe expected behavior with example inputs/outputs")
             suggestions.append("Mention any specific libraries or patterns to use/avoid")
-
-        elif domain == "timeseries":
-            suggestions.append("Describe your time series properties (trend, seasonality, noise)")
-            suggestions.append("Specify forecast horizon and update frequency")
 
         return suggestions
 
@@ -714,61 +653,7 @@ Please provide code with:
 - Input validation
 - Clear documentation"""
 
-        # For Time Series domain
-        elif domain == "timeseries":
-            versions["accurate"] = f"""Accuracy-Focused Time Series Solution:
-
-{raw_prompt}
-
-Context: I am a {role_name} working on {task_name}.
-
-Please provide a solution that emphasizes:
-- Minimizing forecast error (MAE, RMSE, MAPE)
-- Rigorous validation (walk-forward, time series CV)
-- Hyperparameter tuning
-- Ensemble methods if appropriate
-- Error analysis and diagnostics"""
-
-            versions["interpretable"] = f"""Interpretable Time Series Solution:
-
-{raw_prompt}
-
-Context: I am a {role_name} working on {task_name}.
-
-Please provide a solution that emphasizes:
-- Explainable models (ARIMA, exponential smoothing)
-- Clear decomposition (trend, seasonality, residuals)
-- Visual diagnostics
-- Business-friendly insights
-- Assumptions and limitations clearly stated"""
-
-            versions["robust"] = f"""Robust Time Series Solution:
-
-{raw_prompt}
-
-Context: I am a {role_name} working on {task_name}.
-
-Please provide a solution that handles:
-- Outliers and anomalies
-- Missing data
-- Structural breaks
-- Irregular patterns
-- Uncertainty quantification"""
-
-            versions["automated"] = f"""Automated Time Series Solution:
-
-{raw_prompt}
-
-Context: I am a {role_name} working on {task_name}.
-
-Please provide a solution with:
-- Automatic model selection (auto-ARIMA, etc.)
-- Continuous retraining pipeline
-- Automated parameter tuning
-- Drift detection
-- Self-updating forecasts"""
-
-        # Generic fallback for other domains
+        # Generic fallback for any other domains
         else:
             for label_key, label_data in version_labels.items():
                 versions[label_key] = f"""{label_data['name']} {label_data['icon']}
