@@ -192,32 +192,47 @@ if filtered_sessions:
            onmouseout="this.style.borderColor='rgba(139, 92, 246, 0.2)'">
             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
                 <div style="flex: 1;">
-                    <div style="display: flex; gap: 1rem; margin-bottom: 0.5rem;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.5rem; align-items: center;">
                         <span style="
                             background: rgba(139, 92, 246, 0.2);
                             color: #8B5CF6;
-                            padding: 0.25rem 0.75rem;
+                            padding: 0.5rem 1rem;
                             border-radius: 20px;
                             font-size: 0.875rem;
                             font-weight: 600;
+                            white-space: nowrap;
+                            max-width: 280px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: inline-block;
                         ">{Config.TASK_TYPES.get(session.task_type, session.task_type)}</span>
 
                         <span style="
                             background: rgba(59, 130, 246, 0.2);
                             color: #3B82F6;
-                            padding: 0.25rem 0.75rem;
+                            padding: 0.5rem 1rem;
                             border-radius: 20px;
                             font-size: 0.875rem;
                             font-weight: 600;
+                            white-space: nowrap;
+                            max-width: 280px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: inline-block;
                         ">{Config.ACADEMIC_ROLES.get(session.role, session.role)}</span>
 
                         {f'''<span style="
                             background: rgba(16, 185, 129, 0.2);
                             color: #10B981;
-                            padding: 0.25rem 0.75rem;
+                            padding: 0.5rem 1rem;
                             border-radius: 20px;
                             font-size: 0.875rem;
                             font-weight: 600;
+                            white-space: nowrap;
+                            max-width: 220px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: inline-block;
                         ">{session.field}</span>''' if session.field else ''}
                     </div>
                     <p style="
