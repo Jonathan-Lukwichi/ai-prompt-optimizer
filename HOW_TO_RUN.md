@@ -88,7 +88,7 @@ The app will:
 run_app.bat
 
 # Or manually
-streamlit run app.py
+streamlit run home.py
 ```
 
 **Mac/Linux:**
@@ -97,13 +97,13 @@ streamlit run app.py
 ./run_app.sh
 
 # Or manually
-streamlit run app.py
+streamlit run home.py
 ```
 
 ### Method C: Python Command
 
 ```bash
-python -m streamlit run app.py
+python -m streamlit run home.py
 ```
 
 ---

@@ -20,7 +20,7 @@ All dependencies are installed and the app is working!
 Open terminal in the project folder and run:
 
 ```bash
-python -m streamlit run app.py
+python -m streamlit run home.py
 ```
 
 The app will open automatically in your browser at `http://localhost:8501`
@@ -64,7 +64,7 @@ OPENAI_API_KEY=sk-your-actual-key-here
 
 Press **F5** in VS Code or run:
 ```bash
-python -m streamlit run app.py
+python -m streamlit run home.py
 ```
 
 ### 3. **Start Optimizing!**
@@ -135,7 +135,7 @@ python --version  # Check current version
 
 **Press F5 in VS Code or run:**
 ```bash
-python -m streamlit run app.py
+python -m streamlit run home.py
 ```
 
 **Your beautiful AI Prompt Optimizer will open in your browser!** 🚀

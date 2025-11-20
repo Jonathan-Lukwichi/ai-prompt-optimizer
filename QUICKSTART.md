@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ## Step 3: Run the App
 
 ```bash
-streamlit run app.py
+streamlit run home.py
 ```
 
 The app will automatically open in your browser at `http://localhost:8501`

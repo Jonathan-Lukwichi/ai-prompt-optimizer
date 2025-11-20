@@ -99,7 +99,7 @@ See [HOW_TO_RUN.md](HOW_TO_RUN.md) for visual guide.
 **Option B: Command Line**
 
 ```bash
-streamlit run app.py
+streamlit run home.py
 ```
 
 **Option C: Use Launch Scripts**
@@ -128,7 +128,7 @@ Built with a stunning **neon/fluorescent design** inspired by bolt.ai and lovabl
 
 ```
 ai-prompt-optimizer/
-├── app.py                      # Main entry point
+├── home.py                     # Main entry point
 ├── requirements.txt            # Python dependencies
 ├── .env.example               # Environment variables template
 │

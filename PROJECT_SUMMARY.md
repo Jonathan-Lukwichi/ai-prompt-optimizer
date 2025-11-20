@@ -58,7 +58,7 @@ Database (SQLAlchemy + SQLite)
 
 ```
 ai-prompt-optimizer/
-├── app.py                          ✅ Beautiful homepage
+├── home.py                          ✅ Beautiful homepage
 ├── requirements.txt                ✅ All dependencies
 ├── README.md                       ✅ Full documentation
 ├── QUICKSTART.md                   ✅ 5-minute setup guide
@@ -153,7 +153,7 @@ ai-prompt-optimizer/
 pip install -r requirements.txt
 cp .env.example .env
 # Add your OPENAI_API_KEY to .env
-streamlit run app.py
+streamlit run home.py
 ```
 
 ### 2. First Optimization
@@ -196,7 +196,7 @@ Built-in safeguards:
 
 ### Immediate (Ready to Use):
 1. Set up your `.env` file
-2. Run `streamlit run app.py`
+2. Run `streamlit run home.py`
 3. Start optimizing prompts!
 
 ### Short-term Enhancements:
