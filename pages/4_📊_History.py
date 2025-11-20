@@ -7,6 +7,7 @@ from core.config import Config
 from core.database import DatabaseManager, PromptSession, SessionLocal
 from utils.ui_components import load_custom_css, gradient_header
 from datetime import datetime, timedelta
+from sqlalchemy.orm import joinedload
 
 # ==================== PAGE CONFIG ====================
 
@@ -33,8 +34,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 try:
     with SessionLocal() as db:
-        # Get all sessions (for demo, we're not filtering by user)
-        sessions = db.query(PromptSession).order_by(PromptSession.created_at.desc()).limit(50).all()
+        # Get all sessions with eagerly loaded versions to avoid DetachedInstanceError
+        sessions = db.query(PromptSession).options(joinedload(PromptSession.versions)).order_by(PromptSession.created_at.desc()).limit(50).all()
         total_sessions = db.query(PromptSession).count()
 
         # Calculate stats
@@ -54,6 +55,10 @@ try:
             avg_clarity_score = 0
             avg_safety_score = 0
             most_common_task = "N/A"
+
+        # Detach sessions from the database session to avoid lazy loading issues
+        for session in sessions:
+            db.expunge(session)
 
 except Exception as e:
     st.error(f"Error loading history: {str(e)}")

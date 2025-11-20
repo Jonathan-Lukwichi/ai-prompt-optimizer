@@ -356,7 +356,7 @@ def progress_steps(steps: List[str], current_step: int):
     """
     total_steps = len(steps)
 
-    html = '<div style="display: flex; align-items: center; margin: 2rem 0;">'
+    html = '<div style="display: flex; align-items: flex-start; margin: 2rem 0;">'
 
     for i, step in enumerate(steps):
         # Determine state
@@ -375,44 +375,25 @@ def progress_steps(steps: List[str], current_step: int):
             circle_color = "#4B5563"
             text_color = "#6B7280"
 
-        # Circle
+        # Build box-shadow style if current
+        box_shadow_style = f"box-shadow: 0 0 20px {circle_color};" if is_current else ""
+
+        # Step container
         html += f'''
-        <div style="text-align: center; flex: 1;">
-            <div style="
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: {circle_color};
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 0.5rem;
-                font-weight: 700;
-                font-size: 1.1rem;
-                {"box-shadow: 0 0 20px " + circle_color + ";" if is_current else ""}
-            ">
+        <div style="text-align: center; flex: 1; position: relative;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: {circle_color}; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; font-weight: 700; font-size: 1.1rem; {box_shadow_style} position: relative; z-index: 1;">
                 {i + 1}
             </div>
-            <div style="
-                color: {text_color};
-                font-size: 0.875rem;
-                font-weight: {"700" if is_current else "500"};
-            ">{step}</div>
+            <div style="color: {text_color}; font-size: 0.875rem; font-weight: {"700" if is_current else "500"};">
+                {step}
+            </div>
         </div>
         '''
 
-        # Connector line
+        # Connector line (positioned between circles)
         if i < total_steps - 1:
             line_color = "#10B981" if is_completed else "#4B5563"
-            html += f'''
-            <div style="
-                flex: 0 0 40px;
-                height: 2px;
-                background: {line_color};
-                margin: 0 0.5rem 2rem;
-            "></div>
-            '''
+            html += f'<div style="flex: 0 0 60px; height: 3px; background: {line_color}; margin-top: 18px; border-radius: 2px;"></div>'
 
     html += '</div>'
     st.markdown(html, unsafe_allow_html=True)

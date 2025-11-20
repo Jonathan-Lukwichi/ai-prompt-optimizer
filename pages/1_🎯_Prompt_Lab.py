@@ -180,13 +180,8 @@ if optimize_button:
                     }
                 )
 
-                # Save versions
-                for label, prompt_text in [
-                    ('basic', optimized.basic),
-                    ('critical_thinking', optimized.critical_thinking),
-                    ('tutor', optimized.tutor),
-                    ('safe', optimized.safe)
-                ]:
+                # Save versions from the versions dictionary
+                for label, prompt_text in optimized.versions.items():
                     DatabaseManager.create_version(session.id, label, prompt_text)
 
             except Exception as e:
@@ -208,7 +203,7 @@ if optimize_button:
 
         except Exception as e:
             st.error(f"❌ Error during optimization: {str(e)}")
-            st.info("💡 Tip: Make sure you have set your OPENAI_API_KEY in the .env file")
+            st.info("💡 Tip: Make sure you have set your GEMINI_API_KEY in the .env file. Get a free key at: https://makersuite.google.com/app/apikey")
 
 # ==================== RESULTS SECTION ====================
 
@@ -339,7 +334,7 @@ if st.session_state.optimization_result:
         st.markdown("<br>", unsafe_allow_html=True)
         version_card(
             label="Basic Version",
-            prompt=optimized.basic,
+            prompt=optimized.versions.get("basic", ""),
             icon="📝",
             color="#3B82F6",
             description="Clear, well-structured version for general use. Best for getting comprehensive, straightforward answers.",
@@ -366,7 +361,7 @@ if st.session_state.optimization_result:
         st.markdown("<br>", unsafe_allow_html=True)
         version_card(
             label="Critical Thinking Version",
-            prompt=optimized.critical_thinking,
+            prompt=optimized.versions.get("critical", ""),
             icon="🧠",
             color="#8B5CF6",
             description="Forces deeper analysis and questioning of assumptions. Best for research and avoiding bias.",
@@ -393,7 +388,7 @@ if st.session_state.optimization_result:
         st.markdown("<br>", unsafe_allow_html=True)
         version_card(
             label="Tutor Mode Version",
-            prompt=optimized.tutor,
+            prompt=optimized.versions.get("tutor", ""),
             icon="👨‍🏫",
             color="#10B981",
             description="Socratic method - guides you to discover insights yourself. Best for learning and understanding.",
@@ -420,7 +415,7 @@ if st.session_state.optimization_result:
         st.markdown("<br>", unsafe_allow_html=True)
         version_card(
             label="Safe Mode Version",
-            prompt=optimized.safe,
+            prompt=optimized.versions.get("safe", ""),
             icon="🛡️",
             color="#EC4899",
             description="Minimizes hallucinations and emphasizes uncertainty. Best for citations and factual accuracy.",
@@ -454,17 +449,17 @@ if st.session_state.optimization_result:
 
         with compare_col1:
             st.markdown("**📝 Basic**")
-            st.text_area("", optimized.basic, height=150, key="compare_basic", label_visibility="collapsed")
+            st.text_area("", optimized.versions.get("basic", ""), height=150, key="compare_basic", label_visibility="collapsed")
 
             st.markdown("**🧠 Critical Thinking**")
-            st.text_area("", optimized.critical_thinking, height=150, key="compare_critical", label_visibility="collapsed")
+            st.text_area("", optimized.versions.get("critical", ""), height=150, key="compare_critical", label_visibility="collapsed")
 
         with compare_col2:
             st.markdown("**👨‍🏫 Tutor Mode**")
-            st.text_area("", optimized.tutor, height=150, key="compare_tutor", label_visibility="collapsed")
+            st.text_area("", optimized.versions.get("tutor", ""), height=150, key="compare_tutor", label_visibility="collapsed")
 
             st.markdown("**🛡️ Safe Mode**")
-            st.text_area("", optimized.safe, height=150, key="compare_safe", label_visibility="collapsed")
+            st.text_area("", optimized.versions.get("safe", ""), height=150, key="compare_safe", label_visibility="collapsed")
 
     # ==================== ORIGINAL PROMPT ====================
 

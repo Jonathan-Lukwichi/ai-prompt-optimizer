@@ -7,6 +7,7 @@ import json
 from dataclasses import dataclass, asdict
 from typing import List, Dict, Optional
 import openai
+import google.generativeai as genai
 from .config import Config
 
 
@@ -67,17 +68,25 @@ class PromptEngine:
     Supports 10 technical & academic domains with domain-specific optimization
     """
 
-    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-4o"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-4o", provider: Optional[str] = None):
         """
         Initialize the prompt engine
 
         Args:
-            api_key: OpenAI API key (uses Config if not provided)
+            api_key: API key (uses Config based on provider if not provided)
             model: Model to use for optimization
+            provider: LLM provider ('openai', 'gemini', or 'anthropic') - uses Config.LLM_PROVIDER if not provided
         """
-        self.api_key = api_key or Config.OPENAI_API_KEY
-        self.model = model
-        openai.api_key = self.api_key
+        self.provider = provider or Config.LLM_PROVIDER
+
+        if self.provider == "gemini":
+            self.api_key = api_key or Config.GEMINI_API_KEY
+            self.model = Config.GEMINI_MODEL
+            genai.configure(api_key=self.api_key)
+        else:  # Default to OpenAI
+            self.api_key = api_key or Config.OPENAI_API_KEY
+            self.model = model
+            openai.api_key = self.api_key
 
     def analyze_prompt(
         self,
@@ -167,18 +176,54 @@ class PromptEngine:
         )
 
         try:
-            response = openai.ChatCompletion.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": f"Original prompt to optimize:\n\n{raw_prompt}"}
-                ],
-                response_format={"type": "json_object"},
-                temperature=0.7,
-                max_tokens=2000
-            )
+            if self.provider == "gemini":
+                # Use Google Gemini API
+                model = genai.GenerativeModel(self.model)
 
-            result = json.loads(response.choices[0].message.content)
+                # Combine system prompt and user message for Gemini
+                full_prompt = f"""{system_prompt}
+
+Original prompt to optimize:
+
+{raw_prompt}
+
+Please respond with a JSON object containing the optimized versions."""
+
+                response = model.generate_content(
+                    full_prompt,
+                    generation_config={
+                        'temperature': 0.7,
+                        'max_output_tokens': 2000,
+                    }
+                )
+
+                # Extract JSON from response
+                response_text = response.text.strip()
+
+                # Remove markdown code blocks if present
+                if response_text.startswith('```json'):
+                    response_text = response_text[7:]
+                if response_text.startswith('```'):
+                    response_text = response_text[3:]
+                if response_text.endswith('```'):
+                    response_text = response_text[:-3]
+
+                result = json.loads(response_text.strip())
+
+            else:
+                # Use OpenAI API
+                response = openai.ChatCompletion.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": f"Original prompt to optimize:\n\n{raw_prompt}"}
+                    ],
+                    response_format={"type": "json_object"},
+                    temperature=0.7,
+                    max_tokens=2000
+                )
+
+                result = json.loads(response.choices[0].message.content)
 
             # Extract versions dynamically based on domain
             versions = {}

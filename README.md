@@ -1,12 +1,13 @@
-# 🎓 AI Prompt Optimizer for Academia
+# 🚀 AI Prompt Optimizer - Universal Edition
 
-> Transform your prompts into powerful, effective requests that get better results from ChatGPT, Claude, and other AI assistants.
+> Transform your prompts into powerful, effective requests that get better results from any AI assistant - with **proof** that optimized prompts work better!
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/streamlit-1.30+-red.svg)
+![Gemini](https://img.shields.io/badge/Gemini-2.5--flash-orange.svg)
 
-A professional, production-ready Streamlit application designed specifically for academic researchers, students, and educators to optimize their AI prompts.
+A professional, production-ready Streamlit application for optimizing AI prompts across **3 professional domains**: Academic, Machine Learning/Data Science, and Python Development. Features a stunning **bolt.new-inspired design** with glassmorphism effects and interactive data visualizations.
 
 ## ✨ Features
 
@@ -29,6 +30,14 @@ A professional, production-ready Streamlit application designed specifically for
 - Reviewer response workflow
 - Track progress and save your work
 
+### 🔬 Test & Compare (NEW!)
+- **Prove Your Prompts Work Better**: Run both original and optimized prompts through AI and compare results
+- **4 Quality Dimensions**: Completeness, Clarity, Specificity, Actionability
+- **Interactive Visualizations**: Radar charts and bar graphs showing improvements
+- **Auto-Load from Prompt Lab**: Seamless workflow - optimize, then immediately test
+- **Version Comparison**: Test all 4 optimized versions to find which works best
+- **Objective Metrics**: Weighted scoring system (0-100) with detailed analysis
+
 ### 📊 History & Analytics
 - View all past optimization sessions
 - Track your improvement over time
@@ -40,7 +49,7 @@ A professional, production-ready Streamlit application designed specifically for
 ### Prerequisites
 
 - Python 3.9 or higher
-- OpenAI API key (or Anthropic API key for Claude)
+- **Google Gemini API key (FREE!)** - Get yours at [Google AI Studio](https://makersuite.google.com/app/apikey)
 
 ### Installation
 
@@ -68,23 +77,21 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. **Set up your API key**
+4. **Set up your Gemini API key**
 
-Create a `.env` file in the project root:
-
-```bash
-# Copy the example file
-copy .env.example .env   # Windows
-cp .env.example .env     # macOS/Linux
-```
-
-Edit `.env` and add your API key:
+Edit the `.env` file in the project root and add your key:
 
 ```env
-OPENAI_API_KEY=your_openai_api_key_here
-# or
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+LLM_PROVIDER=gemini
 ```
+
+**How to get a FREE Gemini API key:**
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy and paste it into `.env`
 
 5. **Run the app**
 
@@ -139,7 +146,8 @@ ai-prompt-optimizer/
 ├── core/
 │   ├── config.py              # App configuration
 │   ├── database.py            # Database models & operations
-│   └── prompt_engine.py       # Core optimization engine
+│   ├── prompt_engine.py       # Core optimization engine
+│   └── response_analyzer.py   # Response quality analyzer (NEW!)
 │
 ├── utils/
 │   └── ui_components.py       # Reusable UI components
@@ -148,7 +156,8 @@ ai-prompt-optimizer/
 │   ├── 1_🎯_Prompt_Lab.py    # Main optimization feature
 │   ├── 2_📚_Templates.py     # Template library
 │   ├── 3_🔬_Workflows.py     # Guided workflows
-│   └── 4_📊_History.py       # Session history
+│   ├── 4_📊_History.py       # Session history
+│   └── 5_🔬_Test_Compare.py  # Test & Compare (NEW!)
 │
 └── data/
     └── prompts.db             # SQLite database (auto-created)
@@ -173,9 +182,15 @@ ai-prompt-optimizer/
    - **Tutor**: Socratic method for learning
    - **Safe**: Minimizes hallucinations, emphasizes accuracy
 
-4. **Copy & Use**
+4. **Test Your Optimized Prompts (Optional)**
+   - Navigate to **Test & Compare** page
+   - Prompts auto-load from Prompt Lab
+   - Select which version to test
+   - See objective proof of improvement with quality scores
+
+5. **Copy & Use**
    - Choose the version that fits your needs
-   - Copy it to your AI tool (ChatGPT, Claude, etc.)
+   - Copy it to your AI tool (ChatGPT, Claude, Gemini, etc.)
    - Get better results!
 
 ### When to Use Each Version
@@ -191,18 +206,21 @@ ai-prompt-optimizer/
 
 ### API Keys
 
-The app supports multiple LLM providers:
+The app uses **Google Gemini API** (FREE!):
 
-- **OpenAI** (GPT-4, GPT-4o): Recommended for best results
-- **Anthropic** (Claude): Alternative option
+- **Gemini 2.5 Flash**: Fast, free, and powerful
+- Get your key at [Google AI Studio](https://makersuite.google.com/app/apikey)
+- Set in `.env` file: `GEMINI_API_KEY=your_key_here`
 
-Set your preferred API key in `.env`.
+**Optional alternatives** (modify `.env` to switch):
+- **OpenAI** (GPT-4, GPT-4o): Set `LLM_PROVIDER=openai`
+- **Anthropic** (Claude): Set `LLM_PROVIDER=anthropic`
 
 ### Database
 
 By default, uses SQLite (no setup required). The database is created automatically in `data/prompts.db`.
 
-For production use with multiple users, you can configure PostgreSQL or MySQL by modifying `DATABASE_URL` in `core/config.py`.
+For production use with multiple users, you can configure PostgreSQL or MySQL by modifying `DATABASE_URL` in [core/config.py](core/config.py).
 
 ## 🎓 For Different Academic Roles
 
@@ -237,6 +255,38 @@ This tool is designed to **support** academic work, not replace it:
 **Tutor Mode** explicitly uses the Socratic method to help you learn, not just get answers.
 
 **Safe Mode** instructs AI to acknowledge uncertainty and avoid making up citations.
+
+## 🔬 Test & Compare Feature
+
+The **Test & Compare** feature provides objective proof that optimized prompts generate better responses:
+
+### How It Works
+
+1. **Auto-Load**: Prompts automatically load from Prompt Lab (no copy/paste needed!)
+2. **Run Tests**: Both prompts are sent to Gemini AI
+3. **Quality Analysis**: Responses are scored across 4 dimensions:
+   - **Completeness** (30% weight): Thoroughness, structure, examples
+   - **Clarity** (25% weight): Readability, sentence flow, simplicity
+   - **Specificity** (25% weight): Detail level, numbers, concrete examples
+   - **Actionability** (20% weight): Practical usefulness, action steps
+4. **Visual Results**: Interactive charts show improvements
+5. **Winner Declared**: See which prompt performs better with exact scores
+
+### Scoring System
+
+- Each dimension scored 0-100
+- Overall score is weighted average
+- Strengths and weaknesses identified for each response
+- Color-coded improvements (green = better, red = worse)
+
+### When to Use
+
+- **Validate your optimization**: Prove the optimized version works better
+- **Compare versions**: Test all 4 versions to find the best one
+- **Learn patterns**: See what makes prompts effective
+- **Build confidence**: Have data to back your prompt choices
+
+See [TEST_COMPARE_GUIDE.md](TEST_COMPARE_GUIDE.md) for detailed instructions.
 
 ## 🤝 Contributing
 
@@ -281,19 +331,33 @@ MIT License - feel free to use this for your research or institution.
 
 ## 🙏 Acknowledgments
 
-- Design inspired by [bolt.ai](https://bolt.ai) and [lovable.dev](https://lovable.dev)
+- Design inspired by [bolt.new](https://bolt.new)
 - Built with [Streamlit](https://streamlit.io)
-- Powered by OpenAI GPT-4 and Anthropic Claude
+- Powered by [Google Gemini 2.5 Flash](https://ai.google.dev/)
+- Interactive charts with [Plotly](https://plotly.com/)
+- Database with [SQLAlchemy](https://www.sqlalchemy.org/)
 
 ## 🗺️ Roadmap
 
+**Completed ✅**
+- [x] Test & Compare feature with quality metrics
+- [x] Interactive visualizations (Plotly charts)
+- [x] Response quality analyzer
+- [x] Auto-load prompts between pages
+- [x] bolt.new-inspired design with glassmorphism
+- [x] Free Gemini API integration
+
+**In Progress 🚧**
+- [ ] More domain-specific templates
+- [ ] Enhanced workflows
+- [ ] Performance optimization
+
+**Future 🔮**
 - [ ] User authentication and teams
 - [ ] Export to PDF/Word
-- [ ] Prompt comparison tool
 - [ ] Integration with reference managers (Zotero, Mendeley)
 - [ ] Mobile app
 - [ ] Chrome extension
-- [ ] More specialized workflows
 - [ ] Multi-language support
 
 ---

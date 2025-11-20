@@ -15,6 +15,7 @@ class Config:
     # API Keys
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
     ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
     # App Settings
     APP_NAME = os.getenv("APP_NAME", "AI Prompt Optimizer")
@@ -26,7 +27,9 @@ class Config:
     DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 
     # LLM Settings
-    DEFAULT_MODEL = "gpt-4o"
+    LLM_PROVIDER = os.getenv("LLM_PROVIDER", "gemini")  # Options: openai, anthropic, gemini
+    DEFAULT_MODEL = "gpt-4o"  # For OpenAI
+    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")  # For Google Gemini (latest stable)
     DEFAULT_TEMPERATURE = 0.7
     DEFAULT_MAX_TOKENS = 2000
 
@@ -220,8 +223,8 @@ class Config:
         """Validate configuration"""
         errors = []
 
-        if not cls.OPENAI_API_KEY and not cls.ANTHROPIC_API_KEY:
-            errors.append("No API keys configured. Set OPENAI_API_KEY or ANTHROPIC_API_KEY in .env file")
+        if not cls.OPENAI_API_KEY and not cls.ANTHROPIC_API_KEY and not cls.GEMINI_API_KEY:
+            errors.append("No API keys configured. Set OPENAI_API_KEY, ANTHROPIC_API_KEY, or GEMINI_API_KEY in .env file")
 
         if not cls.DATABASE_PATH.parent.exists():
             cls.DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
