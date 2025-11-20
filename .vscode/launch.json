@@ -19,6 +19,23 @@
             }
         },
         {
+            "name": "🚀 Run Streamlit App (Port 8502)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "${workspaceFolder}/home.py",
+                "--server.port",
+                "8502"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONUNBUFFERED": "1"
+            }
+        },
+        {
             "name": "🎯 Run Prompt Lab (Direct)",
             "type": "debugpy",
             "request": "launch",
