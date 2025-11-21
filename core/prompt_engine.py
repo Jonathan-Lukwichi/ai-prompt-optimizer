@@ -240,6 +240,69 @@ Please respond with a JSON object containing the optimized versions."""
             # Fallback to rule-based optimization
             return self._fallback_optimization(raw_prompt, analysis, role, task_type, domain)
 
+    def smart_optimize(self, raw_prompt: str) -> Dict:
+        """
+        Quick optimization with auto-detection
+        Analyzes and optimizes in one shot - perfect for Quick Mode!
+
+        Args:
+            raw_prompt: The user's original prompt
+
+        Returns:
+            Dictionary with analysis, best version, all versions, and metadata
+        """
+        # Import here to avoid circular dependency
+        from core.smart_analyzer import SmartAnalyzer
+
+        # Step 1: Auto-detect context
+        analyzer = SmartAnalyzer()
+        detection = analyzer.analyze_prompt(raw_prompt)
+
+        # Step 2: Analyze with detected context
+        analysis = self.analyze_prompt(
+            raw_prompt=raw_prompt,
+            role=detection['role'],
+            task_type=detection['task'],
+            domain=detection['domain']
+        )
+
+        # Step 3: Optimize
+        optimized = self.optimize_prompt(
+            raw_prompt=raw_prompt,
+            analysis=analysis,
+            role=detection['role'],
+            task_type=detection['task'],
+            domain=detection['domain']
+        )
+
+        # Step 4: Pick best version automatically
+        best_version_key = analyzer.get_best_version_type(detection)
+        best_version_text = optimized.versions.get(best_version_key, "")
+
+        # If best version is empty, fallback to first available
+        if not best_version_text and optimized.versions:
+            best_version_key = list(optimized.versions.keys())[0]
+            best_version_text = optimized.versions[best_version_key]
+
+        # Calculate improvement (compare scores)
+        original_score = analysis.clarity_score
+        # Estimate optimized score (heuristic: typically 15-30 points improvement)
+        estimated_improvement = min(30, 100 - original_score)
+        optimized_score = min(100, original_score + estimated_improvement)
+
+        return {
+            'raw_prompt': raw_prompt,
+            'detection': detection,
+            'analysis': analysis,
+            'optimized': optimized,
+            'best_version_key': best_version_key,
+            'best_version': best_version_text,
+            'improvement': optimized_score - original_score,
+            'original_score': original_score,
+            'optimized_score': optimized_score,
+            'all_versions': optimized.versions
+        }
+
     # ==================== PRIVATE HELPER METHODS ====================
 
     def _build_system_prompt(

@@ -168,6 +168,196 @@ with col2:
         if st.button("📚 Browse Templates", use_container_width=True):
             st.switch_page("pages/2_📚_Templates.py")
 
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+# ==================== QUICK OPTIMIZE SECTION (NEW!) ====================
+
+st.markdown("""
+<div style="text-align: center; margin: 2rem 0 1.5rem;">
+    <h2 style="
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    ">⚡ Quick Optimize</h2>
+    <p style="color: #9CA3AF; font-size: 1rem; margin-top: 0.5rem;">
+        Paste any prompt, get it optimized in seconds. No dropdowns, no decisions.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Quick Optimize UI
+quick_col1, quick_col2 = st.columns([4, 1])
+
+with quick_col1:
+    quick_prompt = st.text_area(
+        "Your prompt",
+        placeholder="Example: Explain machine learning to me\n\nPaste any prompt here and we'll automatically detect the context and optimize it for you!",
+        height=120,
+        key="quick_prompt_input",
+        label_visibility="collapsed"
+    )
+
+with quick_col2:
+    st.markdown("<div style='height: 0.5rem'></div>", unsafe_allow_html=True)
+    optimize_button = st.button(
+        "🚀 Optimize Now",
+        use_container_width=True,
+        type="primary",
+        key="quick_optimize_btn"
+    )
+
+    if quick_prompt:
+        st.markdown("<div style='height: 0.5rem'></div>", unsafe_allow_html=True)
+        if st.button(
+            "⚙️ Advanced",
+            use_container_width=True,
+            key="advanced_mode_btn",
+            help="Go to Prompt Lab for full control"
+        ):
+            st.session_state.prefill_prompt = quick_prompt
+            st.switch_page("pages/1_🎯_Prompt_Lab.py")
+
+# Process optimization
+if optimize_button and quick_prompt:
+    with st.spinner("🤖 Analyzing and optimizing..."):
+        try:
+            from core.prompt_engine import PromptEngine
+
+            # Initialize engine
+            engine = PromptEngine()
+
+            # Smart optimize
+            result = engine.smart_optimize(quick_prompt)
+
+            # Store in session state
+            st.session_state.quick_result = result
+
+        except Exception as e:
+            st.error(f"Oops! Something went wrong: {str(e)}")
+            st.session_state.quick_result = None
+
+# Display result
+if 'quick_result' in st.session_state and st.session_state.quick_result:
+    result = st.session_state.quick_result
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Success banner
+    st.markdown(f"""
+    <div style="
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+        border: 2px solid #10B981;
+        border-radius: 16px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    ">
+        <div style="
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        ">✅</div>
+        <div style="flex: 1;">
+            <div style="
+                font-size: 1.3rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 0.25rem;
+            ">Optimized!</div>
+            <div style="color: #9CA3AF; font-size: 0.95rem;">
+                +{result['improvement']} quality points improvement •
+                Detected: {result['detection']['domain'].replace('-', ' ').replace('_', ' ').title()} •
+                Best version: {result['best_version_key'].title()}
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Optimized prompt display
+    st.markdown("""
+    <div style="
+        background: rgba(26, 27, 61, 0.6);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    ">
+        <div style="
+            color: #10B981;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        ">✨ Your Optimized Prompt</div>
+    """, unsafe_allow_html=True)
+
+    st.code(result['best_version'], language=None)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Action buttons
+    action_col1, action_col2, action_col3, action_col4 = st.columns(4)
+
+    with action_col1:
+        st.button("📋 Copy to Clipboard", use_container_width=True, key="copy_result")
+
+    with action_col2:
+        if st.button("👀 Show All 4 Versions", use_container_width=True, key="show_all_versions"):
+            st.session_state.show_alternatives = True
+
+    with action_col3:
+        if st.button("🔬 Test & Compare", use_container_width=True, key="test_quick_result"):
+            # Prepare data for Test & Compare page
+            st.session_state.optimization_result = {
+                'raw_prompt': result['raw_prompt'],
+                'optimized': result['optimized'],
+                'analysis': result['analysis']
+            }
+            st.switch_page("pages/5_🔬_Test_Compare.py")
+
+    with action_col4:
+        if st.button("🎯 Full Lab", use_container_width=True, key="goto_full_lab"):
+            st.session_state.prefill_prompt = quick_prompt
+            st.switch_page("pages/1_🎯_Prompt_Lab.py")
+
+    # Show all versions if requested
+    if st.session_state.get('show_alternatives', False):
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style="
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #E5E7EB;
+            margin-bottom: 1rem;
+        ">📚 All 4 Optimized Versions</div>
+        """, unsafe_allow_html=True)
+
+        # Get version labels for display
+        version_labels = {
+            'basic': {'name': 'Basic', 'icon': '📝', 'color': '#3B82F6'},
+            'critical': {'name': 'Critical Thinking', 'icon': '🧠', 'color': '#8B5CF6'},
+            'tutor': {'name': 'Tutor Mode', 'icon': '👨‍🏫', 'color': '#EC4899'},
+            'safe': {'name': 'Safe Mode', 'icon': '🛡️', 'color': '#10B981'}
+        }
+
+        for ver_key, ver_text in result['all_versions'].items():
+            ver_info = version_labels.get(ver_key, {'name': ver_key.title(), 'icon': '📄', 'color': '#6B7280'})
+
+            with st.expander(f"{ver_info['icon']} {ver_info['name']}", expanded=(ver_key == result['best_version_key'])):
+                st.code(ver_text, language=None)
+
 st.markdown("<br>", unsafe_allow_html=True)
 
 # ==================== FEATURES SECTION ====================

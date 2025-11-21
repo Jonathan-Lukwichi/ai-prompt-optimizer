@@ -130,6 +130,36 @@ class Workflow(Base):
         return f"<Workflow(name='{self.name}', type='{self.workflow_type}')>"
 
 
+class UserPreferenceRecord(Base):
+    """User preferences and usage patterns"""
+    __tablename__ = 'user_preferences'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)  # Null for session-based
+    session_key = Column(String(255))  # For anonymous users
+
+    # Usage counters
+    version_usage = Column(JSON, default={})  # {version: count}
+    domain_usage = Column(JSON, default={})  # {domain: count}
+    role_usage = Column(JSON, default={})  # {role: count}
+    task_usage = Column(JSON, default={})  # {task: count}
+    combinations = Column(JSON, default={})  # {(domain,role,task): count}
+
+    # Smart defaults
+    preferred_version = Column(String(32))
+    preferred_domain = Column(String(64))
+    preferred_role = Column(String(32))
+    preferred_task = Column(String(32))
+
+    # Metadata
+    total_optimizations = Column(Integer, default=0)
+    last_updated = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<UserPreference(user_id={self.user_id}, optimizations={self.total_optimizations})>"
+
+
 # ==================== DATABASE OPERATIONS ====================
 
 class DatabaseManager:
@@ -307,6 +337,94 @@ class DatabaseManager:
             session.expunge_all()
 
             return workflows
+
+    @staticmethod
+    def save_preferences(user_preferences, session_key: str = "default") -> UserPreferenceRecord:
+        """
+        Save user preferences to database
+
+        Args:
+            user_preferences: UserPreferences instance from core.user_preferences
+            session_key: Session identifier for anonymous users
+
+        Returns:
+            UserPreferenceRecord instance
+        """
+        with DatabaseManager.get_session() as session:
+            # Try to find existing preferences
+            pref_record = session.query(UserPreferenceRecord).filter_by(session_key=session_key).first()
+
+            stats = user_preferences.get_usage_stats()
+
+            if pref_record:
+                # Update existing
+                pref_record.version_usage = stats['versions']
+                pref_record.domain_usage = stats['domains']
+                pref_record.role_usage = stats['roles']
+                pref_record.task_usage = stats['tasks']
+                pref_record.combinations = {
+                    f"{c['domain']}|{c['role']}|{c['task']}": c['count']
+                    for c in stats['top_combinations']
+                }
+                pref_record.preferred_version = user_preferences.get_preferred_version()
+                pref_record.preferred_domain = user_preferences.get_preferred_domain()
+                pref_record.preferred_role = user_preferences.get_preferred_role()
+                pref_record.preferred_task = user_preferences.get_preferred_task()
+                pref_record.total_optimizations = stats['total_optimizations']
+            else:
+                # Create new
+                pref_record = UserPreferenceRecord(
+                    session_key=session_key,
+                    version_usage=stats['versions'],
+                    domain_usage=stats['domains'],
+                    role_usage=stats['roles'],
+                    task_usage=stats['tasks'],
+                    combinations={
+                        f"{c['domain']}|{c['role']}|{c['task']}": c['count']
+                        for c in stats['top_combinations']
+                    },
+                    preferred_version=user_preferences.get_preferred_version(),
+                    preferred_domain=user_preferences.get_preferred_domain(),
+                    preferred_role=user_preferences.get_preferred_role(),
+                    preferred_task=user_preferences.get_preferred_task(),
+                    total_optimizations=stats['total_optimizations']
+                )
+                session.add(pref_record)
+
+            session.flush()
+            session.expunge(pref_record)
+            return pref_record
+
+    @staticmethod
+    def load_preferences(session_key: str = "default") -> Optional[Dict]:
+        """
+        Load user preferences from database
+
+        Args:
+            session_key: Session identifier
+
+        Returns:
+            Dictionary with preference data or None
+        """
+        with DatabaseManager.get_session() as session:
+            pref_record = session.query(UserPreferenceRecord).filter_by(session_key=session_key).first()
+
+            if not pref_record:
+                return None
+
+            return {
+                'version_usage': pref_record.version_usage or {},
+                'domain_usage': pref_record.domain_usage or {},
+                'role_usage': pref_record.role_usage or {},
+                'task_usage': pref_record.task_usage or {},
+                'combinations': pref_record.combinations or {},
+                'preferred_version': pref_record.preferred_version,
+                'preferred_domain': pref_record.preferred_domain,
+                'preferred_role': pref_record.preferred_role,
+                'preferred_task': pref_record.preferred_task,
+                'total_optimizations': pref_record.total_optimizations,
+                'last_updated': pref_record.last_updated.isoformat() if pref_record.last_updated else None
+            }
 
 
 # Initialize database on import
