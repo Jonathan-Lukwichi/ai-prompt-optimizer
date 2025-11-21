@@ -14,7 +14,7 @@ def load_custom_css():
         with open(css_file) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     else:
-        # Inline fallback CSS
+        # Inline fallback CSS - Neon Green/Blue Fluorescent Theme
         st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -23,28 +23,148 @@ def load_custom_css():
             font-family: 'Inter', sans-serif;
         }
 
+        /* Neon/Fluorescent Headers */
         h1, h2, h3 {
-            background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+            background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 50%, #0099FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            text-shadow: 0 0 30px rgba(0, 255, 159, 0.3);
+        }
+
+        /* Glowing Buttons */
+        .stButton > button {
+            background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+            color: #0A1929;
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 25px rgba(0, 255, 159, 0.4), 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .stButton > button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(0, 255, 159, 0.6), 0 0 25px rgba(0, 217, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
+        /* Fluorescent Input Fields */
+        .stTextInput > div > div > input,
+        .stTextArea > div > div > textarea {
+            background-color: rgba(19, 47, 76, 0.5);
+            border: 1px solid rgba(0, 255, 159, 0.3);
+            border-radius: 8px;
+            color: #E7F5FF;
+            transition: all 0.3s ease;
+        }
+
+        .stTextInput > div > div > input:focus,
+        .stTextArea > div > div > textarea:focus {
+            border-color: #00FF9F;
+            box-shadow: 0 0 15px rgba(0, 255, 159, 0.4);
+        }
+
+        /* Neon Selectbox */
+        .stSelectbox > div > div {
+            background-color: rgba(19, 47, 76, 0.5);
+            border: 1px solid rgba(0, 255, 159, 0.3);
+            border-radius: 8px;
+        }
+
+        /* Glowing Divider */
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00FF9F, #00D9FF, transparent);
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+        }
+
+        /* Fluorescent Tabs */
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 8px;
+            background-color: rgba(19, 47, 76, 0.3);
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .stTabs [data-baseweb="tab"] {
+            background-color: transparent;
+            border-radius: 8px;
+            color: #7DD3C0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .stTabs [aria-selected="true"] {
+            background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+            color: #0A1929;
+            box-shadow: 0 0 15px rgba(0, 255, 159, 0.4);
+        }
+
+        /* Neon Expander */
+        .streamlit-expanderHeader {
+            background-color: rgba(19, 47, 76, 0.4);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 8px;
+            color: #00FF9F;
+            font-weight: 600;
+        }
+
+        /* Glowing Metric Cards */
+        [data-testid="stMetricValue"] {
+            background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 800;
         }
 
-        .stButton > button {
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 0.75rem 2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        /* Sidebar Glow */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #0A1929 0%, #132F4C 100%);
+            border-right: 1px solid rgba(0, 255, 159, 0.2);
         }
 
-        .stButton > button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+        /* Success/Warning/Error Messages with Neon */
+        .stSuccess {
+            background-color: rgba(0, 255, 159, 0.1);
+            border-left: 4px solid #00FF9F;
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.2);
+        }
+
+        .stWarning {
+            background-color: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #FFD700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .stError {
+            background-color: rgba(255, 69, 58, 0.1);
+            border-left: 4px solid #FF453A;
+            box-shadow: 0 0 10px rgba(255, 69, 58, 0.2);
+        }
+
+        /* Scrollbar Glow */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A1929;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00FF9F, #00D9FF);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00D9FF, #00FF9F);
         }
         </style>
         """, unsafe_allow_html=True)
@@ -52,7 +172,7 @@ def load_custom_css():
 
 def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None):
     """
-    Create a gradient text header
+    Create a gradient text header with neon glow
 
     Args:
         text: Header text
@@ -61,20 +181,21 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
     """
     st.markdown(f"""
     <{size} style="
-        background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+        background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 50%, #0099FF 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         font-weight: 800;
         letter-spacing: -0.02em;
         margin-bottom: 0.5rem;
+        filter: drop-shadow(0 0 20px rgba(0, 255, 159, 0.4));
     ">{text}</{size}>
     """, unsafe_allow_html=True)
 
     if subtitle:
         st.markdown(f"""
         <p style="
-            color: #9CA3AF;
+            color: #7DD3C0;
             font-size: 1.125rem;
             margin-top: 0;
         ">{subtitle}</p>
@@ -83,7 +204,7 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
 
 def glass_card(content: str, padding: str = "2rem"):
     """
-    Create a glassmorphism card
+    Create a glassmorphism card with neon border
 
     Args:
         content: HTML content inside card
@@ -91,49 +212,52 @@ def glass_card(content: str, padding: str = "2rem"):
     """
     st.markdown(f"""
     <div style="
-        background: rgba(26, 27, 61, 0.5);
+        background: rgba(19, 47, 76, 0.4);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
+        border: 1px solid rgba(0, 255, 159, 0.3);
         border-radius: 16px;
         padding: {padding};
         transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(0, 255, 159, 0.1);
     ">
         {content}
     </div>
     """, unsafe_allow_html=True)
 
 
-def metric_card(label: str, value: str, icon: str = "📊", color: str = "#8B5CF6"):
+def metric_card(label: str, value: str, icon: str = "📊", color: str = "#00FF9F"):
     """
-    Create a metric card with icon
+    Create a metric card with icon and neon glow
 
     Args:
         label: Metric label
         value: Metric value
         icon: Emoji icon
-        color: Accent color
+        color: Accent color (default: neon green)
     """
     st.markdown(f"""
     <div style="
-        background: rgba(26, 27, 61, 0.6);
+        background: rgba(19, 47, 76, 0.5);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
+        border: 1px solid rgba(0, 255, 159, 0.3);
         border-radius: 16px;
         padding: 1.5rem;
         transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(0, 255, 159, 0.15);
     ">
         <div style="font-size: 2rem; margin-bottom: 0.5rem;">{icon}</div>
         <div style="
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+            background: linear-gradient(135deg, {color} 0%, #00D9FF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.25rem;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 159, 0.4));
         ">{value}</div>
         <div style="
-            color: #9CA3AF;
+            color: #7DD3C0;
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -154,30 +278,30 @@ def score_gauge(score: int, max_score: int = 100, label: str = "Score", height: 
     """
     import plotly.graph_objects as go
 
-    # Determine color based on score
+    # Determine color based on score - Neon theme
     if score >= 80:
-        color = "#10B981"  # Green
+        color = "#00FF9F"  # Neon Green
     elif score >= 60:
-        color = "#F59E0B"  # Yellow
+        color = "#FFD700"  # Gold
     else:
-        color = "#EF4444"  # Red
+        color = "#FF453A"  # Neon Red
 
     fig = go.Figure(go.Indicator(
         mode="gauge+number",
         value=score,
         domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': label, 'font': {'color': '#E5E7EB', 'size': 16}},
+        title={'text': label, 'font': {'color': '#E7F5FF', 'size': 16}},
         number={'font': {'color': color, 'size': 32, 'family': 'Inter'}},
         gauge={
-            'axis': {'range': [None, max_score], 'tickcolor': '#9CA3AF'},
+            'axis': {'range': [None, max_score], 'tickcolor': '#7DD3C0'},
             'bar': {'color': color},
-            'bgcolor': 'rgba(26, 27, 61, 0.5)',
+            'bgcolor': 'rgba(19, 47, 76, 0.5)',
             'borderwidth': 2,
-            'bordercolor': 'rgba(139, 92, 246, 0.3)',
+            'bordercolor': 'rgba(0, 255, 159, 0.4)',
             'steps': [
-                {'range': [0, 40], 'color': 'rgba(239, 68, 68, 0.2)'},
-                {'range': [40, 70], 'color': 'rgba(245, 158, 11, 0.2)'},
-                {'range': [70, 100], 'color': 'rgba(16, 185, 129, 0.2)'}
+                {'range': [0, 40], 'color': 'rgba(255, 69, 58, 0.2)'},
+                {'range': [40, 70], 'color': 'rgba(255, 215, 0, 0.2)'},
+                {'range': [70, 100], 'color': 'rgba(0, 255, 159, 0.2)'}
             ],
         }
     ))
@@ -229,12 +353,13 @@ def version_card(
     """
     st.markdown(f"""
     <div style="
-        background: rgba(26, 27, 61, 0.6);
+        background: rgba(19, 47, 76, 0.5);
         backdrop-filter: blur(20px);
         border-left: 4px solid {color};
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1rem;
+        box-shadow: 0 0 15px rgba(0, 255, 159, 0.1);
     ">
         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
             <span style="font-size: 1.5rem; margin-right: 0.75rem;">{icon}</span>
@@ -244,10 +369,11 @@ def version_card(
                     color: {color};
                     font-size: 1.25rem;
                     font-weight: 700;
+                    text-shadow: 0 0 10px {color}40;
                 ">{label}</h3>
                 <p style="
                     margin: 0;
-                    color: #9CA3AF;
+                    color: #7DD3C0;
                     font-size: 0.875rem;
                 ">{description}</p>
             </div>
@@ -272,36 +398,38 @@ def version_card(
             st.toast(f"✅ {label} version copied!", icon="✅")
 
 
-def feature_card(icon: str, title: str, description: str, color: str = "#8B5CF6"):
+def feature_card(icon: str, title: str, description: str, color: str = "#00FF9F"):
     """
-    Create a feature highlight card
+    Create a feature highlight card with neon glow
 
     Args:
         icon: Emoji icon
         title: Feature title
         description: Feature description
-        color: Accent color
+        color: Accent color (default: neon green)
     """
     st.markdown(f"""
     <div style="
-        background: rgba(26, 27, 61, 0.5);
+        background: rgba(19, 47, 76, 0.4);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
+        border: 1px solid rgba(0, 255, 159, 0.3);
         border-radius: 16px;
         padding: 1.5rem;
         height: 100%;
         transition: all 0.3s ease;
-    " onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.5)'; this.style.transform='translateY(-4px)'"
-       onmouseout="this.style.borderColor='rgba(139, 92, 246, 0.2)'; this.style.transform='translateY(0)'">
+        box-shadow: 0 0 15px rgba(0, 255, 159, 0.1);
+    " onmouseover="this.style.borderColor='rgba(0, 255, 159, 0.6)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 30px rgba(0, 255, 159, 0.3)'"
+       onmouseout="this.style.borderColor='rgba(0, 255, 159, 0.3)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 0 15px rgba(0, 255, 159, 0.1)'">
         <div style="font-size: 2.5rem; margin-bottom: 1rem;">{icon}</div>
         <h3 style="
             color: {color};
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px {color}40;
         ">{title}</h3>
         <p style="
-            color: #9CA3AF;
+            color: #7DD3C0;
             font-size: 0.95rem;
             line-height: 1.6;
             margin: 0;
@@ -320,10 +448,10 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
         icon: Optional custom icon
     """
     colors = {
-        "info": ("#3B82F6", "ℹ️"),
-        "success": ("#10B981", "✅"),
-        "warning": ("#F59E0B", "⚠️"),
-        "error": ("#EF4444", "❌")
+        "info": ("#00D9FF", "ℹ️"),
+        "success": ("#00FF9F", "✅"),
+        "warning": ("#FFD700", "⚠️"),
+        "error": ("#FF453A", "❌")
     }
 
     color, default_icon = colors.get(alert_type, colors["info"])
@@ -331,7 +459,7 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
 
     st.markdown(f"""
     <div style="
-        background: rgba(26, 27, 61, 0.8);
+        background: rgba(19, 47, 76, 0.7);
         border-left: 4px solid {color};
         border-radius: 12px;
         padding: 1rem 1.5rem;
@@ -339,9 +467,10 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
         backdrop-filter: blur(10px);
         display: flex;
         align-items: center;
+        box-shadow: 0 0 15px {color}30;
     ">
         <span style="font-size: 1.5rem; margin-right: 1rem;">{display_icon}</span>
-        <div style="color: #E5E7EB; flex: 1;">{message}</div>
+        <div style="color: #E7F5FF; flex: 1;">{message}</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -364,16 +493,16 @@ def progress_steps(steps: List[str], current_step: int):
         is_completed = i < current_step
         is_future = i > current_step
 
-        # Circle color
+        # Circle color - Neon theme
         if is_completed:
-            circle_color = "#10B981"
-            text_color = "#10B981"
+            circle_color = "#00FF9F"
+            text_color = "#00FF9F"
         elif is_current:
-            circle_color = "#8B5CF6"
-            text_color = "#E5E7EB"
+            circle_color = "#00D9FF"
+            text_color = "#E7F5FF"
         else:
-            circle_color = "#4B5563"
-            text_color = "#6B7280"
+            circle_color = "#2D5F7C"
+            text_color = "#5A8BA8"
 
         # Build box-shadow style if current
         box_shadow_style = f"box-shadow: 0 0 20px {circle_color};" if is_current else ""
@@ -390,10 +519,10 @@ def progress_steps(steps: List[str], current_step: int):
         </div>
         '''
 
-        # Connector line (positioned between circles)
+        # Connector line (positioned between circles) - Neon theme
         if i < total_steps - 1:
-            line_color = "#10B981" if is_completed else "#4B5563"
-            html += f'<div style="flex: 0 0 60px; height: 3px; background: {line_color}; margin-top: 18px; border-radius: 2px;"></div>'
+            line_color = "#00FF9F" if is_completed else "#2D5F7C"
+            html += f'<div style="flex: 0 0 60px; height: 3px; background: {line_color}; margin-top: 18px; border-radius: 2px; box-shadow: 0 0 5px {line_color};"></div>'
 
     html += '</div>'
     st.markdown(html, unsafe_allow_html=True)
@@ -410,7 +539,8 @@ def info_tooltip(text: str, tooltip: str):
     st.markdown(f"""
     <span title="{tooltip}" style="
         cursor: help;
-        border-bottom: 1px dotted #8B5CF6;
-        color: #E5E7EB;
+        border-bottom: 1px dotted #00FF9F;
+        color: #E7F5FF;
+        text-shadow: 0 0 5px rgba(0, 255, 159, 0.2);
     ">{text}</span>
     """, unsafe_allow_html=True)

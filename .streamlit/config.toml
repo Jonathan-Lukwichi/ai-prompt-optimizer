@@ -1,14 +1,14 @@
 [theme]
-primaryColor = "#8B5CF6"  # Purple
-backgroundColor = "#0F0F23"  # Deep dark blue-black
-secondaryBackgroundColor = "#1A1B3D"  # Slightly lighter dark
-textColor = "#E5E7EB"  # Light gray
+primaryColor = "#00FF9F"  # Neon/Fluorescent Green
+backgroundColor = "#0A1929"  # Deep dark blue-green
+secondaryBackgroundColor = "#132F4C"  # Dark blue-teal
+textColor = "#E7F5FF"  # Light cyan-white
 font = "sans serif"
 
 [server]
 headless = true
 port = 8501
-enableCORS = false
+enableCORS = true
 enableXsrfProtection = true
 
 [browser]
