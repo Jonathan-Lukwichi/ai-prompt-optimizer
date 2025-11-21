@@ -25,6 +25,27 @@ st.set_page_config(
 # Load custom CSS
 load_custom_css()
 
+# ==================== API KEY CHECK ====================
+
+# Check if Gemini API key is configured
+if not Config.GEMINI_API_KEY or Config.GEMINI_API_KEY == "":
+    st.error("""
+    ### ⚠️ Configuration Required
+
+    **Gemini API Key is not configured!**
+
+    To run this app, you need to:
+
+    1. **Get a FREE Gemini API key**: Visit https://makersuite.google.com/app/apikey
+    2. **Add it to Streamlit Secrets**:
+       - Click the menu (⋮) next to your app
+       - Go to Settings → Secrets
+       - Add: `GEMINI_API_KEY = "your-key-here"`
+
+    **Need help?** Check the [DEPLOYMENT_GUIDE.md](https://github.com/Jonathan-Lukwichi/ai-prompt-optimizer/blob/main/DEPLOYMENT_GUIDE.md)
+    """)
+    st.stop()
+
 # ==================== SESSION STATE ====================
 
 if 'user_role' not in st.session_state:
