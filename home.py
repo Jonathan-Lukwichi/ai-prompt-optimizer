@@ -59,17 +59,37 @@ if 'user_name' not in st.session_state:
 
 with st.sidebar:
     st.markdown("""
-    <div style="text-align: center; padding: 1rem 0;">
-        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎓</div>
+    <div style="
+        text-align: center;
+        padding: 1.5rem 0;
+        background: rgba(19, 47, 76, 0.4);
+        border-radius: 16px;
+        border: 1px solid rgba(0, 255, 159, 0.3);
+        box-shadow: 0 0 20px rgba(0, 255, 159, 0.15);
+        margin-bottom: 1rem;
+    ">
+        <div style="
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 159, 0.5));
+        ">🎓</div>
         <h2 style="
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 50%, #0099FF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin: 0;
             font-size: 1.5rem;
+            font-weight: 800;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 159, 0.3));
         ">AI Prompt Optimizer</h2>
-        <p style="color: #9CA3AF; font-size: 0.875rem; margin-top: 0.25rem;">
+        <p style="
+            color: #7DD3C0;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(0, 217, 255, 0.2);
+        ">
             For Academic Excellence
         </p>
     </div>
@@ -78,7 +98,16 @@ with st.sidebar:
     st.divider()
 
     # User profile section
-    st.markdown("### 👤 Your Profile")
+    st.markdown("""
+    <h3 style="
+        background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    ">👤 Your Profile</h3>
+    """, unsafe_allow_html=True)
 
     user_name = st.text_input(
         "Name",
@@ -110,19 +139,75 @@ with st.sidebar:
     st.divider()
 
     # Quick stats
-    st.markdown("### 📊 Quick Stats")
+    st.markdown("""
+    <h3 style="
+        background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    ">📊 Quick Stats</h3>
+    """, unsafe_allow_html=True)
 
     # Placeholder stats - in production, fetch from database
     col1, col2 = st.columns(2)
     with col1:
-        st.metric("Sessions", "0", delta=None)
+        st.markdown("""
+        <div style="
+            background: rgba(19, 47, 76, 0.5);
+            border: 1px solid rgba(0, 255, 159, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 159, 0.1);
+        ">
+            <div style="
+                font-size: 1.5rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            ">0</div>
+            <div style="color: #7DD3C0; font-size: 0.75rem; text-transform: uppercase;">Sessions</div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
-        st.metric("Prompts", "0", delta=None)
+        st.markdown("""
+        <div style="
+            background: rgba(19, 47, 76, 0.5);
+            border: 1px solid rgba(0, 255, 159, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 159, 0.1);
+        ">
+            <div style="
+                font-size: 1.5rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            ">0</div>
+            <div style="color: #7DD3C0; font-size: 0.75rem; text-transform: uppercase;">Prompts</div>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.divider()
 
     # Quick links
-    st.markdown("### 🔗 Quick Links")
+    st.markdown("""
+    <h3 style="
+        background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    ">🔗 Quick Links</h3>
+    """, unsafe_allow_html=True)
 
     if st.button("🎯 Prompt Lab", use_container_width=True, type="primary"):
         st.switch_page("pages/1_🎯_Prompt_Lab.py")
@@ -140,9 +225,25 @@ with st.sidebar:
 
     # Footer
     st.markdown("""
-    <div style="text-align: center; color: #6B7280; font-size: 0.75rem; margin-top: 2rem;">
-        Made with ❤️ for researchers<br>
-        v1.0.0 Beta
+    <div style="
+        text-align: center;
+        color: #7DD3C0;
+        font-size: 0.75rem;
+        margin-top: 2rem;
+        padding: 1rem;
+        background: rgba(19, 47, 76, 0.3);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 255, 159, 0.2);
+        box-shadow: 0 0 10px rgba(0, 255, 159, 0.1);
+    ">
+        <div style="margin-bottom: 0.5rem;">Made with ❤️ for researchers</div>
+        <div style="
+            background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        ">v1.0.0 Beta</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -747,10 +848,23 @@ with final_col2:
 
 # Footer
 st.markdown("""
-<div style="text-align: center; color: #6B7280; font-size: 0.875rem; margin-top: 4rem; padding: 2rem 0; border-top: 1px solid rgba(139, 92, 246, 0.2);">
-    <p>Built with ❤️ for the academic community</p>
+<div style="
+    text-align: center;
+    color: #7DD3C0;
+    font-size: 0.875rem;
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(0, 255, 159, 0.3);
+    box-shadow: 0 -5px 15px rgba(0, 255, 159, 0.05);
+">
+    <p style="font-weight: 600;">Built with ❤️ for the academic community</p>
     <p style="margin-top: 0.5rem;">
-        Questions? Feedback? <a href="mailto:support@example.com" style="color: #8B5CF6;">Get in touch</a>
+        Questions? Feedback? <a href="mailto:support@example.com" style="
+            color: #00FF9F;
+            text-decoration: none;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+        ">Get in touch</a>
     </p>
 </div>
 """, unsafe_allow_html=True)
