@@ -127,7 +127,7 @@ analytics_tab, history_tab = st.tabs(["📊 Analytics Dashboard", "📜 Session 
 with analytics_tab:
     if total_sessions == 0:
         st.info("📭 **No data yet!** Start optimizing prompts to see your analytics here.")
-        if st.button("🎯 Go to Prompt Lab", type="primary"):
+        if st.button("🎯 Go to Prompt Lab", type="primary", key="go_to_prompt_lab_analytics"):
             st.switch_page("pages/1_🎯_Prompt_Lab.py")
     else:
         st.markdown("### 📈 Your Optimization Patterns")
@@ -573,7 +573,7 @@ with history_tab:
         # No sessions found
         st.warning("📭 No sessions found matching your criteria")
 
-        if st.button("🎯 Go to Prompt Lab", type="primary"):
+        if st.button("🎯 Go to Prompt Lab", type="primary", key="go_to_prompt_lab_history"):
             st.switch_page("pages/1_🎯_Prompt_Lab.py")
 
 # ==================== FOOTER ====================
