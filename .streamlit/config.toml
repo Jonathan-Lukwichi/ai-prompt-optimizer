@@ -1,8 +1,8 @@
 [theme]
-primaryColor = "#06B6D4"  # Cyan accent
-backgroundColor = "#0A0E17"  # Deep dark navy
-secondaryBackgroundColor = "#111827"  # Dark navy-gray
-textColor = "#F8FAFC"  # Bright white
+primaryColor = "#00E5FF"  # LUKTHAN Neon Cyan
+backgroundColor = "#050816"  # Deep space navy
+secondaryBackgroundColor = "#0B1020"  # Dark navy card
+textColor = "#F0F6FC"  # Bright white
 font = "sans serif"
 
 [server]
