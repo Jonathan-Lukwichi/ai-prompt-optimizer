@@ -1,8 +1,8 @@
 [theme]
-primaryColor = "#00FF9F"  # Neon/Fluorescent Green
-backgroundColor = "#0A1929"  # Deep dark blue-green
-secondaryBackgroundColor = "#132F4C"  # Dark blue-teal
-textColor = "#E7F5FF"  # Light cyan-white
+primaryColor = "#3B82F6"  # Electric Blue (primary accent)
+backgroundColor = "#0D1117"  # Deep dark navy/black
+secondaryBackgroundColor = "#161B22"  # Slightly lighter dark
+textColor = "#F0F6FC"  # Clean white
 font = "sans serif"
 
 [server]
