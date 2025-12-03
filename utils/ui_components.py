@@ -1,6 +1,7 @@
 """
 Reusable UI components for Streamlit app
-Professional Dark Blue Theme - Inspired by Wege Design
+Colorful Gradient Theme - Inspired by TECHO Design
+Purple, Blue, Orange, Yellow vibrant gradients
 """
 import streamlit as st
 from pathlib import Path
@@ -15,7 +16,7 @@ def load_custom_css():
         with open(css_file) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     else:
-        # Inline fallback CSS - Professional Dark Blue Theme
+        # Inline fallback CSS - Colorful Gradient Theme
         st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -24,137 +25,140 @@ def load_custom_css():
             font-family: 'Inter', sans-serif;
         }
 
-        /* Clean Professional Headers */
+        /* Gradient Headers */
         h1, h2, h3 {
-            color: #F0F6FC;
+            color: #F8FAFC;
             font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        /* Professional Buttons */
+        /* Vibrant Gradient Buttons */
         .stButton > button {
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
             color: #FFFFFF;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 0.75rem 1.5rem;
             font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
         }
 
         .stButton > button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+            filter: brightness(1.1);
         }
 
-        /* Clean Input Fields */
+        /* Gradient Border Input Fields */
         .stTextInput > div > div > input,
         .stTextArea > div > div > textarea {
-            background-color: #161B22;
-            border: 1px solid #30363D;
-            border-radius: 8px;
-            color: #F0F6FC;
-            transition: all 0.2s ease;
+            background-color: rgba(26, 16, 37, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: #F8FAFC;
+            transition: all 0.3s ease;
         }
 
         .stTextInput > div > div > input:focus,
         .stTextArea > div > div > textarea:focus {
-            border-color: #3B82F6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
         }
 
-        /* Clean Selectbox */
+        /* Gradient Selectbox */
         .stSelectbox > div > div {
-            background-color: #161B22;
-            border: 1px solid #30363D;
-            border-radius: 8px;
+            background-color: rgba(26, 16, 37, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
         }
 
-        /* Subtle Divider */
+        /* Gradient Divider */
         hr {
             border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #30363D, transparent);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B5CF6, #EC4899, #F97316, transparent);
         }
 
-        /* Professional Tabs */
+        /* Colorful Tabs */
         .stTabs [data-baseweb="tab-list"] {
             gap: 4px;
-            background-color: #161B22;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-radius: 12px;
             padding: 4px;
-            border: 1px solid #30363D;
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .stTabs [data-baseweb="tab"] {
             background-color: transparent;
-            border-radius: 6px;
-            color: #8B949E;
+            border-radius: 8px;
+            color: #A78BFA;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .stTabs [aria-selected="true"] {
-            background: #3B82F6;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
             color: #FFFFFF;
         }
 
-        /* Clean Expander */
+        /* Gradient Expander */
         .streamlit-expanderHeader {
-            background-color: #161B22;
-            border: 1px solid #30363D;
-            border-radius: 8px;
-            color: #F0F6FC;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            color: #F8FAFC;
             font-weight: 500;
         }
 
-        /* Metric Cards */
+        /* Gradient Metric Cards */
         [data-testid="stMetricValue"] {
-            color: #3B82F6;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 700;
         }
 
-        /* Dark Sidebar */
+        /* Gradient Sidebar */
         [data-testid="stSidebar"] {
-            background: #0D1117;
-            border-right: 1px solid #21262D;
+            background: linear-gradient(180deg, #0F0A1A 0%, #1A1025 50%, #150D20 100%);
+            border-right: 1px solid rgba(139, 92, 246, 0.2);
         }
 
-        /* Alert Messages */
+        /* Alert Messages with Gradient */
         .stSuccess {
-            background-color: rgba(34, 197, 94, 0.1);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
             border-left: 4px solid #22C55E;
         }
 
         .stWarning {
-            background-color: rgba(234, 179, 8, 0.1);
-            border-left: 4px solid #EAB308;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 179, 8, 0.15) 100%);
+            border-left: 4px solid #F97316;
         }
 
         .stError {
-            background-color: rgba(239, 68, 68, 0.1);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
             border-left: 4px solid #EF4444;
         }
 
-        /* Minimal Scrollbar */
+        /* Gradient Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #0D1117;
+            background: #0F0A1A;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #30363D;
-            border-radius: 4px;
+            background: linear-gradient(180deg, #8B5CF6, #EC4899);
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #484F58;
+            background: linear-gradient(180deg, #A78BFA, #F472B6);
         }
         </style>
         """, unsafe_allow_html=True)
@@ -162,7 +166,7 @@ def load_custom_css():
 
 def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None):
     """
-    Create a clean header with optional subtitle
+    Create a gradient text header
 
     Args:
         text: Header text
@@ -171,8 +175,11 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
     """
     st.markdown(f"""
     <{size} style="
-        color: #F0F6FC;
-        font-weight: 700;
+        background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
         letter-spacing: -0.02em;
         margin-bottom: 0.5rem;
     ">{text}</{size}>
@@ -181,7 +188,7 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
     if subtitle:
         st.markdown(f"""
         <p style="
-            color: #8B949E;
+            color: #A78BFA;
             font-size: 1.125rem;
             margin-top: 0;
             line-height: 1.6;
@@ -191,7 +198,7 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
 
 def glass_card(content: str, padding: str = "2rem"):
     """
-    Create a professional card with subtle border
+    Create a glass card with gradient border
 
     Args:
         content: HTML content inside card
@@ -199,44 +206,49 @@ def glass_card(content: str, padding: str = "2rem"):
     """
     st.markdown(f"""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 16px;
         padding: {padding};
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
     ">
         {content}
     </div>
     """, unsafe_allow_html=True)
 
 
-def metric_card(label: str, value: str, icon: str = "📊", color: str = "#3B82F6"):
+def metric_card(label: str, value: str, icon: str = "📊", color: str = "#8B5CF6"):
     """
-    Create a metric card with icon
+    Create a metric card with gradient
 
     Args:
         label: Metric label
         value: Metric value
         icon: Emoji icon
-        color: Accent color (default: electric blue)
+        color: Accent color
     """
     st.markdown(f"""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 16px;
         padding: 1.5rem;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
     ">
-        <div style="font-size: 2rem; margin-bottom: 0.75rem; opacity: 0.9;">{icon}</div>
+        <div style="font-size: 2rem; margin-bottom: 0.75rem;">{icon}</div>
         <div style="
             font-size: 2rem;
             font-weight: 700;
-            color: {color};
+            background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 0.25rem;
         ">{value}</div>
         <div style="
-            color: #8B949E;
+            color: #A78BFA;
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -258,11 +270,11 @@ def score_gauge(score: int, max_score: int = 100, label: str = "Score", height: 
     """
     import plotly.graph_objects as go
 
-    # Determine color based on score
+    # Determine color based on score - Gradient theme
     if score >= 80:
         color = "#22C55E"  # Green
     elif score >= 60:
-        color = "#EAB308"  # Yellow
+        color = "#F97316"  # Orange
     else:
         color = "#EF4444"  # Red
 
@@ -270,18 +282,18 @@ def score_gauge(score: int, max_score: int = 100, label: str = "Score", height: 
         mode="gauge+number",
         value=score,
         domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': label, 'font': {'color': '#F0F6FC', 'size': 16}},
+        title={'text': label, 'font': {'color': '#F8FAFC', 'size': 16}},
         number={'font': {'color': color, 'size': 32, 'family': 'Inter'}},
         gauge={
-            'axis': {'range': [None, max_score], 'tickcolor': '#8B949E'},
+            'axis': {'range': [None, max_score], 'tickcolor': '#A78BFA'},
             'bar': {'color': color},
-            'bgcolor': '#161B22',
+            'bgcolor': 'rgba(139, 92, 246, 0.1)',
             'borderwidth': 2,
-            'bordercolor': '#30363D',
+            'bordercolor': 'rgba(139, 92, 246, 0.3)',
             'steps': [
-                {'range': [0, 40], 'color': 'rgba(239, 68, 68, 0.15)'},
-                {'range': [40, 70], 'color': 'rgba(234, 179, 8, 0.15)'},
-                {'range': [70, 100], 'color': 'rgba(34, 197, 94, 0.15)'}
+                {'range': [0, 40], 'color': 'rgba(239, 68, 68, 0.2)'},
+                {'range': [40, 70], 'color': 'rgba(249, 115, 22, 0.2)'},
+                {'range': [70, 100], 'color': 'rgba(34, 197, 94, 0.2)'}
             ],
         }
     ))
@@ -289,7 +301,7 @@ def score_gauge(score: int, max_score: int = 100, label: str = "Score", height: 
     fig.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        font={'color': '#F0F6FC', 'family': 'Inter'},
+        font={'color': '#F8FAFC', 'family': 'Inter'},
         height=height,
         margin=dict(l=20, r=20, t=40, b=20)
     )
@@ -307,7 +319,6 @@ def copy_button(text: str, button_text: str = "📋 Copy", key: Optional[str] = 
         key: Unique key for the button
     """
     if st.button(button_text, key=key, use_container_width=False):
-        # Show the text in a code block for easy copying
         st.code(text, language=None)
         st.toast("✅ Select and copy the text above", icon="✅")
 
@@ -324,7 +335,7 @@ def version_card(
     Create a styled card for a prompt version
 
     Args:
-        label: Version label (e.g., "Basic", "Critical Thinking")
+        label: Version label
         prompt: The prompt text
         icon: Emoji icon
         color: Accent color
@@ -333,10 +344,11 @@ def version_card(
     """
     st.markdown(f"""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(139, 92, 246, 0.3);
         border-left: 4px solid {color};
-        border-radius: 12px;
+        border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1rem;
     ">
@@ -345,13 +357,16 @@ def version_card(
             <div>
                 <h3 style="
                     margin: 0;
-                    color: {color};
+                    background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
                     font-size: 1.25rem;
-                    font-weight: 600;
+                    font-weight: 700;
                 ">{label}</h3>
                 <p style="
                     margin: 0;
-                    color: #8B949E;
+                    color: #A78BFA;
                     font-size: 0.875rem;
                 ">{description}</p>
             </div>
@@ -359,7 +374,6 @@ def version_card(
     </div>
     """, unsafe_allow_html=True)
 
-    # Show the prompt in a text area
     st.text_area(
         "",
         value=prompt,
@@ -368,7 +382,6 @@ def version_card(
         label_visibility="collapsed"
     )
 
-    # Copy button
     col1, col2 = st.columns([1, 4])
     with col1:
         if st.button(f"📋 Copy", key=f"copy_{key_suffix}", use_container_width=True):
@@ -376,35 +389,39 @@ def version_card(
             st.toast(f"✅ {label} version copied!", icon="✅")
 
 
-def feature_card(icon: str, title: str, description: str, color: str = "#3B82F6"):
+def feature_card(icon: str, title: str, description: str, color: str = "#8B5CF6"):
     """
-    Create a feature highlight card
+    Create a feature highlight card with gradient
 
     Args:
         icon: Emoji icon
         title: Feature title
         description: Feature description
-        color: Accent color (default: electric blue)
+        color: Accent color
     """
     st.markdown(f"""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 16px;
         padding: 1.5rem;
         height: 100%;
-        transition: all 0.2s ease;
-    " onmouseover="this.style.borderColor='#3B82F6'; this.style.transform='translateY(-2px)'"
-       onmouseout="this.style.borderColor='#30363D'; this.style.transform='translateY(0)'">
+        transition: all 0.3s ease;
+    " onmouseover="this.style.borderColor='rgba(236, 72, 153, 0.6)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 40px rgba(139, 92, 246, 0.3)'"
+       onmouseout="this.style.borderColor='rgba(139, 92, 246, 0.3)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
         <div style="font-size: 2.5rem; margin-bottom: 1rem;">{icon}</div>
         <h3 style="
-            color: #F0F6FC;
+            background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 1.25rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         ">{title}</h3>
         <p style="
-            color: #8B949E;
+            color: #C4B5FD;
             font-size: 0.95rem;
             line-height: 1.6;
             margin: 0;
@@ -415,7 +432,7 @@ def feature_card(icon: str, title: str, description: str, color: str = "#3B82F6"
 
 def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None):
     """
-    Create a custom alert box
+    Create a custom alert box with gradient
 
     Args:
         message: Alert message
@@ -423,35 +440,35 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
         icon: Optional custom icon
     """
     colors = {
-        "info": ("#3B82F6", "ℹ️"),
-        "success": ("#22C55E", "✅"),
-        "warning": ("#EAB308", "⚠️"),
-        "error": ("#EF4444", "❌")
+        "info": ("#8B5CF6", "ℹ️", "rgba(139, 92, 246, 0.15)"),
+        "success": ("#22C55E", "✅", "rgba(34, 197, 94, 0.15)"),
+        "warning": ("#F97316", "⚠️", "rgba(249, 115, 22, 0.15)"),
+        "error": ("#EF4444", "❌", "rgba(239, 68, 68, 0.15)")
     }
 
-    color, default_icon = colors.get(alert_type, colors["info"])
+    color, default_icon, bg = colors.get(alert_type, colors["info"])
     display_icon = icon or default_icon
 
     st.markdown(f"""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, {bg} 0%, rgba(236, 72, 153, 0.1) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.3);
         border-left: 4px solid {color};
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 1rem 1.5rem;
         margin: 1rem 0;
         display: flex;
         align-items: center;
     ">
         <span style="font-size: 1.5rem; margin-right: 1rem;">{display_icon}</span>
-        <div style="color: #F0F6FC; flex: 1;">{message}</div>
+        <div style="color: #F8FAFC; flex: 1;">{message}</div>
     </div>
     """, unsafe_allow_html=True)
 
 
 def progress_steps(steps: List[str], current_step: int):
     """
-    Create a visual progress indicator for multi-step workflows
+    Create a visual progress indicator with gradient
 
     Args:
         steps: List of step names
@@ -459,29 +476,31 @@ def progress_steps(steps: List[str], current_step: int):
     """
     total_steps = len(steps)
 
+    # Define gradient colors for steps
+    step_colors = ["#8B5CF6", "#A855F7", "#EC4899", "#F97316"]
+
     html = '<div style="display: flex; align-items: flex-start; margin: 2rem 0;">'
 
     for i, step in enumerate(steps):
-        # Determine state
         is_current = i == current_step
         is_completed = i < current_step
         is_future = i > current_step
 
-        # Circle color
         if is_completed:
             circle_color = "#22C55E"
             text_color = "#22C55E"
         elif is_current:
-            circle_color = "#3B82F6"
-            text_color = "#F0F6FC"
+            circle_color = step_colors[i % len(step_colors)]
+            text_color = "#F8FAFC"
         else:
-            circle_color = "#30363D"
-            text_color = "#8B949E"
+            circle_color = "rgba(139, 92, 246, 0.3)"
+            text_color = "#A78BFA"
 
-        # Step container
+        box_shadow = f"box-shadow: 0 0 20px {circle_color}60;" if is_current else ""
+
         html += f'''
         <div style="text-align: center; flex: 1; position: relative;">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: {circle_color}; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; font-weight: 600; font-size: 1rem; position: relative; z-index: 1;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: {circle_color}; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; font-weight: 700; font-size: 1rem; position: relative; z-index: 1; {box_shadow}">
                 {i + 1}
             </div>
             <div style="color: {text_color}; font-size: 0.875rem; font-weight: {'600' if is_current else '400'};">
@@ -490,10 +509,9 @@ def progress_steps(steps: List[str], current_step: int):
         </div>
         '''
 
-        # Connector line
         if i < total_steps - 1:
-            line_color = "#22C55E" if is_completed else "#30363D"
-            html += f'<div style="flex: 0 0 60px; height: 2px; background: {line_color}; margin-top: 19px; border-radius: 1px;"></div>'
+            line_color = "#22C55E" if is_completed else "rgba(139, 92, 246, 0.3)"
+            html += f'<div style="flex: 0 0 60px; height: 3px; background: {line_color}; margin-top: 20px; border-radius: 2px;"></div>'
 
     html += '</div>'
     st.markdown(html, unsafe_allow_html=True)
@@ -510,8 +528,8 @@ def info_tooltip(text: str, tooltip: str):
     st.markdown(f"""
     <span title="{tooltip}" style="
         cursor: help;
-        border-bottom: 1px dotted #8B949E;
-        color: #F0F6FC;
+        border-bottom: 1px dotted #A78BFA;
+        color: #F8FAFC;
     ">{text}</span>
     """, unsafe_allow_html=True)
 
@@ -535,7 +553,7 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
         import tempfile
         import os
 
-        # Voice input header
+        # Voice input header with gradient
         st.markdown("""
         <div style="
             display: flex;
@@ -545,22 +563,24 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
         ">
             <span style="font-size: 1.25rem;">🎤</span>
             <span style="
-                color: #3B82F6;
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 font-weight: 600;
                 font-size: 0.9rem;
             ">Voice Input</span>
             <span style="
-                color: #8B949E;
+                color: #A78BFA;
                 font-size: 0.75rem;
             ">(Click to record)</span>
         </div>
         """, unsafe_allow_html=True)
 
-        # Audio recorder
         audio_bytes = audio_recorder(
             text="",
-            recording_color="#3B82F6",
-            neutral_color="#161B22",
+            recording_color="#EC4899",
+            neutral_color="#1A1025",
             icon_name="microphone",
             icon_size="2x",
             pause_threshold=2.0,
@@ -569,30 +589,25 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
         )
 
         if audio_bytes:
-            # Show processing indicator
             with st.spinner("🔄 Transcribing your voice..."):
                 try:
-                    # Save audio to temporary file
                     with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp_file:
                         tmp_file.write(audio_bytes)
                         tmp_path = tmp_file.name
 
-                    # Use speech recognition
                     recognizer = sr.Recognizer()
 
                     with sr.AudioFile(tmp_path) as source:
                         audio_data = recognizer.record(source)
 
-                    # Try Google Speech Recognition (free)
                     try:
                         text = recognizer.recognize_google(audio_data)
 
-                        # Show success message
                         st.markdown(f"""
                         <div style="
-                            background: rgba(34, 197, 94, 0.1);
-                            border: 1px solid rgba(34, 197, 94, 0.3);
-                            border-radius: 8px;
+                            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
+                            border: 1px solid rgba(34, 197, 94, 0.4);
+                            border-radius: 12px;
                             padding: 1rem;
                             margin-top: 0.5rem;
                         ">
@@ -607,16 +622,14 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
                                 <span>✅</span> Voice Captured Successfully!
                             </div>
                             <div style="
-                                color: #F0F6FC;
+                                color: #F8FAFC;
                                 font-size: 0.95rem;
                                 line-height: 1.5;
                             ">{text}</div>
                         </div>
                         """, unsafe_allow_html=True)
 
-                        # Cleanup temp file
                         os.unlink(tmp_path)
-
                         return text
 
                     except sr.UnknownValueError:
@@ -635,20 +648,19 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
         return None
 
     except ImportError as e:
-        # Fallback if audio packages not installed
         st.markdown("""
         <div style="
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 179, 8, 0.15) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            border-radius: 12px;
             padding: 1rem;
             margin: 0.5rem 0;
         ">
-            <div style="color: #EAB308; font-weight: 600; margin-bottom: 0.5rem;">
+            <div style="color: #F97316; font-weight: 600; margin-bottom: 0.5rem;">
                 🎤 Voice Input Requires Additional Setup
             </div>
-            <div style="color: #8B949E; font-size: 0.875rem;">
-                Install voice packages: <code style="color: #3B82F6;">pip install audio-recorder-streamlit SpeechRecognition pydub</code>
+            <div style="color: #C4B5FD; font-size: 0.875rem;">
+                Install voice packages: <code style="color: #EC4899;">pip install audio-recorder-streamlit SpeechRecognition pydub</code>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -673,33 +685,34 @@ def voice_or_text_input(
     Returns:
         The input text (from voice or typing)
     """
-    # Initialize session state for voice text
     voice_key = f"{key}_voice_text"
     if voice_key not in st.session_state:
         st.session_state[voice_key] = ""
 
-    # Input mode selector
+    # Input mode selector with gradient
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 8px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1rem;
     ">
         <div style="
-            color: #F0F6FC;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 600;
             margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         ">
-            <span>⌨️🎤</span> Choose Input Method
+            <span style="-webkit-text-fill-color: initial;">⌨️🎤</span> Choose Input Method
         </div>
     """, unsafe_allow_html=True)
 
-    # Toggle between typing and voice
     input_method = st.radio(
         "Input method:",
         options=["⌨️ Type", "🎤 Speak"],
@@ -710,33 +723,33 @@ def voice_or_text_input(
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # Show the appropriate input based on selection
     if input_method == "🎤 Speak":
-        # Voice input section
         st.markdown("""
         <div style="
-            background: #161B22;
-            border: 1px solid #30363D;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
             padding: 1.5rem;
             margin: 1rem 0;
             text-align: center;
         ">
             <div style="
-                color: #3B82F6;
+                background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 font-size: 1.1rem;
                 font-weight: 600;
                 margin-bottom: 1rem;
             ">🎙️ Voice Recording Mode</div>
             <div style="
-                color: #8B949E;
+                color: #C4B5FD;
                 font-size: 0.85rem;
                 margin-bottom: 1rem;
             ">Click the microphone button and speak your prompt clearly</div>
         </div>
         """, unsafe_allow_html=True)
 
-        # Center the recorder
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             voice_text = voice_input_component(key=f"{key}_recorder")
@@ -744,7 +757,6 @@ def voice_or_text_input(
             if voice_text:
                 st.session_state[voice_key] = voice_text
 
-        # Show text area with voice transcription (editable)
         final_text = st.text_area(
             label,
             value=st.session_state[voice_key],
@@ -753,14 +765,12 @@ def voice_or_text_input(
             key=f"{key}_voice_textarea"
         )
 
-        # Update session state if user edits
         if final_text != st.session_state[voice_key]:
             st.session_state[voice_key] = final_text
 
         return final_text
 
     else:
-        # Standard text input
         return st.text_area(
             label,
             placeholder=placeholder,

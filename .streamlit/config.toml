@@ -1,8 +1,8 @@
 [theme]
-primaryColor = "#3B82F6"  # Electric Blue (primary accent)
-backgroundColor = "#0D1117"  # Deep dark navy/black
-secondaryBackgroundColor = "#161B22"  # Slightly lighter dark
-textColor = "#F0F6FC"  # Clean white
+primaryColor = "#8B5CF6"  # Vibrant Purple (primary accent)
+backgroundColor = "#0F0A1A"  # Deep dark purple-black
+secondaryBackgroundColor = "#1A1025"  # Dark purple-tinted
+textColor = "#F8FAFC"  # Bright white
 font = "sans serif"
 
 [server]

@@ -62,9 +62,9 @@ with st.sidebar:
     <div style="
         text-align: center;
         padding: 1.5rem 0;
-        background: #161B22;
-        border-radius: 12px;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+        border-radius: 16px;
+        border: 1px solid rgba(139, 92, 246, 0.3);
         margin-bottom: 1rem;
     ">
         <div style="
@@ -72,13 +72,16 @@ with st.sidebar:
             margin-bottom: 0.5rem;
         ">🎓</div>
         <h2 style="
-            color: #F0F6FC;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 0;
             font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: 800;
         ">AI Prompt Optimizer</h2>
         <p style="
-            color: #8B949E;
+            color: #A78BFA;
             font-size: 0.875rem;
             margin-top: 0.5rem;
             font-weight: 500;
@@ -93,8 +96,11 @@ with st.sidebar:
     # User profile section
     st.markdown("""
     <h3 style="
-        color: #F0F6FC;
-        font-weight: 600;
+        background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
         margin-bottom: 1rem;
     ">👤 Your Profile</h3>
     """, unsafe_allow_html=True)
@@ -131,8 +137,11 @@ with st.sidebar:
     # Quick stats
     st.markdown("""
     <h3 style="
-        color: #F0F6FC;
-        font-weight: 600;
+        background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
         margin-bottom: 1rem;
     ">📊 Quick Stats</h3>
     """, unsafe_allow_html=True)
@@ -142,35 +151,41 @@ with st.sidebar:
     with col1:
         st.markdown("""
         <div style="
-            background: #161B22;
-            border: 1px solid #30363D;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
             padding: 1rem;
             text-align: center;
         ">
             <div style="
                 font-size: 1.5rem;
                 font-weight: 700;
-                color: #3B82F6;
+                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             ">0</div>
-            <div style="color: #8B949E; font-size: 0.75rem; text-transform: uppercase;">Sessions</div>
+            <div style="color: #A78BFA; font-size: 0.75rem; text-transform: uppercase;">Sessions</div>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown("""
         <div style="
-            background: #161B22;
-            border: 1px solid #30363D;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
             padding: 1rem;
             text-align: center;
         ">
             <div style="
                 font-size: 1.5rem;
                 font-weight: 700;
-                color: #3B82F6;
+                background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             ">0</div>
-            <div style="color: #8B949E; font-size: 0.75rem; text-transform: uppercase;">Prompts</div>
+            <div style="color: #F9A8D4; font-size: 0.75rem; text-transform: uppercase;">Prompts</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -179,8 +194,11 @@ with st.sidebar:
     # Quick links
     st.markdown("""
     <h3 style="
-        color: #F0F6FC;
-        font-weight: 600;
+        background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
         margin-bottom: 1rem;
     ">🔗 Quick Links</h3>
     """, unsafe_allow_html=True)
@@ -203,18 +221,21 @@ with st.sidebar:
     st.markdown("""
     <div style="
         text-align: center;
-        color: #8B949E;
+        color: #A78BFA;
         font-size: 0.75rem;
         margin-top: 2rem;
         padding: 1rem;
-        background: #161B22;
-        border-radius: 8px;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border-radius: 12px;
+        border: 1px solid rgba(139, 92, 246, 0.3);
     ">
         <div style="margin-bottom: 0.5rem;">Made with ❤️ for researchers</div>
         <div style="
-            color: #3B82F6;
-            font-weight: 600;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         ">v1.0.0 Beta</div>
     </div>
     """, unsafe_allow_html=True)
@@ -227,7 +248,7 @@ st.markdown("""
 <div style="text-align: center; padding: 3rem 0 2rem;">
     <h1 style="
         font-size: 3.5rem;
-        background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+        background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -240,7 +261,7 @@ st.markdown("""
     </h1>
     <p style="
         font-size: 1.25rem;
-        color: #9CA3AF;
+        color: #C4B5FD;
         max-width: 700px;
         margin: 0 auto 2rem;
         line-height: 1.6;
@@ -270,7 +291,7 @@ st.markdown("""
 <div style="text-align: center; margin: 2rem 0 1.5rem;">
     <h2 style="
         font-size: 2.5rem;
-        background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
+        background: linear-gradient(135deg, #EC4899 0%, #F97316 50%, #FBBF24 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -280,7 +301,7 @@ st.markdown("""
         justify-content: center;
         gap: 0.5rem;
     ">⚡ Quick Optimize</h2>
-    <p style="color: #9CA3AF; font-size: 1rem; margin-top: 0.5rem;">
+    <p style="color: #C4B5FD; font-size: 1rem; margin-top: 0.5rem;">
         Paste any prompt, get it optimized in seconds. No dropdowns, no decisions.
     </p>
 </div>
@@ -531,7 +552,7 @@ st.markdown("""
 <div style="text-align: center; margin: 4rem 0 2rem;">
     <h2 style="
         font-size: 2.5rem;
-        background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+        background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -540,23 +561,23 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Steps
+# Steps with gradient colors
 step_col1, step_col2, step_col3, step_col4 = st.columns(4)
 
 with step_col1:
     st.markdown("""
     <div style="
         text-align: center;
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 16px;
         padding: 2rem 1rem;
     ">
         <div style="
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: #3B82F6;
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
             color: white;
             display: flex;
             align-items: center;
@@ -564,9 +585,10 @@ with step_col1:
             margin: 0 auto 1rem;
             font-weight: 700;
             font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
         ">1</div>
-        <h3 style="color: #F0F6FC; font-size: 1rem; margin-bottom: 0.5rem;">Select Your Role</h3>
-        <p style="color: #8B949E; font-size: 0.875rem; margin: 0;">
+        <h3 style="color: #F8FAFC; font-size: 1rem; margin-bottom: 0.5rem;">Select Your Role</h3>
+        <p style="color: #C4B5FD; font-size: 0.875rem; margin: 0;">
             Choose your academic level and task type
         </p>
     </div>
@@ -576,16 +598,16 @@ with step_col2:
     st.markdown("""
     <div style="
         text-align: center;
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        border-radius: 16px;
         padding: 2rem 1rem;
     ">
         <div style="
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: #3B82F6;
+            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
             color: white;
             display: flex;
             align-items: center;
@@ -593,9 +615,10 @@ with step_col2:
             margin: 0 auto 1rem;
             font-weight: 700;
             font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
         ">2</div>
-        <h3 style="color: #F0F6FC; font-size: 1rem; margin-bottom: 0.5rem;">Enter Your Prompt</h3>
-        <p style="color: #8B949E; font-size: 0.875rem; margin: 0;">
+        <h3 style="color: #F8FAFC; font-size: 1rem; margin-bottom: 0.5rem;">Enter Your Prompt</h3>
+        <p style="color: #E9D5FF; font-size: 0.875rem; margin: 0;">
             Paste your question or request
         </p>
     </div>
@@ -605,16 +628,16 @@ with step_col3:
     st.markdown("""
     <div style="
         text-align: center;
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(249, 115, 22, 0.1) 100%);
+        border: 1px solid rgba(236, 72, 153, 0.3);
+        border-radius: 16px;
         padding: 2rem 1rem;
     ">
         <div style="
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: #3B82F6;
+            background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
             color: white;
             display: flex;
             align-items: center;
@@ -622,9 +645,10 @@ with step_col3:
             margin: 0 auto 1rem;
             font-weight: 700;
             font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
         ">3</div>
-        <h3 style="color: #F0F6FC; font-size: 1rem; margin-bottom: 0.5rem;">Get Analysis</h3>
-        <p style="color: #8B949E; font-size: 0.875rem; margin: 0;">
+        <h3 style="color: #F8FAFC; font-size: 1rem; margin-bottom: 0.5rem;">Get Analysis</h3>
+        <p style="color: #FBCFE8; font-size: 0.875rem; margin: 0;">
             See quality scores and improvement tips
         </p>
     </div>
@@ -634,16 +658,16 @@ with step_col4:
     st.markdown("""
     <div style="
         text-align: center;
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(251, 191, 36, 0.1) 100%);
+        border: 1px solid rgba(249, 115, 22, 0.3);
+        border-radius: 16px;
         padding: 2rem 1rem;
     ">
         <div style="
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: #3B82F6;
+            background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%);
             color: white;
             display: flex;
             align-items: center;
@@ -651,9 +675,10 @@ with step_col4:
             margin: 0 auto 1rem;
             font-weight: 700;
             font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
         ">4</div>
-        <h3 style="color: #F0F6FC; font-size: 1rem; margin-bottom: 0.5rem;">Use Optimized Version</h3>
-        <p style="color: #8B949E; font-size: 0.875rem; margin: 0;">
+        <h3 style="color: #F8FAFC; font-size: 1rem; margin-bottom: 0.5rem;">Use Optimized Version</h3>
+        <p style="color: #FED7AA; font-size: 0.875rem; margin: 0;">
             Copy and use with any AI tool
         </p>
     </div>
@@ -679,14 +704,21 @@ use_case_col1, use_case_col2 = st.columns(2)
 with use_case_col1:
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1rem;
     ">
-        <h3 style="color: #3B82F6; margin-bottom: 0.75rem; font-size: 1.1rem;">📖 Literature Reviews</h3>
-        <p style="color: #8B949E; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+        <h3 style="
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        ">📖 Literature Reviews</h3>
+        <p style="color: #C4B5FD; line-height: 1.6; margin: 0; font-size: 0.95rem;">
             Get help finding papers, identifying themes, and synthesizing findings without
             worrying about hallucinated citations.
         </p>
@@ -695,14 +727,21 @@ with use_case_col1:
 
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border: 1px solid rgba(168, 85, 247, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1rem;
     ">
-        <h3 style="color: #3B82F6; margin-bottom: 0.75rem; font-size: 1.1rem;">✍️ Academic Writing</h3>
-        <p style="color: #8B949E; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+        <h3 style="
+            background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        ">✍️ Academic Writing</h3>
+        <p style="color: #E9D5FF; line-height: 1.6; margin: 0; font-size: 0.95rem;">
             Get writing support that helps you learn and improve, not ghostwriting that
             undermines your integrity.
         </p>
@@ -711,13 +750,20 @@ with use_case_col1:
 
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(249, 115, 22, 0.1) 100%);
+        border: 1px solid rgba(236, 72, 153, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
     ">
-        <h3 style="color: #22C55E; margin-bottom: 0.75rem; font-size: 1.1rem;">📊 Data Analysis</h3>
-        <p style="color: #8B949E; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+        <h3 style="
+            background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        ">📊 Data Analysis</h3>
+        <p style="color: #FBCFE8; line-height: 1.6; margin: 0; font-size: 0.95rem;">
             Ask better questions about your data and get more insightful analysis
             from AI tools.
         </p>
@@ -727,14 +773,21 @@ with use_case_col1:
 with use_case_col2:
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(249, 115, 22, 0.1) 100%);
+        border: 1px solid rgba(236, 72, 153, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1rem;
     ">
-        <h3 style="color: #3B82F6; margin-bottom: 0.75rem; font-size: 1.1rem;">🔬 Research Methods</h3>
-        <p style="color: #8B949E; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+        <h3 style="
+            background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        ">🔬 Research Methods</h3>
+        <p style="color: #FBCFE8; line-height: 1.6; margin: 0; font-size: 0.95rem;">
             Get guidance on designing studies, choosing methodologies, and analyzing
             results with critical thinking built in.
         </p>
@@ -743,14 +796,21 @@ with use_case_col2:
 
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(251, 191, 36, 0.1) 100%);
+        border: 1px solid rgba(249, 115, 22, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1rem;
     ">
-        <h3 style="color: #3B82F6; margin-bottom: 0.75rem; font-size: 1.1rem;">💬 Reviewer Responses</h3>
-        <p style="color: #8B949E; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+        <h3 style="
+            background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        ">💬 Reviewer Responses</h3>
+        <p style="color: #FED7AA; line-height: 1.6; margin: 0; font-size: 0.95rem;">
             Craft professional, thorough responses to peer reviewer comments that
             address all concerns.
         </p>
@@ -759,13 +819,20 @@ with use_case_col2:
 
     st.markdown("""
     <div style="
-        background: #161B22;
-        border: 1px solid #30363D;
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+        border: 1px solid rgba(251, 191, 36, 0.3);
         border-radius: 12px;
         padding: 1.5rem;
     ">
-        <h3 style="color: #EAB308; margin-bottom: 0.75rem; font-size: 1.1rem;">🎓 Learning Concepts</h3>
-        <p style="color: #8B949E; line-height: 1.6; margin: 0; font-size: 0.95rem;">
+        <h3 style="
+            background: linear-gradient(135deg, #FBBF24 0%, #8B5CF6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        ">🎓 Learning Concepts</h3>
+        <p style="color: #FEF3C7; line-height: 1.6; margin: 0; font-size: 0.95rem;">
             Use Tutor Mode to truly understand complex topics through guided discovery
             rather than passive reading.
         </p>
@@ -779,19 +846,23 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
 <div style="
     text-align: center;
-    background: #161B22;
-    border: 1px solid #30363D;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.15) 50%, rgba(249, 115, 22, 0.1) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.3);
     border-radius: 16px;
     padding: 3rem 2rem;
     margin: 2rem 0;
 ">
     <h2 style="
         font-size: 2rem;
-        color: #F0F6FC;
+        background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
         margin-bottom: 1rem;
     ">Ready to Elevate Your Research?</h2>
     <p style="
-        color: #8B949E;
+        color: #C4B5FD;
         font-size: 1.1rem;
         margin-bottom: 2rem;
     ">
@@ -809,16 +880,19 @@ with final_col2:
 st.markdown("""
 <div style="
     text-align: center;
-    color: #8B949E;
+    color: #C4B5FD;
     font-size: 0.875rem;
     margin-top: 4rem;
     padding: 2rem 0;
-    border-top: 1px solid #30363D;
+    border-top: 1px solid rgba(139, 92, 246, 0.3);
 ">
     <p style="font-weight: 500;">Built with ❤️ for the academic community</p>
     <p style="margin-top: 0.5rem;">
         Questions? Feedback? <a href="mailto:support@example.com" style="
-            color: #3B82F6;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-decoration: none;
             font-weight: 600;
         ">Get in touch</a>
