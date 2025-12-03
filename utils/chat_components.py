@@ -48,70 +48,6 @@ def load_lukthan_theme():
     """, unsafe_allow_html=True)
 
 
-def render_sidebar():
-    """Render the LUKTHAN branded sidebar"""
-    with st.sidebar:
-        # Brand box with inline styles
-        st.markdown("""
-        <div style="
-            text-align: center;
-            padding: 1.5rem;
-            background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, rgba(155, 92, 255, 0.08) 100%);
-            border: 1px solid rgba(0, 229, 255, 0.2);
-            border-radius: 16px;
-            margin-bottom: 1rem;
-        ">
-            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧠</div>
-            <div style="
-                font-size: 1.75rem;
-                font-weight: 900;
-                letter-spacing: 0.1em;
-                background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            ">LUKTHAN</div>
-            <div style="color: #8B949E; font-size: 0.8rem; margin-top: 0.25rem;">AI Prompt Agent</div>
-            <div style="
-                display: inline-block;
-                background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-                color: white;
-                font-size: 0.6rem;
-                font-weight: 700;
-                padding: 0.2rem 0.6rem;
-                border-radius: 20px;
-                margin-top: 0.5rem;
-            ">RESEARCH & CODE</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.divider()
-        st.markdown("**⚙️ Agent Settings**")
-
-        st.selectbox("Domain", ["🔮 Auto Detect", "🔬 Research", "💻 Coding", "📊 Data Science", "🌐 General"], key="domain_setting")
-        st.selectbox("Target AI", ["ChatGPT (GPT-4)", "Claude 3.5", "Gemini Pro", "Llama 3"], key="target_ai_setting")
-        st.selectbox("Language", ["English", "French", "Spanish", "German", "Portuguese"], key="language_setting")
-        st.selectbox("Level", ["Student", "Professional", "Expert", "Academic"], index=1, key="level_setting")
-
-        st.divider()
-
-        with st.expander("💡 Pro Tips"):
-            st.markdown("- Be specific about your goal\n- Include context\n- Mention output format")
-
-        st.divider()
-
-        if st.button("🗑️ Clear Conversation", use_container_width=True):
-            return "clear_chat"
-
-        st.markdown("""
-        <div style="text-align: center; margin-top: 2rem; color: #6E7681; font-size: 0.75rem;">
-            <div style="background: linear-gradient(135deg, #00E5FF, #9B5CFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">LUKTHAN</div>
-            <div>v2.0 Pro</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    return None
-
-
 def render_welcome_hero():
     """Render welcome section"""
     st.markdown("""
@@ -332,61 +268,8 @@ def render_insights_panel(
         st.markdown("› Get more accurate AI responses")
 
 
-def render_typing_indicator():
-    """Show thinking indicator"""
-    st.markdown("""
-    <div style="
-        background: #0B1020;
-        border: 1px solid rgba(0, 229, 255, 0.2);
-        padding: 1rem;
-        border-radius: 12px;
-        display: inline-block;
-    ">
-        <span style="color: #8B949E;">🧠 LUKTHAN is thinking...</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-
 def render_file_indicator(filename: str, file_type: str):
-    """Show file indicator"""
+    """Show file indicator using native Streamlit"""
     icons = {"documents": "📄", "code": "💻", "images": "🖼️", "audio": "🎵", "unknown": "📎"}
     icon = icons.get(file_type, '📎')
-
-    st.markdown(f"""
-    <div style="
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        background: rgba(0, 229, 255, 0.1);
-        border: 1px solid rgba(0, 229, 255, 0.3);
-        border-radius: 8px;
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-        color: #F0F6FC;
-    ">
-        {icon} {html.escape(filename)}
-        <span style="color: #00E5FF; font-weight: 600;">{file_type.upper()}</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-def render_footer():
-    """Render footer"""
-    st.markdown("""
-    <div style="
-        text-align: center;
-        padding: 1.5rem;
-        border-top: 1px solid rgba(0, 229, 255, 0.2);
-        margin-top: 2rem;
-    ">
-        <div style="
-            background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-        ">LUKTHAN</div>
-        <div style="color: #6E7681; font-size: 0.7rem; margin-top: 0.25rem;">
-            Structured prompts for serious research and code.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.success(f"{icon} **{filename}** ({file_type.upper()})")

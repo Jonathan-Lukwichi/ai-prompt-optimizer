@@ -7,7 +7,10 @@
       "Bash(git fetch:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\n🔧 Fix: Update style.css with NEXAVERSE colors\n\nThe style.css file was overriding the new theme with old purple-pink colors.\n\n**Fixed:**\n- Changed --gradient-purple (purple→pink) to --gradient-main (cyan→purple)\n- Updated all button backgrounds to cyan-purple gradient\n- Updated headers, tabs, cards to use cyan accents\n- Removed pink (#EC4899) references entirely\n\nNow buttons will be cyan→purple instead of purple→pink!\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git commit:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(if exist __pycache__ rmdir /s /q __pycache__)",
+      "Bash(if exist utils__pycache__ rmdir /s /q utils__pycache__)",
+      "Bash(if exist core__pycache__ rmdir /s /q core__pycache__)"
     ],
     "deny": [],
     "ask": []
