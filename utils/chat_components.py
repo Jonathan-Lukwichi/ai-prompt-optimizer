@@ -288,17 +288,11 @@ def render_insights_panel(
     suggestions: Optional[List[str]] = None,
     show_content: bool = True
 ):
-    """Render insights panel with inline styles"""
+    """Render insights panel using Streamlit native components"""
 
     if not show_content:
         st.markdown("""
-        <div style="
-            background: #0B1020;
-            border: 1px solid rgba(0, 229, 255, 0.2);
-            border-radius: 16px;
-            padding: 3rem 1.5rem;
-            text-align: center;
-        ">
+        <div style="background: #0B1020; border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 16px; padding: 3rem 1.5rem; text-align: center;">
             <div style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;">📊</div>
             <div style="color: #6E7681;">Generate a prompt to see insights</div>
         </div>
@@ -323,94 +317,58 @@ def render_insights_panel(
     d_name = domain.replace('_', ' ').title()
     t_name = task_type.replace('_', ' ').title()
 
-    # Build metrics HTML
-    metrics_html = ""
-    for name, value in metrics.items():
-        bar_color = "#10B981" if value >= 80 else "#F59E0B" if value >= 60 else "#EF4444"
-        metrics_html += f"""
-        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
-            <span style="color: #8B949E; font-size: 0.8rem; width: 100px;">{name}</span>
-            <div style="flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 0 0.75rem; overflow: hidden;">
-                <div style="height: 100%; width: {value}%; background: {bar_color}; border-radius: 3px;"></div>
-            </div>
-            <span style="color: #F0F6FC; font-size: 0.8rem; font-weight: 600; width: 30px; text-align: right;">{value}</span>
-        </div>
-        """
+    # Use a container with custom styling
+    with st.container():
+        # Header
+        st.markdown("### 📊 Prompt Insights")
 
-    # Suggestions
-    suggestions_html = ""
-    if suggestions:
-        for s in suggestions[:3]:
-            suggestions_html += f'<div style="color: #8B949E; font-size: 0.8rem; padding: 0.3rem 0 0.3rem 1rem; position: relative;"><span style="position: absolute; left: 0; color: #00E5FF;">›</span> {html.escape(s)}</div>'
+        # Detection section
+        st.markdown("**DETECTION**")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.info(f"{d_icon} {d_name}")
+        with col2:
+            st.info(f"{t_icon} {t_name}")
 
-    st.markdown(f"""
-    <div style="
-        background: #0B1020;
-        border: 1px solid rgba(0, 229, 255, 0.2);
-        border-radius: 16px;
-        padding: 1.5rem;
-    ">
-        <div style="
-            font-size: 1rem; font-weight: 700; margin-bottom: 1rem;
-            background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        ">📊 Prompt Insights</div>
+        st.markdown("")
 
-        <!-- Detection -->
-        <div style="margin-bottom: 1.25rem;">
-            <div style="color: #6E7681; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Detection</div>
-            <span style="
-                display: inline-block; background: rgba(0, 229, 255, 0.15);
-                color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.3);
-                padding: 0.4rem 0.8rem; border-radius: 20px;
-                font-size: 0.8rem; font-weight: 600; margin-right: 0.5rem;
-            ">{d_icon} {d_name}</span>
-            <span style="
-                display: inline-block; background: rgba(155, 92, 255, 0.15);
-                color: #9B5CFF; border: 1px solid rgba(155, 92, 255, 0.3);
-                padding: 0.4rem 0.8rem; border-radius: 20px;
-                font-size: 0.8rem; font-weight: 600;
-            ">{t_icon} {t_name}</span>
-        </div>
+        # Quality Score
+        st.markdown("**QUALITY SCORE**")
+        score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
+        with score_col2:
+            if quality_score >= 80:
+                st.success(f"### {quality_score}/100")
+            elif quality_score >= 60:
+                st.warning(f"### {quality_score}/100")
+            else:
+                st.error(f"### {quality_score}/100")
 
-        <!-- Quality Score -->
-        <div style="margin-bottom: 1.25rem;">
-            <div style="color: #6E7681; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Quality Score</div>
-            <div style="
-                text-align: center; padding: 1.5rem;
-                background: #050816; border-radius: 12px;
-                border: 1px solid rgba(0, 229, 255, 0.2);
-            ">
-                <div style="font-size: 2.5rem; font-weight: 800; color: {score_color};">{quality_score}</div>
-                <div style="color: #8B949E; font-size: 0.8rem;">out of 100</div>
-            </div>
-        </div>
+        st.markdown("")
 
-        <!-- Breakdown -->
-        <div style="margin-bottom: 1.25rem;">
-            <div style="color: #6E7681; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Breakdown</div>
-            {metrics_html}
-        </div>
+        # Breakdown with progress bars
+        st.markdown("**BREAKDOWN**")
+        for name, value in metrics.items():
+            col_label, col_bar = st.columns([1, 3])
+            with col_label:
+                st.caption(name)
+            with col_bar:
+                st.progress(value / 100)
 
-        {f'''<!-- Suggestions -->
-        <div style="margin-bottom: 1.25rem;">
-            <div style="color: #6E7681; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Suggestions</div>
-            <div style="background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 1rem;">
-                {suggestions_html}
-            </div>
-        </div>''' if suggestions else ''}
+        st.markdown("")
 
-        <!-- How to Use -->
-        <div>
-            <div style="color: #6E7681; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">How to Use</div>
-            <div style="background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 1rem;">
-                <div style="color: #8B949E; font-size: 0.8rem; padding: 0.3rem 0 0.3rem 1rem; position: relative;"><span style="position: absolute; left: 0; color: #00E5FF;">›</span> Copy the optimized prompt</div>
-                <div style="color: #8B949E; font-size: 0.8rem; padding: 0.3rem 0 0.3rem 1rem; position: relative;"><span style="position: absolute; left: 0; color: #00E5FF;">›</span> Paste into ChatGPT, Claude, or Gemini</div>
-                <div style="color: #8B949E; font-size: 0.8rem; padding: 0.3rem 0 0.3rem 1rem; position: relative;"><span style="position: absolute; left: 0; color: #00E5FF;">›</span> Get more accurate AI responses</div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        # Suggestions
+        if suggestions:
+            st.markdown("**SUGGESTIONS**")
+            for s in suggestions[:3]:
+                st.markdown(f"› {s}")
+
+        st.markdown("")
+
+        # How to Use
+        st.markdown("**HOW TO USE**")
+        st.markdown("› Copy the optimized prompt")
+        st.markdown("› Paste into ChatGPT, Claude, or Gemini")
+        st.markdown("› Get more accurate AI responses")
 
 
 def render_typing_indicator():
