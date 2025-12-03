@@ -67,20 +67,12 @@ if 'last_result' not in st.session_state:
 if 'pending_input' not in st.session_state:
     st.session_state.pending_input = None
 
-if 'active_tab' not in st.session_state:
-    st.session_state.active_tab = "Chat"
+# ==================== HEADER ====================
 
-# ==================== HEADER WITH TABS ====================
-
-# Brand header
-col_brand, col_tabs, col_actions = st.columns([2, 4, 2])
+col_brand, col_actions = st.columns([6, 1])
 
 with col_brand:
     st.markdown("### 🧠 LUKTHAN")
-
-with col_tabs:
-    # Tab navigation
-    tab_chat, tab_settings = st.tabs(["💬 Chat", "⚙️ Settings"])
 
 with col_actions:
     if st.button("🗑️ Clear", use_container_width=True):
@@ -91,7 +83,116 @@ with col_actions:
         st.session_state.last_result = None
         st.rerun()
 
-st.divider()
+# ==================== TAB NAVIGATION ====================
+
+tab_chat, tab_insights, tab_settings = st.tabs(["💬 Chat", "📊 Insights", "⚙️ Settings"])
+
+# ==================== CHAT TAB ====================
+
+with tab_chat:
+    # Chat container
+    chat_container = st.container()
+
+    # Display chat history or welcome screen
+    with chat_container:
+        if not st.session_state.chat_history:
+            render_welcome_hero()
+        else:
+            # Display chat messages
+            for message in st.session_state.chat_history:
+                if message['role'] == 'user':
+                    file_info = None
+                    if message.get('file_name'):
+                        file_info = {
+                            'name': message['file_name'],
+                            'type': message.get('file_type', 'unknown')
+                        }
+                    render_user_message(
+                        message['content'],
+                        message.get('timestamp'),
+                        file_info
+                    )
+                else:
+                    action = render_agent_response(
+                        prompt=message['prompt'],
+                        domain=message.get('domain', 'general'),
+                        task_type=message.get('task_type', 'general_query'),
+                        quality_score=message.get('quality_score', 75),
+                        suggestions=message.get('suggestions', [])
+                    )
+                    if action == "regenerate":
+                        st.session_state.regenerate_last = True
+                        st.rerun()
+
+    # ==================== INPUT AREA ====================
+    st.markdown("---")
+
+    # File upload (inline)
+    with st.expander("📎 Attach file", expanded=False):
+        uploaded_file = st.file_uploader(
+            "Upload",
+            type=['pdf', 'txt', 'md', 'py', 'js', 'ts', 'java', 'cpp', 'go', 'rs', 'sql', 'json', 'yaml'],
+            label_visibility="collapsed",
+            key="file_uploader"
+        )
+
+        if uploaded_file:
+            st.session_state.uploaded_file_name = uploaded_file.name
+            try:
+                from core.file_processor import FileProcessor
+                processor = FileProcessor()
+                content, file_type = processor.process_file(uploaded_file)
+                st.session_state.uploaded_file_content = content
+                st.session_state.uploaded_file_type = file_type
+                st.success(f"📄 {uploaded_file.name}")
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
+
+    # Text input
+    default_value = ""
+    if st.session_state.pending_input:
+        default_value = st.session_state.pending_input
+        st.session_state.pending_input = None
+
+    user_input = st.text_area(
+        "Prompt",
+        value=default_value,
+        placeholder="Describe what you need... (e.g., 'Create a Python REST API with authentication')",
+        height=80,
+        label_visibility="collapsed",
+        key="main_input"
+    )
+
+    # Generate button
+    send_clicked = st.button(
+        "🚀 Generate Optimized Prompt",
+        type="primary",
+        use_container_width=True,
+        key="generate_btn"
+    )
+
+# ==================== INSIGHTS TAB ====================
+
+with tab_insights:
+    if st.session_state.last_result:
+        result = st.session_state.last_result
+        render_insights_panel(
+            domain=result.get('domain', 'general'),
+            task_type=result.get('task_type', 'general'),
+            quality_score=result.get('quality_score', 85),
+            metrics=result.get('metrics'),
+            suggestions=result.get('suggestions', []),
+            show_content=True
+        )
+    else:
+        render_insights_panel(show_content=False)
+
+        # Quick tips
+        st.markdown("**💡 How it works:**")
+        st.markdown("1. Describe your task")
+        st.markdown("2. LUKTHAN analyzes context")
+        st.markdown("3. Get optimized prompt")
+        st.markdown("4. Copy to ChatGPT/Claude")
 
 # ==================== SETTINGS TAB ====================
 
@@ -127,124 +228,6 @@ with tab_settings:
 
     st.markdown("---")
     st.markdown("**💡 Tips:** Be specific • Include context • Mention output format")
-
-# ==================== CHAT TAB ====================
-
-with tab_chat:
-    # Main layout: Chat + Insights
-    chat_col, insights_col = st.columns([3, 2], gap="medium")
-
-    # ==================== CHAT COLUMN ====================
-    with chat_col:
-        # Chat container
-        chat_container = st.container()
-
-        # Display chat history or welcome screen
-        with chat_container:
-            if not st.session_state.chat_history:
-                # Show welcome hero with examples
-                example_input = render_welcome_hero()
-                if example_input:
-                    st.session_state.pending_input = example_input
-                    st.rerun()
-            else:
-                # Display chat messages
-                for message in st.session_state.chat_history:
-                    if message['role'] == 'user':
-                        file_info = None
-                        if message.get('file_name'):
-                            file_info = {
-                                'name': message['file_name'],
-                                'type': message.get('file_type', 'unknown')
-                            }
-                        render_user_message(
-                            message['content'],
-                            message.get('timestamp'),
-                            file_info
-                        )
-                    else:
-                        action = render_agent_response(
-                            prompt=message['prompt'],
-                            domain=message.get('domain', 'general'),
-                            task_type=message.get('task_type', 'general_query'),
-                            quality_score=message.get('quality_score', 75),
-                            suggestions=message.get('suggestions', [])
-                        )
-                        if action == "regenerate":
-                            st.session_state.regenerate_last = True
-                            st.rerun()
-
-        # ==================== INPUT AREA ====================
-        st.markdown("---")
-
-        # File upload (inline)
-        with st.expander("📎 Attach file", expanded=False):
-            uploaded_file = st.file_uploader(
-                "Upload",
-                type=['pdf', 'txt', 'md', 'py', 'js', 'ts', 'java', 'cpp', 'go', 'rs', 'sql', 'json', 'yaml'],
-                label_visibility="collapsed",
-                key="file_uploader"
-            )
-
-            if uploaded_file:
-                st.session_state.uploaded_file_name = uploaded_file.name
-                try:
-                    from core.file_processor import FileProcessor
-                    processor = FileProcessor()
-                    content, file_type = processor.process_file(uploaded_file)
-                    st.session_state.uploaded_file_content = content
-                    st.session_state.uploaded_file_type = file_type
-                    st.success(f"📄 {uploaded_file.name}")
-                except Exception as e:
-                    st.error(f"Error: {str(e)}")
-
-        # Text input
-        default_value = ""
-        if st.session_state.pending_input:
-            default_value = st.session_state.pending_input
-            st.session_state.pending_input = None
-
-        user_input = st.text_area(
-            "Prompt",
-            value=default_value,
-            placeholder="Describe what you need... (e.g., 'Create a Python REST API with authentication')",
-            height=80,
-            label_visibility="collapsed",
-            key="main_input"
-        )
-
-        # Generate button
-        send_clicked = st.button(
-            "🚀 Generate Optimized Prompt",
-            type="primary",
-            use_container_width=True,
-            key="generate_btn"
-        )
-
-    # ==================== INSIGHTS COLUMN ====================
-    with insights_col:
-        st.markdown("### 📊 Insights")
-
-        # Render insights panel based on last result
-        if st.session_state.last_result:
-            result = st.session_state.last_result
-            render_insights_panel(
-                domain=result.get('domain', 'general'),
-                task_type=result.get('task_type', 'general'),
-                quality_score=result.get('quality_score', 85),
-                metrics=result.get('metrics'),
-                suggestions=result.get('suggestions', []),
-                show_content=True
-            )
-        else:
-            render_insights_panel(show_content=False)
-
-            # Quick tips
-            st.markdown("**💡 How it works:**")
-            st.markdown("1. Describe your task")
-            st.markdown("2. LUKTHAN analyzes context")
-            st.markdown("3. Get optimized prompt")
-            st.markdown("4. Copy to ChatGPT/Claude")
 
 # ==================== PROCESS INPUT ====================
 
