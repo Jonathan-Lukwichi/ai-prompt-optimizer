@@ -1,7 +1,7 @@
 """
 Reusable UI components for Streamlit app
-Colorful Gradient Theme - Inspired by TECHO Design
-Purple, Blue, Orange, Yellow vibrant gradients
+NEXAVERSE Dark Theme - Cyan & Purple Gradients
+Deep navy background with glowing cyan/purple accents
 """
 import streamlit as st
 from pathlib import Path
@@ -16,7 +16,7 @@ def load_custom_css():
         with open(css_file) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     else:
-        # Inline fallback CSS - Colorful Gradient Theme
+        # Inline fallback CSS - NEXAVERSE Dark Theme
         st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -25,36 +25,36 @@ def load_custom_css():
             font-family: 'Inter', sans-serif;
         }
 
-        /* Gradient Headers */
+        /* Headers */
         h1, h2, h3 {
             color: #F8FAFC;
             font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        /* Vibrant Gradient Buttons */
+        /* Cyan Glow Buttons */
         .stButton > button {
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
+            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
             color: #FFFFFF;
             border: none;
             border-radius: 12px;
             padding: 0.75rem 1.5rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
         }
 
         .stButton > button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
             filter: brightness(1.1);
         }
 
-        /* Gradient Border Input Fields */
+        /* Dark Input Fields with Cyan Border */
         .stTextInput > div > div > input,
         .stTextArea > div > div > textarea {
-            background-color: rgba(26, 16, 37, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            background-color: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 12px;
             color: #F8FAFC;
             transition: all 0.3s ease;
@@ -62,103 +62,103 @@ def load_custom_css():
 
         .stTextInput > div > div > input:focus,
         .stTextArea > div > div > textarea:focus {
-            border-color: #8B5CF6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+            border-color: #06B6D4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
         }
 
-        /* Gradient Selectbox */
+        /* Dark Selectbox */
         .stSelectbox > div > div {
-            background-color: rgba(26, 16, 37, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            background-color: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 12px;
         }
 
-        /* Gradient Divider */
+        /* Cyan-Purple Gradient Divider */
         hr {
             border: none;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #8B5CF6, #EC4899, #F97316, transparent);
+            background: linear-gradient(90deg, transparent, #06B6D4, #8B5CF6, transparent);
         }
 
-        /* Colorful Tabs */
+        /* Tabs with Glow */
         .stTabs [data-baseweb="tab-list"] {
             gap: 4px;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            background: rgba(17, 24, 39, 0.6);
             border-radius: 12px;
             padding: 4px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(6, 182, 212, 0.2);
         }
 
         .stTabs [data-baseweb="tab"] {
             background-color: transparent;
             border-radius: 8px;
-            color: #A78BFA;
+            color: #9CA3AF;
             font-weight: 500;
             transition: all 0.3s ease;
         }
 
         .stTabs [aria-selected="true"] {
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
             color: #FFFFFF;
         }
 
-        /* Gradient Expander */
+        /* Expander */
         .streamlit-expanderHeader {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-            border: 1px solid rgba(139, 92, 246, 0.2);
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(6, 182, 212, 0.2);
             border-radius: 12px;
             color: #F8FAFC;
             font-weight: 500;
         }
 
-        /* Gradient Metric Cards */
+        /* Metric Cards */
         [data-testid="stMetricValue"] {
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
+            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 700;
         }
 
-        /* Gradient Sidebar */
+        /* Dark Navy Sidebar */
         [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #0F0A1A 0%, #1A1025 50%, #150D20 100%);
-            border-right: 1px solid rgba(139, 92, 246, 0.2);
+            background: linear-gradient(180deg, #0A0E17 0%, #111827 50%, #0D1320 100%);
+            border-right: 1px solid rgba(6, 182, 212, 0.2);
         }
 
-        /* Alert Messages with Gradient */
+        /* Alert Messages */
         .stSuccess {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
-            border-left: 4px solid #22C55E;
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 4px solid #10B981;
         }
 
         .stWarning {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 179, 8, 0.15) 100%);
-            border-left: 4px solid #F97316;
+            background: rgba(245, 158, 11, 0.15);
+            border-left: 4px solid #F59E0B;
         }
 
         .stError {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+            background: rgba(239, 68, 68, 0.15);
             border-left: 4px solid #EF4444;
         }
 
-        /* Gradient Scrollbar */
+        /* Cyan Glow Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #0F0A1A;
+            background: #0A0E17;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #8B5CF6, #EC4899);
+            background: linear-gradient(180deg, #06B6D4, #8B5CF6);
             border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #A78BFA, #F472B6);
+            background: linear-gradient(180deg, #22D3EE, #A855F7);
         }
         </style>
         """, unsafe_allow_html=True)
@@ -175,7 +175,7 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
     """
     st.markdown(f"""
     <{size} style="
-        background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%);
+        background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -188,7 +188,7 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
     if subtitle:
         st.markdown(f"""
         <p style="
-            color: #A78BFA;
+            color: #9CA3AF;
             font-size: 1.125rem;
             margin-top: 0;
             line-height: 1.6;
@@ -198,7 +198,7 @@ def gradient_header(text: str, size: str = "h1", subtitle: Optional[str] = None)
 
 def glass_card(content: str, padding: str = "2rem"):
     """
-    Create a glass card with gradient border
+    Create a glass card with glow border
 
     Args:
         content: HTML content inside card
@@ -206,21 +206,22 @@ def glass_card(content: str, padding: str = "2rem"):
     """
     st.markdown(f"""
     <div style="
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        background: rgba(17, 24, 39, 0.6);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        border: 1px solid rgba(6, 182, 212, 0.3);
         border-radius: 16px;
         padding: {padding};
         transition: all 0.3s ease;
+        box-shadow: 0 0 30px rgba(6, 182, 212, 0.1);
     ">
         {content}
     </div>
     """, unsafe_allow_html=True)
 
 
-def metric_card(label: str, value: str, icon: str = "📊", color: str = "#8B5CF6"):
+def metric_card(label: str, value: str, icon: str = "📊", color: str = "#06B6D4"):
     """
-    Create a metric card with gradient
+    Create a metric card with glow
 
     Args:
         label: Metric label
@@ -230,25 +231,26 @@ def metric_card(label: str, value: str, icon: str = "📊", color: str = "#8B5CF
     """
     st.markdown(f"""
     <div style="
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+        background: rgba(17, 24, 39, 0.6);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        border: 1px solid rgba(6, 182, 212, 0.3);
         border-radius: 16px;
         padding: 1.5rem;
         transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
     ">
         <div style="font-size: 2rem; margin-bottom: 0.75rem;">{icon}</div>
         <div style="
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+            background: linear-gradient(135deg, {color} 0%, #8B5CF6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.25rem;
         ">{value}</div>
         <div style="
-            color: #A78BFA;
+            color: #9CA3AF;
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -270,11 +272,11 @@ def score_gauge(score: int, max_score: int = 100, label: str = "Score", height: 
     """
     import plotly.graph_objects as go
 
-    # Determine color based on score - Gradient theme
+    # Determine color based on score
     if score >= 80:
-        color = "#22C55E"  # Green
+        color = "#10B981"  # Green
     elif score >= 60:
-        color = "#F97316"  # Orange
+        color = "#F59E0B"  # Amber
     else:
         color = "#EF4444"  # Red
 
@@ -285,15 +287,15 @@ def score_gauge(score: int, max_score: int = 100, label: str = "Score", height: 
         title={'text': label, 'font': {'color': '#F8FAFC', 'size': 16}},
         number={'font': {'color': color, 'size': 32, 'family': 'Inter'}},
         gauge={
-            'axis': {'range': [None, max_score], 'tickcolor': '#A78BFA'},
+            'axis': {'range': [None, max_score], 'tickcolor': '#9CA3AF'},
             'bar': {'color': color},
-            'bgcolor': 'rgba(139, 92, 246, 0.1)',
+            'bgcolor': 'rgba(6, 182, 212, 0.1)',
             'borderwidth': 2,
-            'bordercolor': 'rgba(139, 92, 246, 0.3)',
+            'bordercolor': 'rgba(6, 182, 212, 0.3)',
             'steps': [
                 {'range': [0, 40], 'color': 'rgba(239, 68, 68, 0.2)'},
-                {'range': [40, 70], 'color': 'rgba(249, 115, 22, 0.2)'},
-                {'range': [70, 100], 'color': 'rgba(34, 197, 94, 0.2)'}
+                {'range': [40, 70], 'color': 'rgba(245, 158, 11, 0.2)'},
+                {'range': [70, 100], 'color': 'rgba(16, 185, 129, 0.2)'}
             ],
         }
     ))
@@ -344,20 +346,21 @@ def version_card(
     """
     st.markdown(f"""
     <div style="
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        background: rgba(17, 24, 39, 0.6);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        border: 1px solid rgba(6, 182, 212, 0.3);
         border-left: 4px solid {color};
         border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1rem;
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
     ">
         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
             <span style="font-size: 1.5rem; margin-right: 0.75rem;">{icon}</span>
             <div>
                 <h3 style="
                     margin: 0;
-                    background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+                    background: linear-gradient(135deg, {color} 0%, #8B5CF6 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
@@ -366,7 +369,7 @@ def version_card(
                 ">{label}</h3>
                 <p style="
                     margin: 0;
-                    color: #A78BFA;
+                    color: #9CA3AF;
                     font-size: 0.875rem;
                 ">{description}</p>
             </div>
@@ -389,9 +392,9 @@ def version_card(
             st.toast(f"✅ {label} version copied!", icon="✅")
 
 
-def feature_card(icon: str, title: str, description: str, color: str = "#8B5CF6"):
+def feature_card(icon: str, title: str, description: str, color: str = "#06B6D4"):
     """
-    Create a feature highlight card with gradient
+    Create a feature highlight card with glow
 
     Args:
         icon: Emoji icon
@@ -401,18 +404,19 @@ def feature_card(icon: str, title: str, description: str, color: str = "#8B5CF6"
     """
     st.markdown(f"""
     <div style="
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+        background: rgba(17, 24, 39, 0.6);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        border: 1px solid rgba(6, 182, 212, 0.3);
         border-radius: 16px;
         padding: 1.5rem;
         height: 100%;
         transition: all 0.3s ease;
-    " onmouseover="this.style.borderColor='rgba(236, 72, 153, 0.6)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 40px rgba(139, 92, 246, 0.3)'"
-       onmouseout="this.style.borderColor='rgba(139, 92, 246, 0.3)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.05);
+    " onmouseover="this.style.borderColor='rgba(6, 182, 212, 0.6)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 40px rgba(6, 182, 212, 0.2)'"
+       onmouseout="this.style.borderColor='rgba(6, 182, 212, 0.3)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(6, 182, 212, 0.05)'">
         <div style="font-size: 2.5rem; margin-bottom: 1rem;">{icon}</div>
         <h3 style="
-            background: linear-gradient(135deg, {color} 0%, #EC4899 100%);
+            background: linear-gradient(135deg, {color} 0%, #8B5CF6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -421,7 +425,7 @@ def feature_card(icon: str, title: str, description: str, color: str = "#8B5CF6"
             margin-bottom: 0.5rem;
         ">{title}</h3>
         <p style="
-            color: #C4B5FD;
+            color: #9CA3AF;
             font-size: 0.95rem;
             line-height: 1.6;
             margin: 0;
@@ -432,7 +436,7 @@ def feature_card(icon: str, title: str, description: str, color: str = "#8B5CF6"
 
 def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None):
     """
-    Create a custom alert box with gradient
+    Create a custom alert box
 
     Args:
         message: Alert message
@@ -440,9 +444,9 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
         icon: Optional custom icon
     """
     colors = {
-        "info": ("#8B5CF6", "ℹ️", "rgba(139, 92, 246, 0.15)"),
-        "success": ("#22C55E", "✅", "rgba(34, 197, 94, 0.15)"),
-        "warning": ("#F97316", "⚠️", "rgba(249, 115, 22, 0.15)"),
+        "info": ("#06B6D4", "ℹ️", "rgba(6, 182, 212, 0.15)"),
+        "success": ("#10B981", "✅", "rgba(16, 185, 129, 0.15)"),
+        "warning": ("#F59E0B", "⚠️", "rgba(245, 158, 11, 0.15)"),
         "error": ("#EF4444", "❌", "rgba(239, 68, 68, 0.15)")
     }
 
@@ -451,8 +455,8 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
 
     st.markdown(f"""
     <div style="
-        background: linear-gradient(135deg, {bg} 0%, rgba(236, 72, 153, 0.1) 100%);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        background: {bg};
+        border: 1px solid rgba(6, 182, 212, 0.3);
         border-left: 4px solid {color};
         border-radius: 12px;
         padding: 1rem 1.5rem;
@@ -468,16 +472,13 @@ def alert_box(message: str, alert_type: str = "info", icon: Optional[str] = None
 
 def progress_steps(steps: List[str], current_step: int):
     """
-    Create a visual progress indicator with gradient
+    Create a visual progress indicator
 
     Args:
         steps: List of step names
         current_step: Current step index (0-based)
     """
     total_steps = len(steps)
-
-    # Define gradient colors for steps
-    step_colors = ["#8B5CF6", "#A855F7", "#EC4899", "#F97316"]
 
     html = '<div style="display: flex; align-items: flex-start; margin: 2rem 0;">'
 
@@ -487,14 +488,14 @@ def progress_steps(steps: List[str], current_step: int):
         is_future = i > current_step
 
         if is_completed:
-            circle_color = "#22C55E"
-            text_color = "#22C55E"
+            circle_color = "#10B981"
+            text_color = "#10B981"
         elif is_current:
-            circle_color = step_colors[i % len(step_colors)]
+            circle_color = "#06B6D4"
             text_color = "#F8FAFC"
         else:
-            circle_color = "rgba(139, 92, 246, 0.3)"
-            text_color = "#A78BFA"
+            circle_color = "rgba(6, 182, 212, 0.3)"
+            text_color = "#9CA3AF"
 
         box_shadow = f"box-shadow: 0 0 20px {circle_color}60;" if is_current else ""
 
@@ -510,7 +511,7 @@ def progress_steps(steps: List[str], current_step: int):
         '''
 
         if i < total_steps - 1:
-            line_color = "#22C55E" if is_completed else "rgba(139, 92, 246, 0.3)"
+            line_color = "#10B981" if is_completed else "rgba(6, 182, 212, 0.3)"
             html += f'<div style="flex: 0 0 60px; height: 3px; background: {line_color}; margin-top: 20px; border-radius: 2px;"></div>'
 
     html += '</div>'
@@ -528,7 +529,7 @@ def info_tooltip(text: str, tooltip: str):
     st.markdown(f"""
     <span title="{tooltip}" style="
         cursor: help;
-        border-bottom: 1px dotted #A78BFA;
+        border-bottom: 1px dotted #9CA3AF;
         color: #F8FAFC;
     ">{text}</span>
     """, unsafe_allow_html=True)
@@ -553,7 +554,7 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
         import tempfile
         import os
 
-        # Voice input header with gradient
+        # Voice input header
         st.markdown("""
         <div style="
             display: flex;
@@ -563,7 +564,7 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
         ">
             <span style="font-size: 1.25rem;">🎤</span>
             <span style="
-                background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+                background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -571,7 +572,7 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
                 font-size: 0.9rem;
             ">Voice Input</span>
             <span style="
-                color: #A78BFA;
+                color: #9CA3AF;
                 font-size: 0.75rem;
             ">(Click to record)</span>
         </div>
@@ -579,8 +580,8 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
 
         audio_bytes = audio_recorder(
             text="",
-            recording_color="#EC4899",
-            neutral_color="#1A1025",
+            recording_color="#06B6D4",
+            neutral_color="#111827",
             icon_name="microphone",
             icon_size="2x",
             pause_threshold=2.0,
@@ -605,14 +606,14 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
 
                         st.markdown(f"""
                         <div style="
-                            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
-                            border: 1px solid rgba(34, 197, 94, 0.4);
+                            background: rgba(16, 185, 129, 0.15);
+                            border: 1px solid rgba(16, 185, 129, 0.4);
                             border-radius: 12px;
                             padding: 1rem;
                             margin-top: 0.5rem;
                         ">
                             <div style="
-                                color: #22C55E;
+                                color: #10B981;
                                 font-weight: 600;
                                 margin-bottom: 0.5rem;
                                 display: flex;
@@ -650,17 +651,17 @@ def voice_input_component(key: str = "voice_input") -> Optional[str]:
     except ImportError as e:
         st.markdown("""
         <div style="
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 179, 8, 0.15) 100%);
-            border: 1px solid rgba(249, 115, 22, 0.4);
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
             border-radius: 12px;
             padding: 1rem;
             margin: 0.5rem 0;
         ">
-            <div style="color: #F97316; font-weight: 600; margin-bottom: 0.5rem;">
+            <div style="color: #F59E0B; font-weight: 600; margin-bottom: 0.5rem;">
                 🎤 Voice Input Requires Additional Setup
             </div>
-            <div style="color: #C4B5FD; font-size: 0.875rem;">
-                Install voice packages: <code style="color: #EC4899;">pip install audio-recorder-streamlit SpeechRecognition pydub</code>
+            <div style="color: #9CA3AF; font-size: 0.875rem;">
+                Install voice packages: <code style="color: #06B6D4;">pip install audio-recorder-streamlit SpeechRecognition pydub</code>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -689,17 +690,17 @@ def voice_or_text_input(
     if voice_key not in st.session_state:
         st.session_state[voice_key] = ""
 
-    # Input mode selector with gradient
+    # Input mode selector
     st.markdown("""
     <div style="
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 100%);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        background: rgba(17, 24, 39, 0.6);
+        border: 1px solid rgba(6, 182, 212, 0.3);
         border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1rem;
     ">
         <div style="
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -726,15 +727,15 @@ def voice_or_text_input(
     if input_method == "🎤 Speak":
         st.markdown("""
         <div style="
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
-            border: 1px solid rgba(236, 72, 153, 0.3);
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 12px;
             padding: 1.5rem;
             margin: 1rem 0;
             text-align: center;
         ">
             <div style="
-                background: linear-gradient(135deg, #EC4899 0%, #F97316 100%);
+                background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -743,7 +744,7 @@ def voice_or_text_input(
                 margin-bottom: 1rem;
             ">🎙️ Voice Recording Mode</div>
             <div style="
-                color: #C4B5FD;
+                color: #9CA3AF;
                 font-size: 0.85rem;
                 margin-bottom: 1rem;
             ">Click the microphone button and speak your prompt clearly</div>

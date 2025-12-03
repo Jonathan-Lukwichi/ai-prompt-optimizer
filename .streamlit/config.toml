@@ -1,7 +1,7 @@
 [theme]
-primaryColor = "#8B5CF6"  # Vibrant Purple (primary accent)
-backgroundColor = "#0F0A1A"  # Deep dark purple-black
-secondaryBackgroundColor = "#1A1025"  # Dark purple-tinted
+primaryColor = "#06B6D4"  # Cyan accent
+backgroundColor = "#0A0E17"  # Deep dark navy
+secondaryBackgroundColor = "#111827"  # Dark navy-gray
 textColor = "#F8FAFC"  # Bright white
 font = "sans serif"
 
