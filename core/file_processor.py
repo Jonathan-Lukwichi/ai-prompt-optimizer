@@ -188,32 +188,76 @@ Provide a comprehensive description that captures all relevant information."""
 
 
 class VoiceProcessor:
-    """Process voice input"""
+    """Process voice input from Streamlit's audio_input"""
 
     @staticmethod
     def transcribe_audio_bytes(audio_bytes: bytes) -> Optional[str]:
-        """Transcribe audio bytes to text"""
+        """
+        Transcribe audio bytes to text using Google Speech Recognition
+
+        Args:
+            audio_bytes: Raw audio bytes from st.audio_input (WAV format)
+
+        Returns:
+            Transcribed text or None if failed
+        """
         try:
             import speech_recognition as sr
             import tempfile
             import os
+            import io
 
-            # Save to temp file
+            # Save audio bytes to temp file
             with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_file:
                 tmp_file.write(audio_bytes)
                 tmp_path = tmp_file.name
 
-            # Transcribe
-            recognizer = sr.Recognizer()
-            with sr.AudioFile(tmp_path) as source:
-                audio_data = recognizer.record(source)
+            try:
+                # Initialize recognizer
+                recognizer = sr.Recognizer()
 
-            text = recognizer.recognize_google(audio_data)
+                # Adjust for ambient noise and recognize
+                with sr.AudioFile(tmp_path) as source:
+                    # Adjust for ambient noise (optional but helps)
+                    recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                    audio_data = recognizer.record(source)
 
-            # Cleanup
-            os.unlink(tmp_path)
+                # Try Google Speech Recognition (free, no API key needed)
+                text = recognizer.recognize_google(audio_data)
+                return text
 
-            return text
+            finally:
+                # Cleanup temp file
+                if os.path.exists(tmp_path):
+                    os.unlink(tmp_path)
 
-        except Exception as e:
+        except sr.UnknownValueError:
+            # Speech was unintelligible
             return None
+        except sr.RequestError as e:
+            # API error
+            print(f"Speech Recognition API error: {e}")
+            return None
+        except Exception as e:
+            print(f"Voice transcription error: {e}")
+            return None
+
+    @staticmethod
+    def convert_to_wav(audio_bytes: bytes) -> Optional[bytes]:
+        """Convert audio to WAV format if needed using pydub"""
+        try:
+            from pydub import AudioSegment
+            import io
+
+            # Try to load audio
+            audio = AudioSegment.from_file(io.BytesIO(audio_bytes))
+
+            # Export as WAV
+            wav_buffer = io.BytesIO()
+            audio.export(wav_buffer, format="wav")
+            wav_buffer.seek(0)
+
+            return wav_buffer.read()
+        except Exception as e:
+            print(f"Audio conversion error: {e}")
+            return audio_bytes  # Return original if conversion fails
