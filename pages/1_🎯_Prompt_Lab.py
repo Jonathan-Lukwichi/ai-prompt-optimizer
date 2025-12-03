@@ -12,7 +12,8 @@ from utils.ui_components import (
     gradient_header,
     score_gauge,
     version_card,
-    alert_box
+    alert_box,
+    voice_or_text_input
 )
 from datetime import datetime
 
@@ -171,14 +172,18 @@ st.divider()
 
 st.markdown("""
 <h3 style="
-    color: #8B5CF6;
+    background: linear-gradient(135deg, #00FF9F 0%, #00D9FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-weight: 700;
     margin-bottom: 1rem;
 ">💬 Your Prompt</h3>
 """, unsafe_allow_html=True)
 
-raw_prompt = st.text_area(
-    "What do you want the AI to do?",
+# Voice or Text input - Users can now speak their prompts!
+raw_prompt = voice_or_text_input(
+    label="What do you want the AI to do?",
     placeholder="""Example: I need to understand the main findings from recent research on transformer models in natural language processing.
 
 Be specific! Include:
@@ -187,8 +192,7 @@ Be specific! Include:
 - Desired output format
 - Constraints or preferences""",
     height=200,
-    help="Enter your question or request. Don't worry if it's not perfect - that's what we're here to fix!",
-    label_visibility="collapsed"
+    key="prompt_lab_input"
 )
 
 # Tips expander

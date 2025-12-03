@@ -4,7 +4,7 @@ Main application entry point
 """
 import streamlit as st
 from core.config import Config
-from utils.ui_components import load_custom_css, gradient_header, feature_card, metric_card, glass_card
+from utils.ui_components import load_custom_css, gradient_header, feature_card, metric_card, glass_card, voice_or_text_input
 from core.database import DatabaseManager
 from datetime import datetime
 
@@ -314,20 +314,18 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Quick Optimize UI
-quick_col1, quick_col2 = st.columns([4, 1])
+# Quick Optimize UI with Voice Support
+quick_prompt = voice_or_text_input(
+    label="Your prompt",
+    placeholder="Example: Explain machine learning to me\n\nPaste any prompt here OR click 🎤 Speak to use voice input!",
+    height=120,
+    key="quick_prompt_input"
+)
 
-with quick_col1:
-    quick_prompt = st.text_area(
-        "Your prompt",
-        placeholder="Example: Explain machine learning to me\n\nPaste any prompt here and we'll automatically detect the context and optimize it for you!",
-        height=120,
-        key="quick_prompt_input",
-        label_visibility="collapsed"
-    )
+# Action buttons
+btn_col1, btn_col2 = st.columns(2)
 
-with quick_col2:
-    st.markdown("<div style='height: 0.5rem'></div>", unsafe_allow_html=True)
+with btn_col1:
     optimize_button = st.button(
         "🚀 Optimize Now",
         use_container_width=True,
@@ -335,10 +333,10 @@ with quick_col2:
         key="quick_optimize_btn"
     )
 
+with btn_col2:
     if quick_prompt:
-        st.markdown("<div style='height: 0.5rem'></div>", unsafe_allow_html=True)
         if st.button(
-            "⚙️ Advanced",
+            "⚙️ Advanced Mode",
             use_container_width=True,
             key="advanced_mode_btn",
             help="Go to Prompt Lab for full control"

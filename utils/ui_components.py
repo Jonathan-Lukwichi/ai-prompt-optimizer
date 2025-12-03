@@ -544,3 +544,258 @@ def info_tooltip(text: str, tooltip: str):
         text-shadow: 0 0 5px rgba(0, 255, 159, 0.2);
     ">{text}</span>
     """, unsafe_allow_html=True)
+
+
+# ==================== VOICE INPUT COMPONENT ====================
+
+def voice_input_component(key: str = "voice_input") -> Optional[str]:
+    """
+    Create a voice input component with recording and transcription
+
+    Args:
+        key: Unique key for the component
+
+    Returns:
+        Transcribed text if recording was successful, None otherwise
+    """
+    try:
+        from audio_recorder_streamlit import audio_recorder
+        import speech_recognition as sr
+        import io
+        import tempfile
+        import os
+
+        # Voice input header with neon styling
+        st.markdown("""
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        ">
+            <span style="font-size: 1.25rem;">🎤</span>
+            <span style="
+                color: #00FF9F;
+                font-weight: 600;
+                font-size: 0.9rem;
+            ">Voice Input</span>
+            <span style="
+                color: #7DD3C0;
+                font-size: 0.75rem;
+            ">(Click to record)</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Audio recorder with custom styling
+        audio_bytes = audio_recorder(
+            text="",
+            recording_color="#00FF9F",
+            neutral_color="#132F4C",
+            icon_name="microphone",
+            icon_size="2x",
+            pause_threshold=2.0,
+            sample_rate=16000,
+            key=key
+        )
+
+        if audio_bytes:
+            # Show processing indicator
+            with st.spinner("🔄 Transcribing your voice..."):
+                try:
+                    # Save audio to temporary file
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp_file:
+                        tmp_file.write(audio_bytes)
+                        tmp_path = tmp_file.name
+
+                    # Use speech recognition
+                    recognizer = sr.Recognizer()
+
+                    with sr.AudioFile(tmp_path) as source:
+                        audio_data = recognizer.record(source)
+
+                    # Try Google Speech Recognition (free)
+                    try:
+                        text = recognizer.recognize_google(audio_data)
+
+                        # Show success message
+                        st.markdown(f"""
+                        <div style="
+                            background: rgba(0, 255, 159, 0.1);
+                            border: 1px solid rgba(0, 255, 159, 0.4);
+                            border-radius: 12px;
+                            padding: 1rem;
+                            margin-top: 0.5rem;
+                            box-shadow: 0 0 15px rgba(0, 255, 159, 0.2);
+                        ">
+                            <div style="
+                                color: #00FF9F;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            ">
+                                <span>✅</span> Voice Captured Successfully!
+                            </div>
+                            <div style="
+                                color: #E7F5FF;
+                                font-size: 0.95rem;
+                                line-height: 1.5;
+                            ">{text}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        # Cleanup temp file
+                        os.unlink(tmp_path)
+
+                        return text
+
+                    except sr.UnknownValueError:
+                        st.warning("🎤 Could not understand audio. Please try again and speak clearly.")
+                        os.unlink(tmp_path)
+                        return None
+                    except sr.RequestError as e:
+                        st.error(f"🔌 Speech service error: {e}")
+                        os.unlink(tmp_path)
+                        return None
+
+                except Exception as e:
+                    st.error(f"❌ Error processing audio: {str(e)}")
+                    return None
+
+        return None
+
+    except ImportError as e:
+        # Fallback if audio packages not installed
+        st.markdown("""
+        <div style="
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        ">
+            <div style="color: #FFD700; font-weight: 600; margin-bottom: 0.5rem;">
+                🎤 Voice Input Requires Additional Setup
+            </div>
+            <div style="color: #7DD3C0; font-size: 0.875rem;">
+                Install voice packages: <code style="color: #00FF9F;">pip install audio-recorder-streamlit SpeechRecognition pydub</code>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        return None
+
+
+def voice_or_text_input(
+    label: str = "Enter your prompt",
+    placeholder: str = "Type your prompt here or use voice input...",
+    height: int = 150,
+    key: str = "prompt_input"
+) -> str:
+    """
+    Combined voice and text input component
+
+    Args:
+        label: Label for the text area
+        placeholder: Placeholder text
+        height: Height of text area
+        key: Unique key for the component
+
+    Returns:
+        The input text (from voice or typing)
+    """
+    # Initialize session state for voice text
+    voice_key = f"{key}_voice_text"
+    if voice_key not in st.session_state:
+        st.session_state[voice_key] = ""
+
+    # Input mode selector with neon styling
+    st.markdown("""
+    <div style="
+        background: rgba(19, 47, 76, 0.4);
+        border: 1px solid rgba(0, 255, 159, 0.3);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 0 15px rgba(0, 255, 159, 0.1);
+    ">
+        <div style="
+            color: #00FF9F;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        ">
+            <span>⌨️🎤</span> Choose Input Method
+        </div>
+    """, unsafe_allow_html=True)
+
+    # Toggle between typing and voice
+    input_method = st.radio(
+        "Input method:",
+        options=["⌨️ Type", "🎤 Speak"],
+        horizontal=True,
+        key=f"{key}_method",
+        label_visibility="collapsed"
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Show the appropriate input based on selection
+    if input_method == "🎤 Speak":
+        # Voice input section
+        st.markdown("""
+        <div style="
+            background: rgba(19, 47, 76, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        ">
+            <div style="
+                color: #00D9FF;
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            ">🎙️ Voice Recording Mode</div>
+            <div style="
+                color: #7DD3C0;
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+            ">Click the microphone button and speak your prompt clearly</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Center the recorder
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            voice_text = voice_input_component(key=f"{key}_recorder")
+
+            if voice_text:
+                st.session_state[voice_key] = voice_text
+
+        # Show text area with voice transcription (editable)
+        final_text = st.text_area(
+            label,
+            value=st.session_state[voice_key],
+            placeholder="Your voice will appear here... (you can edit it)",
+            height=height,
+            key=f"{key}_voice_textarea"
+        )
+
+        # Update session state if user edits
+        if final_text != st.session_state[voice_key]:
+            st.session_state[voice_key] = final_text
+
+        return final_text
+
+    else:
+        # Standard text input
+        return st.text_area(
+            label,
+            placeholder=placeholder,
+            height=height,
+            key=f"{key}_text"
+        )

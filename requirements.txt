@@ -7,3 +7,8 @@ Pillow>=10.0.0
 plotly>=5.18.0
 streamlit-extras>=0.3.6
 google-generativeai>=0.3.0
+
+# Voice Input Dependencies
+audio-recorder-streamlit>=0.0.8
+SpeechRecognition>=3.10.0
+pydub>=0.25.1
