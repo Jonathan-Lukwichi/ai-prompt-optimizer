@@ -6,6 +6,7 @@ Premium dark mode design with neon accents
 import streamlit as st
 from typing import Optional, List, Dict, Any
 from datetime import datetime
+import html
 
 
 def load_lukthan_theme():
@@ -14,16 +15,12 @@ def load_lukthan_theme():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-    /* ============================================
-       LUKTHAN BRAND COLORS
-       ============================================ */
     :root {
         --lukthan-cyan: #00E5FF;
         --lukthan-cyan-dim: #06B6D4;
         --lukthan-purple: #9B5CFF;
         --lukthan-purple-dim: #8B5CF6;
         --lukthan-gradient: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-        --lukthan-gradient-reverse: linear-gradient(135deg, #9B5CFF 0%, #00E5FF 100%);
         --lukthan-bg-deep: #050816;
         --lukthan-bg-card: #0B1020;
         --lukthan-bg-elevated: #111827;
@@ -36,265 +33,43 @@ def load_lukthan_theme():
         --lukthan-warning: #F59E0B;
         --lukthan-error: #EF4444;
         --lukthan-glow-cyan: 0 0 20px rgba(0, 229, 255, 0.4);
-        --lukthan-glow-purple: 0 0 20px rgba(155, 92, 255, 0.4);
     }
 
-    /* ============================================
-       GLOBAL RESET
-       ============================================ */
-    * {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
+    * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
 
-    .main .block-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        max-width: 100%;
-    }
+    .main .block-container { padding-top: 1rem; padding-bottom: 1rem; max-width: 100%; }
 
-    /* ============================================
-       LUKTHAN LOGO & BRAND
-       ============================================ */
-    .lukthan-logo-container {
-        text-align: center;
-        padding: 1.5rem;
-        background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, rgba(155, 92, 255, 0.08) 100%);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 20px;
-        margin-bottom: 1.5rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .lukthan-logo-container::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: conic-gradient(from 0deg, transparent, rgba(0, 229, 255, 0.1), transparent 30%);
-        animation: rotate 8s linear infinite;
-    }
-
-    @keyframes rotate {
-        100% { transform: rotate(360deg); }
-    }
-
-    .lukthan-brand-name {
-        font-size: 2rem;
-        font-weight: 900;
-        letter-spacing: 0.1em;
-        background: var(--lukthan-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin: 0;
-        position: relative;
-        text-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
-    }
-
-    .lukthan-tagline {
-        color: var(--lukthan-text-secondary);
-        font-size: 0.85rem;
-        font-weight: 500;
-        margin-top: 0.5rem;
-        letter-spacing: 0.05em;
-    }
-
-    .lukthan-badge {
-        display: inline-block;
-        background: var(--lukthan-gradient);
-        color: white;
-        font-size: 0.65rem;
-        font-weight: 700;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        margin-top: 0.75rem;
-        letter-spacing: 0.1em;
-    }
-
-    /* ============================================
-       HERO SECTION
-       ============================================ */
-    .lukthan-hero {
-        text-align: center;
-        padding: 3rem 2rem;
-        background: linear-gradient(180deg, rgba(0, 229, 255, 0.05) 0%, transparent 100%);
-        border-radius: 24px;
-        border: 1px solid var(--lukthan-border);
-        margin-bottom: 2rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .lukthan-hero::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60%;
-        height: 1px;
-        background: var(--lukthan-gradient);
-        box-shadow: var(--lukthan-glow-cyan);
-    }
-
-    .lukthan-hero-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-        animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    .lukthan-hero-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        background: var(--lukthan-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 0.75rem;
-        letter-spacing: -0.02em;
-    }
-
-    .lukthan-hero-subtitle {
-        color: var(--lukthan-text-secondary);
-        font-size: 1.1rem;
-        line-height: 1.7;
-        max-width: 600px;
-        margin: 0 auto 2rem;
-    }
-
-    /* ============================================
-       QUICK START CARDS
-       ============================================ */
-    .quick-start-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-
-    .quick-start-card {
-        background: rgba(11, 16, 32, 0.8);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 16px;
-        padding: 1.25rem;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        text-align: left;
-    }
-
-    .quick-start-card:hover {
-        border-color: var(--lukthan-border-hover);
-        transform: translateY(-4px);
-        box-shadow: var(--lukthan-glow-cyan);
-        background: rgba(0, 229, 255, 0.05);
-    }
-
-    .quick-start-icon {
-        font-size: 1.75rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .quick-start-title {
-        color: var(--lukthan-text-primary);
-        font-weight: 600;
-        font-size: 0.95rem;
-        margin-bottom: 0.25rem;
-    }
-
-    .quick-start-desc {
-        color: var(--lukthan-text-muted);
-        font-size: 0.8rem;
-        line-height: 1.4;
-    }
-
-    /* ============================================
-       CHAT MESSAGES
-       ============================================ */
-    .chat-messages-container {
-        max-height: 500px;
-        overflow-y: auto;
-        padding: 1rem 0;
-        scroll-behavior: smooth;
-    }
-
-    .user-message-bubble {
-        background: var(--lukthan-gradient);
+    /* User Message */
+    .user-msg {
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 20px 20px 4px 20px;
-        margin: 1rem 0 1rem 15%;
-        box-shadow: var(--lukthan-glow-cyan);
-        animation: slideInRight 0.3s ease-out;
-        position: relative;
+        margin: 1rem 0 1rem 20%;
+        box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
     }
 
-    .user-message-bubble::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: -8px;
-        width: 0;
-        height: 0;
-        border: 8px solid transparent;
-        border-left-color: #9B5CFF;
-        border-bottom-color: #9B5CFF;
-    }
+    .user-msg-content { font-size: 0.95rem; line-height: 1.6; }
+    .user-msg-time { font-size: 0.7rem; opacity: 0.7; margin-top: 0.5rem; text-align: right; }
 
-    .agent-message-bubble {
-        background: var(--lukthan-bg-card);
-        border: 1px solid var(--lukthan-border);
-        color: var(--lukthan-text-primary);
+    /* Agent Message */
+    .agent-msg {
+        background: #0B1020;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        color: #F0F6FC;
         padding: 1.5rem;
         border-radius: 20px 20px 20px 4px;
-        margin: 1rem 15% 1rem 0;
-        animation: slideInLeft 0.3s ease-out;
-        position: relative;
+        margin: 1rem 20% 1rem 0;
     }
 
-    .agent-message-bubble::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: var(--lukthan-gradient);
-        border-radius: 20px 20px 0 0;
-    }
-
-    @keyframes slideInRight {
-        from { opacity: 0; transform: translateX(30px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes slideInLeft {
-        from { opacity: 0; transform: translateX(-30px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    .message-timestamp {
-        font-size: 0.7rem;
-        opacity: 0.6;
-        margin-top: 0.5rem;
-        text-align: right;
-    }
-
-    .message-header {
+    .agent-header {
         display: flex;
         align-items: center;
         gap: 0.75rem;
         margin-bottom: 1rem;
     }
 
-    .message-avatar {
+    .agent-avatar {
         width: 36px;
         height: 36px;
         border-radius: 10px;
@@ -302,482 +77,344 @@ def load_lukthan_theme():
         align-items: center;
         justify-content: center;
         font-size: 1.25rem;
-        background: var(--lukthan-gradient);
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
     }
 
-    .message-label {
+    .agent-name {
         font-weight: 600;
         font-size: 0.9rem;
-        color: var(--lukthan-text-primary);
+        color: #F0F6FC;
     }
 
-    /* ============================================
-       OPTIMIZED PROMPT OUTPUT
-       ============================================ */
-    .prompt-output-container {
-        position: relative;
+    /* Prompt Output */
+    .prompt-box {
+        background: #050816;
+        border: 1px solid rgba(0, 229, 255, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
         margin-top: 1rem;
+        position: relative;
     }
 
-    .prompt-output-label {
+    .prompt-label {
         position: absolute;
-        top: -12px;
-        left: 20px;
-        background: var(--lukthan-gradient);
+        top: -10px;
+        left: 16px;
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
         color: white;
-        padding: 4px 16px;
+        padding: 4px 12px;
         border-radius: 20px;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         font-weight: 700;
-        letter-spacing: 0.05em;
-        box-shadow: var(--lukthan-glow-cyan);
-        z-index: 1;
     }
 
-    .prompt-output-box {
-        background: rgba(5, 8, 22, 0.9);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 16px;
-        padding: 2rem 1.5rem 1.5rem;
+    .prompt-text {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         line-height: 1.7;
-        color: var(--lukthan-text-primary);
+        color: #F0F6FC;
         white-space: pre-wrap;
         word-wrap: break-word;
-        max-height: 400px;
-        overflow-y: auto;
     }
 
-    .prompt-actions {
-        display: flex;
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-
-    /* ============================================
-       INSIGHTS PANEL
-       ============================================ */
-    .insights-panel {
-        background: var(--lukthan-bg-card);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 20px;
+    /* Insights Panel */
+    .insights-box {
+        background: #0B1020;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 16px;
         padding: 1.5rem;
-        height: fit-content;
-        position: sticky;
-        top: 1rem;
-    }
-
-    .insights-header {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--lukthan-border);
     }
 
     .insights-title {
         font-size: 1rem;
         font-weight: 700;
-        background: var(--lukthan-gradient);
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .insights-section {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .insights-label {
-        color: var(--lukthan-text-muted);
-        font-size: 0.75rem;
+        color: #6E7681;
+        font-size: 0.7rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         margin-bottom: 0.5rem;
     }
 
-    /* ============================================
-       DOMAIN & TASK TAGS
-       ============================================ */
-    .tag-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-    }
+    .insights-section { margin-bottom: 1.25rem; }
 
+    /* Tags */
     .tag-cyan {
+        display: inline-block;
         background: rgba(0, 229, 255, 0.15);
-        color: var(--lukthan-cyan);
+        color: #00E5FF;
         border: 1px solid rgba(0, 229, 255, 0.3);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .tag-purple {
+        display: inline-block;
         background: rgba(155, 92, 255, 0.15);
-        color: var(--lukthan-purple);
+        color: #9B5CFF;
         border: 1px solid rgba(155, 92, 255, 0.3);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
-    .tag-green {
-        background: rgba(16, 185, 129, 0.15);
-        color: var(--lukthan-success);
-        border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    /* ============================================
-       QUALITY SCORE
-       ============================================ */
-    .quality-score-container {
+    /* Score Circle */
+    .score-box {
         text-align: center;
         padding: 1.5rem;
-        background: rgba(5, 8, 22, 0.6);
-        border-radius: 16px;
-        border: 1px solid var(--lukthan-border);
+        background: #050816;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
     }
 
-    .quality-score-circle {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1rem;
-        position: relative;
-        font-size: 2rem;
+    .score-value {
+        font-size: 2.5rem;
         font-weight: 800;
+        margin-bottom: 0.25rem;
     }
 
-    .quality-score-circle::before {
-        content: '';
-        position: absolute;
-        inset: -4px;
-        border-radius: 50%;
-        padding: 4px;
-        background: var(--score-gradient, var(--lukthan-gradient));
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-    }
-
-    .quality-score-label {
-        color: var(--lukthan-text-secondary);
+    .score-label {
+        color: #8B949E;
         font-size: 0.8rem;
-        font-weight: 500;
     }
 
-    /* ============================================
-       METRIC BARS
-       ============================================ */
+    /* Metric Bar */
     .metric-row {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         margin-bottom: 0.75rem;
     }
 
     .metric-name {
-        color: var(--lukthan-text-secondary);
+        color: #8B949E;
         font-size: 0.8rem;
-        font-weight: 500;
+        width: 100px;
     }
 
-    .metric-bar-container {
+    .metric-bar {
         flex: 1;
         height: 6px;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 3px;
-        margin: 0 1rem;
+        margin: 0 0.75rem;
         overflow: hidden;
     }
 
-    .metric-bar-fill {
+    .metric-fill {
         height: 100%;
         border-radius: 3px;
-        transition: width 0.5s ease-out;
     }
 
     .metric-value {
-        color: var(--lukthan-text-primary);
+        color: #F0F6FC;
         font-size: 0.8rem;
         font-weight: 600;
-        min-width: 30px;
+        width: 30px;
         text-align: right;
     }
 
-    /* ============================================
-       INPUT AREA
-       ============================================ */
-    .input-container {
-        background: var(--lukthan-bg-card);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 20px;
-        padding: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    .input-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .input-title {
-        color: var(--lukthan-text-primary);
-        font-size: 0.9rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .input-options {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    .input-option-btn {
-        background: rgba(0, 229, 255, 0.1);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 10px;
-        padding: 0.5rem 0.75rem;
-        color: var(--lukthan-text-secondary);
-        font-size: 0.8rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .input-option-btn:hover {
-        background: rgba(0, 229, 255, 0.2);
-        border-color: var(--lukthan-border-hover);
-        color: var(--lukthan-cyan);
-    }
-
-    /* ============================================
-       SIDEBAR SETTINGS
-       ============================================ */
-    .settings-section {
-        background: rgba(11, 16, 32, 0.6);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 16px;
-        padding: 1.25rem;
-        margin-bottom: 1rem;
-    }
-
-    .settings-title {
-        color: var(--lukthan-text-primary);
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    /* ============================================
-       TIPS CARD
-       ============================================ */
-    .tips-card {
-        background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(155, 92, 255, 0.08) 100%);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 16px;
-        padding: 1.25rem;
-    }
-
-    .tips-title {
-        color: var(--lukthan-cyan);
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .tips-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .tips-list li {
-        color: var(--lukthan-text-secondary);
-        font-size: 0.8rem;
-        padding: 0.4rem 0;
-        padding-left: 1.25rem;
-        position: relative;
-        line-height: 1.5;
-    }
-
-    .tips-list li::before {
-        content: '>';
-        position: absolute;
-        left: 0;
-        color: var(--lukthan-cyan);
-        font-weight: 700;
-    }
-
-    /* ============================================
-       FILE ATTACHMENT INDICATOR
-       ============================================ */
-    .file-attachment {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(0, 229, 255, 0.1);
-        border: 1px solid var(--lukthan-border);
-        border-radius: 10px;
-        padding: 0.5rem 1rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .file-attachment-icon {
-        font-size: 1rem;
-    }
-
-    .file-attachment-name {
-        color: var(--lukthan-text-primary);
-        font-size: 0.85rem;
-        font-weight: 500;
-    }
-
-    .file-attachment-type {
-        background: var(--lukthan-gradient);
-        color: white;
-        font-size: 0.65rem;
-        font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 10px;
-    }
-
-    /* ============================================
-       TYPING INDICATOR
-       ============================================ */
-    .typing-indicator {
-        display: flex;
-        gap: 6px;
+    /* Tips */
+    .tips-box {
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, rgba(155, 92, 255, 0.05) 100%);
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 12px;
         padding: 1rem;
     }
 
-    .typing-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--lukthan-gradient);
-        animation: typingBounce 1.4s ease-in-out infinite;
+    .tips-item {
+        color: #8B949E;
+        font-size: 0.8rem;
+        padding: 0.3rem 0;
+        padding-left: 1rem;
+        position: relative;
     }
 
-    .typing-dot:nth-child(1) { animation-delay: 0s; }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes typingBounce {
-        0%, 60%, 100% { transform: translateY(0); }
-        30% { transform: translateY(-10px); }
+    .tips-item::before {
+        content: '>';
+        position: absolute;
+        left: 0;
+        color: #00E5FF;
+        font-weight: 700;
     }
 
-    /* ============================================
-       FOOTER
-       ============================================ */
-    .lukthan-footer {
+    /* Welcome Hero */
+    .hero-box {
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+        background: linear-gradient(180deg, rgba(0, 229, 255, 0.05) 0%, transparent 100%);
+        border-radius: 20px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+
+    .hero-title {
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+        color: #8B949E;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Quick Start Card */
+    .qs-card {
+        background: #0B1020;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .qs-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .qs-title { color: #F0F6FC; font-weight: 600; font-size: 0.9rem; }
+    .qs-desc { color: #6E7681; font-size: 0.75rem; }
+
+    /* Sidebar Brand */
+    .brand-box {
         text-align: center;
         padding: 1.5rem;
-        border-top: 1px solid var(--lukthan-border);
+        background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, rgba(155, 92, 255, 0.08) 100%);
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 16px;
+        margin-bottom: 1rem;
+    }
+
+    .brand-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+    .brand-name {
+        font-size: 1.75rem;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tagline {
+        color: #8B949E;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+    }
+
+    .brand-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
+        color: white;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        margin-top: 0.5rem;
+        letter-spacing: 0.1em;
+    }
+
+    /* Footer */
+    .footer-box {
+        text-align: center;
+        padding: 1.5rem;
+        border-top: 1px solid rgba(0, 229, 255, 0.2);
         margin-top: 2rem;
     }
 
     .footer-brand {
-        background: var(--lukthan-gradient);
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
         font-weight: 800;
         font-size: 0.9rem;
         letter-spacing: 0.1em;
     }
 
     .footer-text {
-        color: var(--lukthan-text-muted);
-        font-size: 0.75rem;
+        color: #6E7681;
+        font-size: 0.7rem;
         margin-top: 0.25rem;
     }
 
-    /* ============================================
-       STREAMLIT OVERRIDES
-       ============================================ */
-    .stButton > button[data-testid="baseButton-primary"] {
-        background: var(--lukthan-gradient) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 12px !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.02em !important;
-        box-shadow: var(--lukthan-glow-cyan) !important;
-        transition: all 0.3s ease !important;
+    /* File Attachment */
+    .file-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(0, 229, 255, 0.1);
+        border: 1px solid rgba(0, 229, 255, 0.3);
+        border-radius: 8px;
+        padding: 0.4rem 0.8rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.8rem;
+        color: #F0F6FC;
     }
 
-    .stButton > button[data-testid="baseButton-primary"]:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 0 30px rgba(0, 229, 255, 0.6) !important;
-    }
-
-    .stButton > button[data-testid="baseButton-secondary"] {
-        background: transparent !important;
-        color: var(--lukthan-cyan) !important;
-        border: 1px solid var(--lukthan-border) !important;
-        border-radius: 12px !important;
-    }
-
-    .stButton > button[data-testid="baseButton-secondary"]:hover {
-        background: rgba(0, 229, 255, 0.1) !important;
-        border-color: var(--lukthan-border-hover) !important;
-    }
-
-    .stTextArea > div > div > textarea {
-        background: var(--lukthan-bg-deep) !important;
-        border: 1px solid var(--lukthan-border) !important;
-        border-radius: 12px !important;
-        color: var(--lukthan-text-primary) !important;
-        font-size: 0.95rem !important;
-    }
-
-    .stTextArea > div > div > textarea:focus {
-        border-color: var(--lukthan-cyan) !important;
-        box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15) !important;
-    }
-
-    .stSelectbox > div > div {
-        background: var(--lukthan-bg-deep) !important;
-        border: 1px solid var(--lukthan-border) !important;
-        border-radius: 12px !important;
-    }
-
-    .stExpander {
-        background: var(--lukthan-bg-card) !important;
-        border: 1px solid var(--lukthan-border) !important;
-        border-radius: 16px !important;
-    }
-
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #050816 0%, #0B1020 50%, #050816 100%) !important;
-        border-right: 1px solid var(--lukthan-border) !important;
-    }
-
-    [data-testid="stSidebar"] .stButton > button {
-        width: 100% !important;
-    }
-
-    /* Hide Streamlit branding */
+    /* Hide Streamlit elements */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+
+    /* Streamlit overrides */
+    .stButton > button {
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3) !important;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4) !important;
+    }
+
+    .stTextArea > div > div > textarea {
+        background: #050816 !important;
+        border: 1px solid rgba(0, 229, 255, 0.2) !important;
+        border-radius: 10px !important;
+        color: #F0F6FC !important;
+    }
+
+    .stTextArea > div > div > textarea:focus {
+        border-color: #00E5FF !important;
+        box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.1) !important;
+    }
+
+    .stSelectbox > div > div {
+        background: #050816 !important;
+        border: 1px solid rgba(0, 229, 255, 0.2) !important;
+        border-radius: 10px !important;
+    }
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #050816 0%, #0B1020 100%) !important;
+        border-right: 1px solid rgba(0, 229, 255, 0.2) !important;
+    }
+
+    .stExpander {
+        background: #0B1020 !important;
+        border: 1px solid rgba(0, 229, 255, 0.2) !important;
+        border-radius: 10px !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -787,90 +424,50 @@ def render_sidebar():
     with st.sidebar:
         # Logo and Brand
         st.markdown("""
-        <div class="lukthan-logo-container">
-            <!-- Placeholder for LUKTHAN logo: assets/lukthan_logo.png -->
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🧠</div>
-            <h1 class="lukthan-brand-name">LUKTHAN</h1>
-            <p class="lukthan-tagline">AI Prompt Agent</p>
-            <span class="lukthan-badge">RESEARCH & CODE</span>
+        <div class="brand-box">
+            <div class="brand-icon">🧠</div>
+            <div class="brand-name">LUKTHAN</div>
+            <div class="brand-tagline">AI Prompt Agent</div>
+            <div class="brand-badge">RESEARCH & CODE</div>
         </div>
         """, unsafe_allow_html=True)
 
         st.divider()
 
-        # Settings Section
-        st.markdown("""
-        <div class="settings-title">
-            <span>⚙️</span> Agent Settings
-        </div>
-        """, unsafe_allow_html=True)
+        # Settings
+        st.markdown("**⚙️ Agent Settings**")
 
-        # Domain Override
         domain_options = ["🔮 Auto Detect", "🔬 Research", "💻 Coding", "📊 Data Science", "🌐 General"]
-        domain = st.selectbox(
-            "Domain",
-            options=domain_options,
-            index=0,
-            key="domain_setting",
-            help="Let LUKTHAN auto-detect or manually override"
-        )
+        st.selectbox("Domain", options=domain_options, index=0, key="domain_setting")
 
-        # Target AI Model
         ai_models = ["ChatGPT (GPT-4)", "Claude 3.5", "Gemini Pro", "Llama 3", "Other"]
-        target_ai = st.selectbox(
-            "Target AI Model",
-            options=ai_models,
-            index=0,
-            key="target_ai_setting",
-            help="Optimize prompt for specific AI model"
-        )
+        st.selectbox("Target AI Model", options=ai_models, index=0, key="target_ai_setting")
 
-        # Output Language
-        languages = ["English", "French", "Spanish", "German", "Portuguese", "Chinese", "Japanese"]
-        language = st.selectbox(
-            "Output Language",
-            options=languages,
-            index=0,
-            key="language_setting"
-        )
+        languages = ["English", "French", "Spanish", "German", "Portuguese", "Chinese"]
+        st.selectbox("Output Language", options=languages, index=0, key="language_setting")
 
-        # Expertise Level
         levels = ["Student", "Professional", "Expert", "Academic"]
-        level = st.selectbox(
-            "Expertise Level",
-            options=levels,
-            index=1,
-            key="level_setting",
-            help="Adjusts complexity and terminology"
-        )
+        st.selectbox("Expertise Level", options=levels, index=1, key="level_setting")
 
         st.divider()
 
-        # Tips Section
-        with st.expander("💡 Pro Tips", expanded=False):
+        with st.expander("💡 Pro Tips"):
             st.markdown("""
-            <div class="tips-card">
-                <ul class="tips-list">
-                    <li>Be specific about your end goal</li>
-                    <li>Include context and constraints</li>
-                    <li>Mention desired output format</li>
-                    <li>Upload files for better context</li>
-                    <li>Use voice for quick ideas</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
+            - Be specific about your end goal
+            - Include context and constraints
+            - Mention desired output format
+            - Upload files for better context
+            """)
 
         st.divider()
 
-        # Clear Chat Button
-        if st.button("🗑️ Clear Conversation", use_container_width=True, type="secondary"):
+        if st.button("🗑️ Clear Conversation", use_container_width=True):
             return "clear_chat"
 
-        # Footer
         st.markdown("""
         <div style="text-align: center; margin-top: 2rem; padding: 1rem;">
             <div class="footer-brand">LUKTHAN</div>
-            <div class="footer-text">v2.0 Pro • Premium AI Agent</div>
+            <div class="footer-text">v2.0 Pro</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -880,62 +477,61 @@ def render_sidebar():
 def render_welcome_hero():
     """Render the premium welcome hero section"""
     st.markdown("""
-    <div class="lukthan-hero">
-        <div class="lukthan-hero-icon">🧠</div>
-        <h1 class="lukthan-hero-title">Welcome to LUKTHAN</h1>
-        <p class="lukthan-hero-subtitle">
+    <div class="hero-box">
+        <div class="hero-icon">🧠</div>
+        <div class="hero-title">Welcome to LUKTHAN</div>
+        <div class="hero-subtitle">
             Transform rough ideas into powerful, structured prompts for ChatGPT, Claude, Gemini, and more.<br>
             <strong>Specialized for Research & Coding workflows.</strong>
-        </p>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("<p style='text-align: center; color: #8B949E; margin-bottom: 1rem;'>⚡ Quick Start Examples</p>", unsafe_allow_html=True)
+    st.markdown("**⚡ Quick Start Examples**")
 
-    # Quick start cards
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("""
-        <div class="quick-start-card" onclick="this.style.borderColor='var(--lukthan-cyan)'">
-            <div class="quick-start-icon">🔬</div>
-            <div class="quick-start-title">Literature Review</div>
-            <div class="quick-start-desc">Generate a prompt for systematic literature review</div>
+        <div class="qs-card">
+            <div class="qs-icon">🔬</div>
+            <div class="qs-title">Literature Review</div>
+            <div class="qs-desc">Generate prompts for systematic research</div>
         </div>
         """, unsafe_allow_html=True)
         if st.button("Try Research", key="qs_research", use_container_width=True):
             return "Help me write a systematic literature review on machine learning applications in healthcare diagnostics"
 
         st.markdown("""
-        <div class="quick-start-card">
-            <div class="quick-start-icon">📊</div>
-            <div class="quick-start-title">Data Analysis</div>
-            <div class="quick-start-desc">Analyze datasets and build predictions</div>
+        <div class="qs-card">
+            <div class="qs-icon">📊</div>
+            <div class="qs-title">Data Analysis</div>
+            <div class="qs-desc">Analyze datasets and build predictions</div>
         </div>
         """, unsafe_allow_html=True)
         if st.button("Try Analysis", key="qs_data", use_container_width=True):
-            return "Create a prompt to analyze customer churn data and build a prediction model with feature importance"
+            return "Create a prompt to analyze customer churn data and build a prediction model"
 
     with col2:
         st.markdown("""
-        <div class="quick-start-card">
-            <div class="quick-start-icon">💻</div>
-            <div class="quick-start-title">Code Generation</div>
-            <div class="quick-start-desc">Build APIs, scripts, and applications</div>
+        <div class="qs-card">
+            <div class="qs-icon">💻</div>
+            <div class="qs-title">Code Generation</div>
+            <div class="qs-desc">Build APIs, scripts, and applications</div>
         </div>
         """, unsafe_allow_html=True)
         if st.button("Try Coding", key="qs_code", use_container_width=True):
-            return "Create a REST API with FastAPI that handles user authentication with JWT tokens and rate limiting"
+            return "Create a REST API with FastAPI that handles user authentication with JWT tokens"
 
         st.markdown("""
-        <div class="quick-start-card">
-            <div class="quick-start-icon">🏗️</div>
-            <div class="quick-start-title">Architecture Design</div>
-            <div class="quick-start-desc">Design system architectures</div>
+        <div class="qs-card">
+            <div class="qs-icon">🏗️</div>
+            <div class="qs-title">Architecture Design</div>
+            <div class="qs-desc">Design system architectures</div>
         </div>
         """, unsafe_allow_html=True)
         if st.button("Try Architecture", key="qs_arch", use_container_width=True):
-            return "Design a microservices architecture for a scalable e-commerce platform with event-driven communication"
+            return "Design a microservices architecture for a scalable e-commerce platform"
 
     return None
 
@@ -944,23 +540,20 @@ def render_user_message(content: str, timestamp: Optional[str] = None, file_info
     """Render a user message bubble"""
     time_str = timestamp or datetime.now().strftime("%H:%M")
 
+    # Escape HTML in content to prevent XSS but keep it safe
+    safe_content = html.escape(content)
+
     file_html = ""
     if file_info:
         icons = {"documents": "📄", "code": "💻", "images": "🖼️", "audio": "🎵"}
         icon = icons.get(file_info.get('type', ''), '📎')
-        file_html = f"""
-        <div class="file-attachment">
-            <span class="file-attachment-icon">{icon}</span>
-            <span class="file-attachment-name">{file_info.get('name', 'File')}</span>
-            <span class="file-attachment-type">{file_info.get('type', 'file').upper()}</span>
-        </div>
-        """
+        file_html = f'<div class="file-tag">{icon} {html.escape(file_info.get("name", "File"))}</div>'
 
     st.markdown(f"""
-    <div class="user-message-bubble">
+    <div class="user-msg">
         {file_html}
-        <div style="font-size: 0.95rem; line-height: 1.6;">{content}</div>
-        <div class="message-timestamp">{time_str}</div>
+        <div class="user-msg-content">{safe_content}</div>
+        <div class="user-msg-time">{time_str}</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -975,27 +568,18 @@ def render_agent_response(
 ):
     """Render the agent's response with optimized prompt"""
 
-    # Default metrics if not provided
-    if metrics is None:
-        metrics = {
-            "Clarity": quality_score + 5,
-            "Specificity": quality_score - 3,
-            "Structure": quality_score + 2,
-            "Completeness": quality_score - 5
-        }
-        # Clamp values
-        metrics = {k: max(0, min(100, v)) for k, v in metrics.items()}
+    # Escape HTML in prompt
+    safe_prompt = html.escape(prompt)
 
     st.markdown(f"""
-    <div class="agent-message-bubble">
-        <div class="message-header">
-            <div class="message-avatar">🧠</div>
-            <span class="message-label">LUKTHAN Agent</span>
+    <div class="agent-msg">
+        <div class="agent-header">
+            <div class="agent-avatar">🧠</div>
+            <span class="agent-name">LUKTHAN Agent</span>
         </div>
-
-        <div class="prompt-output-container">
-            <span class="prompt-output-label">✨ OPTIMIZED PROMPT</span>
-            <div class="prompt-output-box">{prompt}</div>
+        <div class="prompt-box">
+            <span class="prompt-label">✨ OPTIMIZED PROMPT</span>
+            <div class="prompt-text">{safe_prompt}</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1004,7 +588,7 @@ def render_agent_response(
     col1, col2, col3 = st.columns([1, 1, 2])
     with col1:
         if st.button("📋 Copy", key=f"copy_{hash(prompt)}", use_container_width=True):
-            st.toast("✅ Prompt copied to clipboard!", icon="✅")
+            st.toast("Prompt ready to copy!", icon="✅")
     with col2:
         if st.button("🔄 Regenerate", key=f"regen_{hash(prompt)}", use_container_width=True):
             return "regenerate"
@@ -1024,11 +608,9 @@ def render_insights_panel(
 
     if not show_content:
         st.markdown("""
-        <div class="insights-panel" style="text-align: center; padding: 3rem 1.5rem;">
-            <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;">📊</div>
-            <div style="color: var(--lukthan-text-muted); font-size: 0.9rem;">
-                Generate a prompt to see insights
-            </div>
+        <div class="insights-box" style="text-align: center; padding: 3rem 1.5rem;">
+            <div style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;">📊</div>
+            <div style="color: #6E7681;">Generate a prompt to see insights</div>
         </div>
         """, unsafe_allow_html=True)
         return
@@ -1045,101 +627,74 @@ def render_insights_panel(
     # Score color
     if quality_score >= 80:
         score_color = "#10B981"
-        score_gradient = "linear-gradient(135deg, #10B981 0%, #34D399 100%)"
     elif quality_score >= 60:
         score_color = "#F59E0B"
-        score_gradient = "linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)"
     else:
         score_color = "#EF4444"
-        score_gradient = "linear-gradient(135deg, #EF4444 0%, #F87171 100%)"
 
-    # Domain and Task icons
-    domain_icons = {
-        "research": "🔬", "coding": "💻", "data_science": "📊", "general": "🌐"
-    }
-    task_icons = {
-        "literature_review": "📚", "code_generation": "⚡", "bug_fix": "🐛",
-        "api_design": "🔌", "data_analysis": "📈", "general_query": "💬"
-    }
+    # Domain icons
+    domain_icons = {"research": "🔬", "coding": "💻", "data_science": "📊", "general": "🌐"}
+    task_icons = {"literature_review": "📚", "code_generation": "⚡", "bug_fix": "🐛", "api_design": "🔌", "data_analysis": "📈", "general_query": "💬"}
 
-    domain_icon = domain_icons.get(domain.lower(), "🌐")
-    task_icon = task_icons.get(task_type.lower(), "💬")
+    d_icon = domain_icons.get(domain.lower(), "🌐")
+    t_icon = task_icons.get(task_type.lower(), "💬")
+
+    d_name = domain.replace('_', ' ').title()
+    t_name = task_type.replace('_', ' ').title()
+
+    # Build metrics HTML
+    metrics_html = ""
+    for name, value in metrics.items():
+        bar_color = "#10B981" if value >= 80 else "#F59E0B" if value >= 60 else "#EF4444"
+        metrics_html += f"""
+        <div class="metric-row">
+            <span class="metric-name">{name}</span>
+            <div class="metric-bar">
+                <div class="metric-fill" style="width: {value}%; background: {bar_color};"></div>
+            </div>
+            <span class="metric-value">{value}</span>
+        </div>
+        """
+
+    # Build suggestions HTML
+    suggestions_html = ""
+    if suggestions:
+        suggestions_html = '<div class="tips-box">'
+        for s in suggestions[:3]:
+            suggestions_html += f'<div class="tips-item">{html.escape(s)}</div>'
+        suggestions_html += '</div>'
 
     st.markdown(f"""
-    <div class="insights-panel">
-        <div class="insights-header">
-            <span style="font-size: 1.25rem;">📊</span>
-            <span class="insights-title">Prompt Insights</span>
-        </div>
+    <div class="insights-box">
+        <div class="insights-title">📊 Prompt Insights</div>
 
-        <!-- Domain & Task -->
         <div class="insights-section">
             <div class="insights-label">Detection</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                <span class="tag-pill tag-cyan">{domain_icon} {domain.replace('_', ' ').title()}</span>
-                <span class="tag-pill tag-purple">{task_icon} {task_type.replace('_', ' ').title()}</span>
-            </div>
+            <span class="tag-cyan">{d_icon} {d_name}</span>
+            <span class="tag-purple">{t_icon} {t_name}</span>
         </div>
 
-        <!-- Quality Score -->
         <div class="insights-section">
             <div class="insights-label">Quality Score</div>
-            <div class="quality-score-container" style="--score-gradient: {score_gradient};">
-                <div class="quality-score-circle" style="color: {score_color};">
-                    {quality_score}
-                </div>
-                <div class="quality-score-label">out of 100</div>
+            <div class="score-box">
+                <div class="score-value" style="color: {score_color};">{quality_score}</div>
+                <div class="score-label">out of 100</div>
             </div>
         </div>
 
-        <!-- Metric Bars -->
         <div class="insights-section">
             <div class="insights-label">Breakdown</div>
-    """, unsafe_allow_html=True)
-
-    # Render metric bars
-    for metric_name, metric_value in metrics.items():
-        bar_color = "#10B981" if metric_value >= 80 else "#F59E0B" if metric_value >= 60 else "#EF4444"
-        st.markdown(f"""
-        <div class="metric-row">
-            <span class="metric-name">{metric_name}</span>
-            <div class="metric-bar-container">
-                <div class="metric-bar-fill" style="width: {metric_value}%; background: {bar_color};"></div>
-            </div>
-            <span class="metric-value">{metric_value}</span>
+            {metrics_html}
         </div>
-        """, unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+        {f'<div class="insights-section"><div class="insights-label">Suggestions</div>{suggestions_html}</div>' if suggestions else ''}
 
-    # Tips section
-    if suggestions and len(suggestions) > 0:
-        st.markdown("""
-        <div class="insights-section">
-            <div class="insights-label">Suggestions</div>
-            <div class="tips-card">
-                <ul class="tips-list">
-        """, unsafe_allow_html=True)
-
-        for suggestion in suggestions[:3]:
-            st.markdown(f"<li>{suggestion}</li>", unsafe_allow_html=True)
-
-        st.markdown("""
-                </ul>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # How to use tips
-    st.markdown("""
         <div class="insights-section">
             <div class="insights-label">How to Use</div>
-            <div class="tips-card">
-                <ul class="tips-list">
-                    <li>Copy the optimized prompt</li>
-                    <li>Paste into ChatGPT, Claude, or Gemini</li>
-                    <li>Get more accurate AI responses</li>
-                </ul>
+            <div class="tips-box">
+                <div class="tips-item">Copy the optimized prompt</div>
+                <div class="tips-item">Paste into ChatGPT, Claude, or Gemini</div>
+                <div class="tips-item">Get more accurate AI responses</div>
             </div>
         </div>
     </div>
@@ -1149,34 +704,20 @@ def render_insights_panel(
 def render_typing_indicator():
     """Show LUKTHAN thinking animation"""
     st.markdown("""
-    <div class="agent-message-bubble" style="display: inline-block; padding: 1rem 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <div class="typing-indicator">
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            </div>
-            <span style="color: var(--lukthan-text-secondary); font-size: 0.85rem;">LUKTHAN is thinking...</span>
-        </div>
+    <div class="agent-msg" style="display: inline-block; padding: 1rem;">
+        <span style="color: #8B949E;">🧠 LUKTHAN is thinking...</span>
     </div>
     """, unsafe_allow_html=True)
 
 
 def render_file_indicator(filename: str, file_type: str):
     """Show file attachment indicator"""
-    icons = {
-        "documents": "📄",
-        "code": "💻",
-        "images": "🖼️",
-        "audio": "🎵",
-        "unknown": "📎"
-    }
+    icons = {"documents": "📄", "code": "💻", "images": "🖼️", "audio": "🎵", "unknown": "📎"}
+    icon = icons.get(file_type, '📎')
 
     st.markdown(f"""
-    <div class="file-attachment">
-        <span class="file-attachment-icon">{icons.get(file_type, '📎')}</span>
-        <span class="file-attachment-name">{filename}</span>
-        <span class="file-attachment-type">{file_type.upper()}</span>
+    <div class="file-tag">
+        {icon} {html.escape(filename)} <span style="color: #00E5FF; font-weight: 600;">{file_type.upper()}</span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1184,13 +725,8 @@ def render_file_indicator(filename: str, file_type: str):
 def render_footer():
     """Render the LUKTHAN footer"""
     st.markdown("""
-    <div class="lukthan-footer">
+    <div class="footer-box">
         <div class="footer-brand">LUKTHAN</div>
         <div class="footer-text">Structured prompts for serious research and code.</div>
-        <div style="margin-top: 0.75rem;">
-            <span style="color: var(--lukthan-text-muted); font-size: 0.7rem;">
-                Powered by Gemini AI • Made for Researchers & Developers
-            </span>
-        </div>
     </div>
     """, unsafe_allow_html=True)
