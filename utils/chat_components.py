@@ -10,7 +10,7 @@ import html
 
 
 def load_lukthan_theme():
-    """Load basic Streamlit overrides"""
+    """Load professional Streamlit theme"""
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -21,79 +21,156 @@ def load_lukthan_theme():
     footer {visibility: hidden;}
     header {visibility: hidden;}
 
-    /* Primary button (send) */
-    .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        padding: 0 !important;
-        font-size: 1.2rem !important;
-    }
+    /* ===== INPUT BAR STYLING ===== */
 
-    /* Secondary buttons */
-    .stButton > button:not([kind="primary"]) {
-        background: transparent !important;
-        border: 1px solid rgba(0, 229, 255, 0.3) !important;
-        border-radius: 50% !important;
-        color: #8B949E !important;
-        width: 40px !important;
-        height: 40px !important;
-        padding: 0 !important;
-    }
-
-    /* Text input - ChatGPT style */
+    /* Text input - Clean rounded style */
     .stTextInput > div > div > input {
-        background: #0B1020 !important;
-        border: 1px solid rgba(0, 229, 255, 0.2) !important;
+        background: #0d1117 !important;
+        border: 1px solid #30363d !important;
         border-radius: 24px !important;
         color: #F0F6FC !important;
-        padding: 12px 20px !important;
+        padding: 14px 20px !important;
         font-size: 1rem !important;
+        transition: all 0.2s ease !important;
     }
 
     .stTextInput > div > div > input:focus {
         border-color: #00E5FF !important;
-        box-shadow: 0 0 0 1px #00E5FF !important;
+        box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.1) !important;
+        outline: none !important;
     }
 
     .stTextInput > div > div > input::placeholder {
         color: #6E7681 !important;
     }
 
-    /* File uploader compact */
-    [data-testid="stFileUploader"] {
-        background: transparent !important;
+    /* ===== BUTTON STYLING ===== */
+
+    /* Send button - Gradient circle */
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
+        color: white !important;
         border: none !important;
+        border-radius: 50% !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
         padding: 0 !important;
+        font-size: 1.3rem !important;
+        box-shadow: 0 4px 14px rgba(0, 229, 255, 0.3) !important;
+        transition: all 0.2s ease !important;
     }
 
-    [data-testid="stFileUploader"] > div {
+    .stButton > button[kind="primary"]:hover {
+        transform: scale(1.05) !important;
+        box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4) !important;
+    }
+
+    /* Icon buttons (attach, mic) - Clean circle */
+    .stButton > button:not([kind="primary"]) {
+        background: #161b22 !important;
+        border: 1px solid #30363d !important;
+        border-radius: 50% !important;
+        color: #8B949E !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
         padding: 0 !important;
+        font-size: 1.1rem !important;
+        transition: all 0.2s ease !important;
     }
 
-    [data-testid="stFileUploader"] label {
-        display: none !important;
+    .stButton > button:not([kind="primary"]):hover {
+        background: #21262d !important;
+        border-color: #00E5FF !important;
+        color: #00E5FF !important;
     }
 
-    [data-testid="stFileUploader"] section {
+    /* ===== POPOVER STYLING ===== */
+
+    .stPopover > div > div > div {
+        background: #161b22 !important;
+        border: 1px solid #30363d !important;
+        border-radius: 12px !important;
+    }
+
+    .stPopover button {
+        background: #161b22 !important;
+        border: 1px solid #30363d !important;
+        border-radius: 50% !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        padding: 0 !important;
+        font-size: 1.1rem !important;
+    }
+
+    .stPopover button:hover {
+        background: #21262d !important;
+        border-color: #00E5FF !important;
+    }
+
+    /* ===== FILE UPLOADER IN POPOVER ===== */
+
+    [data-testid="stFileUploader"] {
+        background: #0d1117 !important;
+        border: 2px dashed #30363d !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+    }
+
+    [data-testid="stFileUploader"]:hover {
+        border-color: #00E5FF !important;
+        background: rgba(0, 229, 255, 0.05) !important;
+    }
+
+    [data-testid="stFileUploader"] section > div {
         padding: 0 !important;
     }
 
     [data-testid="stFileUploader"] button {
-        background: transparent !important;
-        border: 1px solid rgba(0, 229, 255, 0.3) !important;
-        border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        padding: 0 !important;
-        color: #8B949E !important;
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        width: auto !important;
+        height: auto !important;
+        padding: 8px 16px !important;
     }
 
+    /* ===== TABS STYLING ===== */
+
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 4px;
+        background: #0d1117;
+        padding: 4px;
+        border-radius: 12px;
+        border: 1px solid #30363d;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        background: transparent;
+        border-radius: 8px;
+        color: #8B949E;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+
+    .stTabs [data-baseweb="tab"]:hover {
+        color: #F0F6FC;
+        background: rgba(255,255,255,0.05);
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
+        color: white !important;
+    }
+
+    /* ===== GENERAL ===== */
+
     .stSelectbox > div > div {
-        background: #050816 !important;
+        background: #0d1117 !important;
+        border: 1px solid #30363d !important;
         border-radius: 10px !important;
     }
 
@@ -101,22 +178,15 @@ def load_lukthan_theme():
         background: linear-gradient(180deg, #050816 0%, #0B1020 100%) !important;
     }
 
-    /* Tabs styling */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background: transparent;
-    }
-
-    .stTabs [data-baseweb="tab"] {
-        background: transparent;
-        border-radius: 8px;
-        color: #8B949E;
-        padding: 8px 16px;
-    }
-
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
-        color: white !important;
+    /* Remove file button */
+    button[key="remove_file"] {
+        background: transparent !important;
+        border: none !important;
+        color: #6E7681 !important;
+        padding: 4px 8px !important;
+        border-radius: 50% !important;
+        width: auto !important;
+        height: auto !important;
     }
     </style>
     """, unsafe_allow_html=True)

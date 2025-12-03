@@ -125,34 +125,51 @@ with tab_chat:
                         st.rerun()
 
     # ==================== INPUT AREA ====================
-    st.markdown("---")
 
-    # Show attached file if any
+    # Show attached file chip
     if st.session_state.uploaded_file_name:
-        st.info(f"📎 {st.session_state.uploaded_file_name}")
+        file_col1, file_col2 = st.columns([6, 1])
+        with file_col1:
+            st.markdown(f"""
+            <div style="
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(0, 229, 255, 0.1);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+                border-radius: 20px;
+                padding: 6px 12px;
+                margin-bottom: 10px;
+            ">
+                <span>📎</span>
+                <span style="color: #F0F6FC; font-size: 0.85rem;">{st.session_state.uploaded_file_name}</span>
+            </div>
+            """, unsafe_allow_html=True)
+        with file_col2:
+            if st.button("✕", key="remove_file"):
+                st.session_state.uploaded_file_name = None
+                st.session_state.uploaded_file_content = None
+                st.session_state.uploaded_file_type = None
+                st.rerun()
 
-    # ChatGPT-style input bar
-    col_attach, col_input, col_mic, col_send = st.columns([1, 10, 1, 1])
+    # Professional input container
+    st.markdown("""
+    <style>
+    .input-container {
+        background: #0B1020;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 28px;
+        padding: 8px 8px 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    # File upload button
-    with col_attach:
-        uploaded_file = st.file_uploader(
-            "+",
-            type=['pdf', 'txt', 'md', 'py', 'js', 'ts', 'java', 'cpp', 'go', 'rs', 'sql', 'json', 'yaml', 'png', 'jpg', 'jpeg', 'gif'],
-            label_visibility="collapsed",
-            key="file_uploader"
-        )
-
-        if uploaded_file:
-            st.session_state.uploaded_file_name = uploaded_file.name
-            try:
-                from core.file_processor import FileProcessor
-                processor = FileProcessor()
-                content, file_type = processor.process_file(uploaded_file)
-                st.session_state.uploaded_file_content = content
-                st.session_state.uploaded_file_type = file_type
-            except Exception as e:
-                st.error(f"Error: {str(e)}")
+    # Input row
+    col_input, col_attach, col_mic, col_send = st.columns([12, 1, 1, 1])
 
     # Text input
     with col_input:
@@ -164,41 +181,61 @@ with tab_chat:
         user_input = st.text_input(
             "Message",
             value=default_value,
-            placeholder="Ask a question...",
+            placeholder="Message LUKTHAN...",
             label_visibility="collapsed",
             key="main_input"
         )
 
-    # Voice input button
+    # File upload with popover
+    with col_attach:
+        with st.popover("📎", use_container_width=True):
+            st.markdown("**Upload File**")
+            uploaded_file = st.file_uploader(
+                "Choose file",
+                type=['pdf', 'txt', 'md', 'py', 'js', 'ts', 'java', 'cpp', 'go', 'rs', 'sql', 'json', 'yaml', 'png', 'jpg', 'jpeg', 'gif'],
+                label_visibility="collapsed",
+                key="file_uploader"
+            )
+            if uploaded_file:
+                st.session_state.uploaded_file_name = uploaded_file.name
+                try:
+                    from core.file_processor import FileProcessor
+                    processor = FileProcessor()
+                    content, file_type = processor.process_file(uploaded_file)
+                    st.session_state.uploaded_file_content = content
+                    st.session_state.uploaded_file_type = file_type
+                    st.success(f"✓ {uploaded_file.name}")
+                except Exception as e:
+                    st.error(f"Error: {str(e)}")
+
+    # Voice input
     with col_mic:
         try:
             from audio_recorder_streamlit import audio_recorder
             audio_bytes = audio_recorder(
                 text="",
                 recording_color="#00E5FF",
-                neutral_color="#0B1020",
+                neutral_color="#1a1a2e",
                 icon_name="microphone",
                 icon_size="lg",
                 pause_threshold=2.0,
                 key="voice_recorder"
             )
-
             if audio_bytes:
-                with st.spinner("🎤"):
-                    try:
-                        from core.file_processor import VoiceProcessor
-                        transcribed = VoiceProcessor.transcribe_audio_bytes(audio_bytes)
-                        if transcribed:
-                            st.session_state.pending_input = transcribed
-                            st.rerun()
-                    except Exception:
-                        pass
+                try:
+                    from core.file_processor import VoiceProcessor
+                    transcribed = VoiceProcessor.transcribe_audio_bytes(audio_bytes)
+                    if transcribed:
+                        st.session_state.pending_input = transcribed
+                        st.rerun()
+                except Exception:
+                    pass
         except ImportError:
-            st.button("🎤", disabled=True, key="mic_disabled")
+            st.button("🎤", key="mic_btn", help="Voice input")
 
     # Send button
     with col_send:
-        send_clicked = st.button("➤", type="primary", key="generate_btn")
+        send_clicked = st.button("➤", type="primary", key="generate_btn", help="Send message")
 
 # ==================== INSIGHTS TAB ====================
 
