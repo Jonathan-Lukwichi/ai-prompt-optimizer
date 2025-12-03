@@ -1,15 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git checkout:*)",
-      "Bash(test:*)",
-      "Bash(findstr:*)",
-      "Bash(streamlit run:*)",
-      "Bash(ping:*)",
-      "Bash(nul)",
-      "Bash(taskkill:*)",
-      "Bash(del nul 2)",
-      "Bash(.gitignore)"
+      "Bash(git commit -m \"$(cat <<''EOF''\n🎨 Professional Dark Blue Theme - Wege-Inspired Design\n\nComplete UI redesign with clean, professional dark blue theme:\n\n**Color Scheme:**\n- Deep dark navy background (#0D1117)\n- Electric blue accent (#3B82F6)  \n- Clean white text (#F0F6FC)\n- Subtle gray borders (#30363D)\n\n**Updated Files:**\n- config.toml: New theme colors\n- ui_components.py: Professional CSS, no heavy glows\n- home.py: Updated sidebar, steps, use cases, footer\n\n**Design Changes:**\n- Removed neon glow effects for cleaner look\n- Professional card styling with subtle borders\n- Consistent blue accent throughout\n- Better typography hierarchy\n- Minimal, modern aesthetic\n\nInspired by Wege website builder design.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\n🎨 Vibrant Colorful Gradient Theme - TECHO-Inspired Design\n\nComplete UI redesign with vibrant colorful gradients inspired by TECHO:\n\n**Color Palette:**\n- Purple (#8B5CF6) → Pink (#EC4899) → Orange (#F97316) → Yellow (#FBBF24)\n- Deep purple-black background (#0F0A1A)\n- Purple-tinted secondary (#1A1025)\n\n**Updated Files:**\n- config.toml: New purple-themed base colors\n- ui_components.py: Complete gradient CSS overhaul\n- home.py: All sections with colorful gradients\n\n**Design Changes:**\n- Gradient text headers with purple-pink-orange flow\n- Gradient backgrounds on cards and sections\n- Progressive color steps (1-4) from purple to yellow\n- Use case cards with varied gradient combinations\n- CTA section with full spectrum gradient\n- Matching sidebar with gradient accents\n\nInspired by TECHO website vibrant color mixture.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\n🎨 NEXAVERSE Dark Theme - Cyan & Purple Design\n\nComplete UI redesign inspired by NEXAVERSE website:\n\n**Color Palette:**\n- Deep dark navy background (#0A0E17)\n- Cyan accent (#06B6D4, #22D3EE)\n- Purple accent (#8B5CF6, #A855F7)\n- Gray text (#9CA3AF)\n\n**Updated Files:**\n- config.toml: Dark navy theme base colors\n- ui_components.py: Cyan/purple gradient CSS\n- home.py: All sections with NEXAVERSE styling\n\n**Design Elements:**\n- Cyan-to-purple gradient text headers\n- Dark translucent cards with subtle glow\n- Cyan/purple glowing borders\n- Professional, tech-forward aesthetic\n- Consistent gradient buttons and accents\n\nClean, minimal dark theme with elegant glows.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git fetch:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n🔧 Fix: Update style.css with NEXAVERSE colors\n\nThe style.css file was overriding the new theme with old purple-pink colors.\n\n**Fixed:**\n- Changed --gradient-purple (purple→pink) to --gradient-main (cyan→purple)\n- Updated all button backgrounds to cyan-purple gradient\n- Updated headers, tabs, cards to use cyan accents\n- Removed pink (#EC4899) references entirely\n\nNow buttons will be cyan→purple instead of purple→pink!\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
