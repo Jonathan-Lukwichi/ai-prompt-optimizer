@@ -127,11 +127,18 @@ with tab_chat:
     # ==================== INPUT AREA ====================
     st.markdown("---")
 
-    # File upload (inline)
-    with st.expander("📎 Attach file", expanded=False):
+    # Show attached file if any
+    if st.session_state.uploaded_file_name:
+        st.info(f"📎 {st.session_state.uploaded_file_name}")
+
+    # ChatGPT-style input bar
+    col_attach, col_input, col_mic, col_send = st.columns([1, 10, 1, 1])
+
+    # File upload button
+    with col_attach:
         uploaded_file = st.file_uploader(
-            "Upload",
-            type=['pdf', 'txt', 'md', 'py', 'js', 'ts', 'java', 'cpp', 'go', 'rs', 'sql', 'json', 'yaml'],
+            "+",
+            type=['pdf', 'txt', 'md', 'py', 'js', 'ts', 'java', 'cpp', 'go', 'rs', 'sql', 'json', 'yaml', 'png', 'jpg', 'jpeg', 'gif'],
             label_visibility="collapsed",
             key="file_uploader"
         )
@@ -144,32 +151,54 @@ with tab_chat:
                 content, file_type = processor.process_file(uploaded_file)
                 st.session_state.uploaded_file_content = content
                 st.session_state.uploaded_file_type = file_type
-                st.success(f"📄 {uploaded_file.name}")
             except Exception as e:
                 st.error(f"Error: {str(e)}")
 
     # Text input
-    default_value = ""
-    if st.session_state.pending_input:
-        default_value = st.session_state.pending_input
-        st.session_state.pending_input = None
+    with col_input:
+        default_value = ""
+        if st.session_state.pending_input:
+            default_value = st.session_state.pending_input
+            st.session_state.pending_input = None
 
-    user_input = st.text_area(
-        "Prompt",
-        value=default_value,
-        placeholder="Describe what you need... (e.g., 'Create a Python REST API with authentication')",
-        height=80,
-        label_visibility="collapsed",
-        key="main_input"
-    )
+        user_input = st.text_input(
+            "Message",
+            value=default_value,
+            placeholder="Ask a question...",
+            label_visibility="collapsed",
+            key="main_input"
+        )
 
-    # Generate button
-    send_clicked = st.button(
-        "🚀 Generate Optimized Prompt",
-        type="primary",
-        use_container_width=True,
-        key="generate_btn"
-    )
+    # Voice input button
+    with col_mic:
+        try:
+            from audio_recorder_streamlit import audio_recorder
+            audio_bytes = audio_recorder(
+                text="",
+                recording_color="#00E5FF",
+                neutral_color="#0B1020",
+                icon_name="microphone",
+                icon_size="lg",
+                pause_threshold=2.0,
+                key="voice_recorder"
+            )
+
+            if audio_bytes:
+                with st.spinner("🎤"):
+                    try:
+                        from core.file_processor import VoiceProcessor
+                        transcribed = VoiceProcessor.transcribe_audio_bytes(audio_bytes)
+                        if transcribed:
+                            st.session_state.pending_input = transcribed
+                            st.rerun()
+                    except Exception:
+                        pass
+        except ImportError:
+            st.button("🎤", disabled=True, key="mic_disabled")
+
+    # Send button
+    with col_send:
+        send_clicked = st.button("➤", type="primary", key="generate_btn")
 
 # ==================== INSIGHTS TAB ====================
 

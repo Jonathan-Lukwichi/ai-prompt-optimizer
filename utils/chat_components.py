@@ -21,19 +21,75 @@ def load_lukthan_theme():
     footer {visibility: hidden;}
     header {visibility: hidden;}
 
-    .stButton > button {
+    /* Primary button (send) */
+    .stButton > button[kind="primary"] {
         background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
         color: white !important;
         border: none !important;
-        border-radius: 10px !important;
-        font-weight: 600 !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 0 !important;
+        font-size: 1.2rem !important;
     }
 
-    .stTextArea textarea {
-        background: #050816 !important;
+    /* Secondary buttons */
+    .stButton > button:not([kind="primary"]) {
+        background: transparent !important;
         border: 1px solid rgba(0, 229, 255, 0.3) !important;
-        border-radius: 10px !important;
+        border-radius: 50% !important;
+        color: #8B949E !important;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 0 !important;
+    }
+
+    /* Text input - ChatGPT style */
+    .stTextInput > div > div > input {
+        background: #0B1020 !important;
+        border: 1px solid rgba(0, 229, 255, 0.2) !important;
+        border-radius: 24px !important;
         color: #F0F6FC !important;
+        padding: 12px 20px !important;
+        font-size: 1rem !important;
+    }
+
+    .stTextInput > div > div > input:focus {
+        border-color: #00E5FF !important;
+        box-shadow: 0 0 0 1px #00E5FF !important;
+    }
+
+    .stTextInput > div > div > input::placeholder {
+        color: #6E7681 !important;
+    }
+
+    /* File uploader compact */
+    [data-testid="stFileUploader"] {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    [data-testid="stFileUploader"] > div {
+        padding: 0 !important;
+    }
+
+    [data-testid="stFileUploader"] label {
+        display: none !important;
+    }
+
+    [data-testid="stFileUploader"] section {
+        padding: 0 !important;
+    }
+
+    [data-testid="stFileUploader"] button {
+        background: transparent !important;
+        border: 1px solid rgba(0, 229, 255, 0.3) !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 0 !important;
+        color: #8B949E !important;
     }
 
     .stSelectbox > div > div {
@@ -43,6 +99,24 @@ def load_lukthan_theme():
 
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #050816 0%, #0B1020 100%) !important;
+    }
+
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background: transparent;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        background: transparent;
+        border-radius: 8px;
+        color: #8B949E;
+        padding: 8px 16px;
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
+        color: white !important;
     }
     </style>
     """, unsafe_allow_html=True)
