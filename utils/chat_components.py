@@ -189,34 +189,22 @@ def render_welcome_hero():
 
 
 def render_user_message(content: str, timestamp: Optional[str] = None, file_info: Optional[Dict] = None):
-    """Render user message with inline styles"""
+    """Render user message using native Streamlit components"""
     time_str = timestamp or datetime.now().strftime("%H:%M")
-    safe_content = html.escape(content)
 
-    file_html = ""
-    if file_info:
-        icons = {"documents": "📄", "code": "💻", "images": "🖼️", "audio": "🎵"}
-        icon = icons.get(file_info.get('type', ''), '📎')
-        file_html = f'''<div style="
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(255,255,255,0.1); border-radius: 8px;
-            padding: 0.3rem 0.6rem; margin-bottom: 0.5rem; font-size: 0.8rem;
-        ">{icon} {html.escape(file_info.get("name", "File"))}</div>'''
+    # Create right-aligned container using columns
+    col_spacer, col_msg = st.columns([1, 3])
 
-    st.markdown(f"""
-    <div style="
-        background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 20px 20px 4px 20px;
-        margin: 1rem 0 1rem 20%;
-        box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
-    ">
-        {file_html}
-        <div style="font-size: 0.95rem; line-height: 1.6;">{safe_content}</div>
-        <div style="font-size: 0.7rem; opacity: 0.7; margin-top: 0.5rem; text-align: right;">{time_str}</div>
-    </div>
-    """, unsafe_allow_html=True)
+    with col_msg:
+        # File attachment indicator
+        if file_info:
+            icons = {"documents": "📄", "code": "💻", "images": "🖼️", "audio": "🎵"}
+            icon = icons.get(file_info.get('type', ''), '📎')
+            st.caption(f"{icon} {file_info.get('name', 'File')}")
+
+        # User message in a styled container
+        with st.container():
+            st.info(f"**You** ({time_str})\n\n{content}")
 
 
 def render_agent_response(
@@ -227,56 +215,29 @@ def render_agent_response(
     metrics: Optional[Dict[str, int]] = None,
     suggestions: Optional[List[str]] = None
 ):
-    """Render agent response with inline styles"""
-    safe_prompt = html.escape(prompt)
+    """Render agent response using native Streamlit components"""
 
-    st.markdown(f"""
-    <div style="
-        background: #0B1020;
-        border: 1px solid rgba(0, 229, 255, 0.2);
-        color: #F0F6FC;
-        padding: 1.5rem;
-        border-radius: 20px 20px 20px 4px;
-        margin: 1rem 20% 1rem 0;
-    ">
-        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-            <div style="
-                width: 36px; height: 36px; border-radius: 10px;
-                display: flex; align-items: center; justify-content: center;
-                font-size: 1.25rem;
-                background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-            ">🧠</div>
-            <span style="font-weight: 600; font-size: 0.9rem;">LUKTHAN Agent</span>
-        </div>
-        <div style="
-            background: #050816;
-            border: 1px solid rgba(0, 229, 255, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            position: relative;
-        ">
-            <span style="
-                position: absolute; top: -10px; left: 16px;
-                background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-                color: white; padding: 4px 12px; border-radius: 20px;
-                font-size: 0.7rem; font-weight: 700;
-            ">✨ OPTIMIZED PROMPT</span>
-            <div style="
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 0.85rem; line-height: 1.7;
-                color: #F0F6FC; white-space: pre-wrap;
-            ">{safe_prompt}</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # Create left-aligned container using columns
+    col_msg, col_spacer = st.columns([3, 1])
 
-    col1, col2, col3 = st.columns([1, 1, 2])
-    with col1:
-        if st.button("📋 Copy", key=f"copy_{hash(prompt)}", use_container_width=True):
-            st.toast("Prompt ready to copy!", icon="✅")
-    with col2:
-        if st.button("🔄 Regenerate", key=f"regen_{hash(prompt)}", use_container_width=True):
-            return "regenerate"
+    with col_msg:
+        # Agent header
+        st.markdown("🧠 **LUKTHAN Agent**")
+
+        # Optimized prompt in an expander or container
+        with st.container():
+            st.success("✨ **OPTIMIZED PROMPT**")
+            st.code(prompt, language=None)
+
+        # Action buttons
+        col1, col2, col3 = st.columns([1, 1, 2])
+        with col1:
+            if st.button("📋 Copy", key=f"copy_{hash(prompt)}", use_container_width=True):
+                st.toast("Prompt ready to copy!", icon="✅")
+        with col2:
+            if st.button("🔄 Regenerate", key=f"regen_{hash(prompt)}", use_container_width=True):
+                return "regenerate"
+
     return None
 
 
