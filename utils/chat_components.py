@@ -49,78 +49,10 @@ def load_lukthan_theme():
 
 
 def render_welcome_hero():
-    """Render welcome section"""
-    st.markdown("""
-    <div style="
-        text-align: center;
-        padding: 2.5rem 1.5rem;
-        background: linear-gradient(180deg, rgba(0, 229, 255, 0.05) 0%, transparent 100%);
-        border-radius: 20px;
-        border: 1px solid rgba(0, 229, 255, 0.2);
-        margin-bottom: 1.5rem;
-    ">
-        <div style="font-size: 3.5rem; margin-bottom: 1rem;">🧠</div>
-        <div style="
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        ">Welcome to LUKTHAN</div>
-        <div style="color: #8B949E; font-size: 1rem; line-height: 1.6;">
-            Transform rough ideas into powerful prompts for ChatGPT, Claude, Gemini.<br>
-            <strong style="color: #F0F6FC;">Specialized for Research & Coding.</strong>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("**⚡ Quick Start Examples**")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("""
-        <div style="background: #0B1020; border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 1rem; margin-bottom: 0.5rem;">
-            <div style="font-size: 1.5rem;">🔬</div>
-            <div style="color: #F0F6FC; font-weight: 600;">Literature Review</div>
-            <div style="color: #6E7681; font-size: 0.75rem;">Generate research prompts</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Try Research", key="qs_research", use_container_width=True):
-            return "Help me write a systematic literature review on machine learning in healthcare"
-
-        st.markdown("""
-        <div style="background: #0B1020; border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 1rem; margin-bottom: 0.5rem;">
-            <div style="font-size: 1.5rem;">📊</div>
-            <div style="color: #F0F6FC; font-weight: 600;">Data Analysis</div>
-            <div style="color: #6E7681; font-size: 0.75rem;">Analyze datasets</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Try Analysis", key="qs_data", use_container_width=True):
-            return "Create a prompt to analyze customer churn data and build a prediction model"
-
-    with col2:
-        st.markdown("""
-        <div style="background: #0B1020; border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 1rem; margin-bottom: 0.5rem;">
-            <div style="font-size: 1.5rem;">💻</div>
-            <div style="color: #F0F6FC; font-weight: 600;">Code Generation</div>
-            <div style="color: #6E7681; font-size: 0.75rem;">Build APIs and scripts</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Try Coding", key="qs_code", use_container_width=True):
-            return "Create a REST API with FastAPI that handles user authentication with JWT"
-
-        st.markdown("""
-        <div style="background: #0B1020; border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 1rem; margin-bottom: 0.5rem;">
-            <div style="font-size: 1.5rem;">🏗️</div>
-            <div style="color: #F0F6FC; font-weight: 600;">Architecture</div>
-            <div style="color: #6E7681; font-size: 0.75rem;">Design systems</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button("Try Architecture", key="qs_arch", use_container_width=True):
-            return "Design a microservices architecture for an e-commerce platform"
-
+    """Render simple welcome message"""
+    st.markdown("### 🧠 Welcome to LUKTHAN")
+    st.markdown("Transform rough ideas into powerful prompts for **ChatGPT**, **Claude**, **Gemini**.")
+    st.caption("Specialized for Research & Coding")
     return None
 
 
