@@ -616,11 +616,12 @@ def load_lukthan_theme():
         padding: 12px 16px !important;
         font-size: 1rem !important;
         transition: all 0.3s ease !important;
-        min-height: 44px !important;
-        max-height: 200px !important;
+        min-height: 50px !important;
+        max-height: 350px !important;
+        height: auto !important;
         resize: none !important;
         overflow-y: auto !important;
-        line-height: 1.5 !important;
+        line-height: 1.6 !important;
     }
 
     [data-testid="stTextArea"] textarea:focus {

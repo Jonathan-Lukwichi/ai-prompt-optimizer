@@ -348,11 +348,12 @@ with tab_chat:
                 color: #F0F6FC !important;
                 padding: 12px 8px !important;
                 font-size: 1rem !important;
-                min-height: 44px !important;
-                max-height: 200px !important;
+                min-height: 50px !important;
+                max-height: 350px !important;
+                height: auto !important;
                 resize: none !important;
                 overflow-y: auto !important;
-                line-height: 1.5 !important;
+                line-height: 1.6 !important;
             }
 
             [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] textarea:focus {
@@ -492,7 +493,7 @@ with tab_chat:
                     placeholder="Describe what you need a prompt for...",
                     label_visibility="collapsed",
                     key="main_input",
-                    height=44
+                    height=68
                 )
 
             # File upload with popover
