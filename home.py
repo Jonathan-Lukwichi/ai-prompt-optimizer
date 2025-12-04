@@ -317,44 +317,62 @@ with tab_chat:
         input_container = st.container()
 
         with input_container:
-            # Unified Input Card CSS
+            # Unified Input Card CSS with auto-expanding textarea
             st.markdown("""
             <style>
             /* ===== UNIFIED INPUT CARD ===== */
             /* Target the input row container */
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) {
                 background: linear-gradient(135deg, rgba(10, 15, 31, 0.98) 0%, rgba(5, 8, 22, 0.98) 100%) !important;
                 border: 1px solid rgba(0, 229, 255, 0.35) !important;
                 border-radius: 28px !important;
                 padding: 8px 16px !important;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 229, 255, 0.12) !important;
                 gap: 8px !important;
-                align-items: center !important;
+                align-items: flex-end !important;
             }
 
-            /* Text input - transparent, no border */
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stTextInput > div > div > input {
+            /* Text area - transparent, no border, auto-height */
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] {
+                background: transparent !important;
+            }
+
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] > div {
+                background: transparent !important;
+                border: none !important;
+            }
+
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] textarea {
                 background: transparent !important;
                 border: none !important;
                 color: #F0F6FC !important;
                 padding: 12px 8px !important;
                 font-size: 1rem !important;
+                min-height: 44px !important;
+                max-height: 200px !important;
+                resize: none !important;
+                overflow-y: auto !important;
+                line-height: 1.5 !important;
             }
 
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stTextInput > div > div > input:focus {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] textarea:focus {
                 border: none !important;
                 box-shadow: none !important;
                 outline: none !important;
             }
 
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stTextInput > div > div,
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stTextInput > div {
-                border: none !important;
-                background: transparent !important;
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] textarea::placeholder {
+                color: #6E7681 !important;
             }
 
-            /* Action buttons - circular icons */
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stButton > button {
+            /* Hide the textarea label and character counter */
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] label,
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="stTextArea"] .stTextArea-instructions {
+                display: none !important;
+            }
+
+            /* Action buttons - circular icons, aligned to bottom */
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) .stButton > button {
                 min-width: 44px !important;
                 max-width: 44px !important;
                 min-height: 44px !important;
@@ -365,10 +383,11 @@ with tab_chat:
                 align-items: center !important;
                 justify-content: center !important;
                 font-size: 1.2rem !important;
+                margin-bottom: 4px !important;
             }
 
             /* Popover button (Attach) - subtle style */
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stPopover button {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) .stPopover button {
                 background: rgba(0, 229, 255, 0.1) !important;
                 border: 1px solid rgba(0, 229, 255, 0.25) !important;
                 box-shadow: none !important;
@@ -377,28 +396,29 @@ with tab_chat:
                 min-height: 44px !important;
                 max-height: 44px !important;
                 border-radius: 50% !important;
+                margin-bottom: 4px !important;
             }
 
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) .stPopover button:hover {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) .stPopover button:hover {
                 background: rgba(0, 229, 255, 0.2) !important;
                 border-color: rgba(0, 229, 255, 0.5) !important;
             }
 
             /* Secondary buttons (Mic fallback) */
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) [data-testid="baseButton-secondary"] {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="baseButton-secondary"] {
                 background: rgba(0, 229, 255, 0.1) !important;
                 border: 1px solid rgba(0, 229, 255, 0.25) !important;
                 box-shadow: none !important;
             }
 
             /* Send button - gradient primary */
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) [data-testid="baseButton-primary"] {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="baseButton-primary"] {
                 background: linear-gradient(135deg, #00E5FF 0%, #9B5CFF 100%) !important;
                 border: none !important;
                 box-shadow: 0 0 20px rgba(0, 229, 255, 0.4) !important;
             }
 
-            [data-testid="stHorizontalBlock"]:has([data-testid="stTextInput"]) [data-testid="baseButton-primary"]:hover {
+            [data-testid="stHorizontalBlock"]:has([data-testid="stTextArea"]) [data-testid="baseButton-primary"]:hover {
                 box-shadow: 0 0 30px rgba(0, 229, 255, 0.6) !important;
                 transform: scale(1.05) !important;
             }
@@ -459,19 +479,20 @@ with tab_chat:
             # Input row - all elements in one line
             col_input, col_attach, col_mic, col_send = st.columns([10, 1, 1, 1])
 
-            # Text input
+            # Text area (auto-expanding)
             with col_input:
                 default_value = ""
                 if st.session_state.pending_input:
                     default_value = st.session_state.pending_input
                     st.session_state.pending_input = None
 
-                user_input = st.text_input(
+                user_input = st.text_area(
                     "Message",
                     value=default_value,
                     placeholder="Describe what you need a prompt for...",
                     label_visibility="collapsed",
-                    key="main_input"
+                    key="main_input",
+                    height=44
                 )
 
             # File upload with popover

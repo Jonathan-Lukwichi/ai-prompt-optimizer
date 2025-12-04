@@ -598,8 +598,17 @@ def load_lukthan_theme():
         color: white !important;
     }
 
-    /* ===== CHAT INPUT AREA - Unified Card ===== */
-    .stTextInput > div > div > input {
+    /* ===== CHAT INPUT AREA - Auto-expanding Textarea ===== */
+    [data-testid="stTextArea"] {
+        background: transparent !important;
+    }
+
+    [data-testid="stTextArea"] > div {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    [data-testid="stTextArea"] textarea {
         background: transparent !important;
         border: none !important;
         border-radius: 0 !important;
@@ -607,22 +616,26 @@ def load_lukthan_theme():
         padding: 12px 16px !important;
         font-size: 1rem !important;
         transition: all 0.3s ease !important;
+        min-height: 44px !important;
+        max-height: 200px !important;
+        resize: none !important;
+        overflow-y: auto !important;
+        line-height: 1.5 !important;
     }
 
-    .stTextInput > div > div > input:focus {
+    [data-testid="stTextArea"] textarea:focus {
         border: none !important;
         box-shadow: none !important;
         outline: none !important;
     }
 
-    .stTextInput > div > div > input::placeholder {
+    [data-testid="stTextArea"] textarea::placeholder {
         color: #6E7681 !important;
     }
 
-    /* Remove default input container styling */
-    .stTextInput > div {
-        background: transparent !important;
-        border: none !important;
+    /* Hide textarea label */
+    [data-testid="stTextArea"] label {
+        display: none !important;
     }
 
     /* Chat action buttons - circular icons */
